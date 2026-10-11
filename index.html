@@ -3,101 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nick — Training Plan</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#09090b">
+<title>Nick — Training</title>
 <style>
-  :root{
-    --bg:#09090b; --card:#131316; --line:#242428; --txt:#f4f4f5; --mut:#8c8c94;
-    --soft:#b8b8bf; --chip:#1b1b1f;
-  }
+  :root{--bg:#09090b;--card:#141417;--line:#26262b;--txt:#f4f4f5;--mut:#8e8e96;--soft:#c4c4cb;--ok:#4ade80}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{margin:0;background:var(--bg);color:var(--txt);
-    font:26px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    padding-bottom:40px;-webkit-font-smoothing:antialiased;text-size-adjust:100%;-webkit-text-size-adjust:100%}
-  .wrap{max-width:680px;margin:0 auto}
-  header{padding:28px 20px 14px}
-  h1{margin:0;font-size:40px;font-weight:600;letter-spacing:-.4px}
-  .sub{color:var(--mut);font-size:22px;margin-top:8px}
+    font:19px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%;padding-bottom:48px}
+  .wrap{max-width:640px;margin:0 auto}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 
-  .card{margin:16px 20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
-  .lab{font-size:16px;color:var(--mut);text-transform:uppercase;letter-spacing:1.3px;font-weight:600}
-  .card .lab{margin-bottom:14px;display:block}
-  .sumrow{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}
-  .sumrow span{font-size:20px;background:var(--chip);color:var(--soft);padding:9px 15px;border-radius:9px}
-  .card ul{margin:0;padding:0;list-style:none}
-  .card li{font-size:23px;margin:12px 0;color:var(--soft);padding-left:20px;position:relative;line-height:1.5}
-  .card li:before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:#3f3f46}
-  .card li b{color:var(--txt);font-weight:600}
+  .tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
+    padding:10px 12px;background:rgba(9,9,11,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .tab{padding:10px 0;border-radius:10px;color:var(--mut);font-size:16px;font-weight:600;text-align:center;position:relative}
+  .tab.on{background:var(--txt);color:var(--bg)}
+  .tab.today:after{content:"";position:absolute;left:50%;bottom:3px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok)}
 
-  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
-    padding:13px 20px;background:rgba(9,9,11,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;padding:12px 20px;border-radius:10px;background:transparent;
-    color:var(--mut);font-size:21px;font-weight:600;cursor:pointer;transition:.15s}
-  .tab.active{background:#f4f4f5;color:#09090b}
+  .head{padding:22px 20px 6px}
+  .kick{font-size:14px;color:var(--ok);font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+  .head h1{margin:4px 0 0;font-size:32px;font-weight:700;letter-spacing:-.5px}
+  .focus{font-size:18px;color:var(--mut);margin-top:2px}
+  .prog{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:16px;color:var(--mut)}
+  .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--ok);transition:width .25s}
 
-  .day{display:none;padding:18px 20px 0}
-  .day.active{display:block}
-  .dayhead{margin:0 2px 18px}
-  .dayhead h3{margin:0;font-size:34px;font-weight:600;letter-spacing:-.3px}
-  .focus{font-size:22px;color:var(--mut);margin-top:5px}
+  .list{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .item+.item{border-top:1px solid var(--line)}
+  .row{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:68px}
+  .chk{flex:0 0 30px;height:30px;border-radius:50%;border:2px solid #4a4a52;display:grid;place-items:center}
+  .chk svg{width:15px;height:15px;stroke:var(--bg);stroke-width:3.5;fill:none;opacity:0}
+  .done .chk{background:var(--ok);border-color:var(--ok)}
+  .done .chk svg{opacity:1}
+  .info{flex:1;text-align:left;min-width:0}
+  .nm{font-size:19px;font-weight:600;line-height:1.3}
+  .meta{font-size:16px;color:var(--mut);margin-top:3px}
+  .meta b{color:#e8d4b4;font-weight:600}
+  .done .nm{color:var(--mut);text-decoration:line-through}
+  .chev{color:#55555d;font-size:24px;transition:transform .2s;line-height:1}
+  .open .chev{transform:rotate(90deg)}
 
-  .ex{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:16px;overflow:hidden}
-  .ex .shot{background:#f4f4f5;height:260px;display:flex;align-items:center;justify-content:center}
-  .ex img{display:block;max-width:100%;max-height:260px;object-fit:contain}
-  .body{padding:18px 20px 20px}
-  .name{font-size:29px;font-weight:600;letter-spacing:-.2px}
-  .sr{font-size:22px;color:var(--mut);margin-top:6px}
-  .pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
-  .pill{font-size:19px;padding:7px 14px;border-radius:8px;background:var(--chip);color:var(--soft)}
-  .pill.load{color:#e8d4b4;background:#211d16}
-  .cues{margin-top:18px}
-  .cues ul{margin:10px 0 0;padding:0;list-style:none}
-  .cues li{font-size:23px;color:var(--soft);padding-left:22px;position:relative;margin:11px 0;line-height:1.5}
-  .cues li:before{content:"";position:absolute;left:0;top:13px;width:7px;height:7px;border-radius:50%;background:#52525b}
-  .watch{display:inline-block;margin-top:18px;color:var(--mut);font-size:20px;font-weight:500;
-    text-decoration:none;border-bottom:1px solid #2e2e33;padding-bottom:3px}
-  .watch:hover{color:var(--txt)}
+  .det{display:none;padding:0 16px 18px}
+  .open .det{display:block}
+  .shot{background:#f4f4f5;border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .shot img{max-width:100%;max-height:220px;object-fit:contain}
+  .det ul{margin:14px 0 0;padding:0;list-style:none}
+  .det li{font-size:18px;color:var(--soft);padding-left:20px;position:relative;margin:9px 0;line-height:1.45}
+  .det li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--ok)}
+  .vid{display:inline-block;margin-top:12px;color:var(--mut);font-size:16px;text-decoration:none;border-bottom:1px solid #33333a}
 
-  .rest-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px 20px;text-align:center}
-  .rest-card h3{margin:0;font-size:32px;font-weight:600}
-  .rest-card p{color:var(--mut);font-size:23px;margin:14px auto 0;max-width:440px;line-height:1.5}
-  footer{padding:28px 20px;color:#6b6b73;font-size:18px;text-align:center;line-height:1.65}
-  footer a{color:var(--soft)}
-  .note{margin:16px 20px 0;font-size:20px;color:#7a7a82;line-height:1.55}
-  .note b{color:var(--soft);font-weight:600}
-  .note a{color:var(--soft)}
+  .rest{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px 20px;text-align:center;color:var(--mut);font-size:18px}
+  .rest b{display:block;color:var(--txt);font-size:24px;margin-bottom:8px}
+
+  details{margin:22px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px}
+  summary{padding:16px 18px;font-size:18px;font-weight:600;list-style:none;cursor:pointer;display:flex;justify-content:space-between}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:"›";color:#55555d;font-size:24px;line-height:1;transition:transform .2s}
+  details[open] summary:after{transform:rotate(90deg)}
+  .notes{padding:0 18px 18px;font-size:17px;color:var(--soft)}
+  .notes p{margin:10px 0}
+  .notes b{color:var(--txt)}
+  .notes small{display:block;margin-top:14px;font-size:14px;color:var(--mut);line-height:1.5}
+  .notes a{color:var(--soft)}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1>Nick — Training Plan</h1>
-  <div class="sub">6 days on · Sunday rest · build muscle, even definition, abs priority</div>
-</header>
-
-<div class="card">
-  <span class="lab">The week</span>
-  <div class="sumrow">
-    <span>Mon · Push</span><span>Tue · Pull</span><span>Wed · Legs</span>
-    <span>Thu · Upper (DB)</span><span>Fri · Chest/Back/Arms</span><span>Sat · Delts/Arms + Abs</span><span>Sun · Rest</span>
-  </div>
-  <ul>
-    <li><b>Goal:</b> add lean muscle evenly + make abs pop — not cut lower.</li>
-    <li><b>Abs 3×/week</b> weighted (Tue, Thu, Sat), trained like any muscle.</li>
-    <li><b>Every set:</b> stop 1–2 reps short of failure (RIR 1–2); add weight/reps over time.</li>
-    <li><b>Food:</b> slight surplus, ~90–120g protein/day to actually build.</li>
-  </ul>
-</div>
-
-<div class="note">
-  <b>Draft exercises</b> — built from the summary of your handoff (upload cut off). Send the full program and I'll swap in your exact lifts.
-</div>
-
 <nav class="tabs" id="tabs"></nav>
-<main id="days"></main>
-
-<footer>Loads are reference points — go by clean reps, not soreness.<br>
-Form notes adapted from <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. Research-grade guidance, not licensed trainer/dietitian advice.</footer>
+<main id="main"></main>
+<details>
+  <summary>Plan notes</summary>
+  <div class="notes">
+    <p><b>Week:</b> Mon push · Tue pull · Wed legs · Thu upper (DB) · Fri chest/back/arms · Sat delts/arms · Sun rest.</p>
+    <p><b>Goal:</b> add lean muscle evenly and make abs pop — not cut lower. Abs 3×/week, weighted.</p>
+    <p><b>Every set:</b> stop 1–2 reps short of failure. Rest 60–90s. Add weight or reps over time.</p>
+    <p><b>Food:</b> slight surplus, ~90–120g protein a day.</p>
+    <small>Draft exercises — your plan upload cut off; send the full one to swap in your exact lifts. Loads are reference points: go by clean reps. Form notes adapted from <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. Research-grade guidance, not licensed trainer advice.</small>
+  </div>
+</details>
 </div>
 
 <script>
@@ -196,42 +180,53 @@ const PLAN=[
 PLAN[1].ex.push(...ABS);
 PLAN[3].ex.push(...ABS);
 
-const tabs=document.getElementById('tabs'), days=document.getElementById('days');
-PLAN.forEach((day,i)=>{
- const t=document.createElement('div');
- t.className='tab'+(day.rest?' rest':'')+(i===0?' active':'');
- t.textContent=day.d;
- t.onclick=()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active'); document.getElementById('day'+i).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
- };
- tabs.appendChild(t);
- const sec=document.createElement('section');
- sec.className='day'+(i===0?' active':''); sec.id='day'+i;
+const FULL={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
+const today=(new Date().getDay()+6)%7;
+const wk=(()=>{const d=new Date();d.setDate(d.getDate()-today);return d.toDateString()})();
+const key=i=>'wp:'+wk+':'+i;
+const getDone=i=>{try{return JSON.parse(localStorage.getItem(key(i)))||[]}catch(e){return[]}};
+const setDone=(i,a)=>{try{localStorage.setItem(key(i),JSON.stringify(a))}catch(e){}};
+const tabs=document.getElementById('tabs'), main=document.getElementById('main');
+const tick='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+let cur=today;
+
+function render(){
+ tabs.innerHTML=PLAN.map((d,i)=>`<button class="tab${i===cur?' on':''}${i===today?' today':''}" data-t="${i}">${d.d}</button>`).join('');
+ const day=PLAN[cur];
+ const kick=cur===today?'Today':'';
  if(day.rest){
-  sec.innerHTML=`<div class="rest-card">
-   <h3>Rest</h3>
-   <p>Sunday is off. This is when the muscle you trained this week actually grows — eat, sleep, walk.</p></div>`;
- }else{
-  let h=`<div class="dayhead"><h3>${day.d}</h3><div class="focus">${day.f}</div></div>`;
-  day.ex.forEach(e=>{
-   const yt='https://www.youtube.com/@DeltaBolic/search?query='+encodeURIComponent(e.q);
-   const cues=(e.c||[]).map(x=>`<li>${x}</li>`).join('');
-   h+=`<div class="ex">
-     <div class="shot"><img loading="lazy" src="${B}${e.img}" alt="${e.n}"></div>
-     <div class="body">
-       <div class="name">${e.n}</div><div class="sr">${e.s} · RIR 1–2</div>
-       <div class="pills">${e.load?`<span class="pill load">ref load ${e.load}</span>`:''}<span class="pill">rest 60–90s</span></div>
-       ${cues?`<div class="cues"><span class="lab">Form</span><ul>${cues}</ul></div>`:''}
-       <a class="watch" href="${yt}" target="_blank" rel="noopener">Form video ↗</a>
-     </div></div>`;
-  });
-  sec.innerHTML=h;
+  main.innerHTML=`<div class="head"><div class="kick">${kick}&nbsp;</div><h1>${FULL[day.d]}</h1></div>
+   <div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk.</div>`;
+  return;
  }
- days.appendChild(sec);
-});
+ const done=getDone(cur), n=day.ex.length, k=day.ex.filter((_,j)=>done.includes(j)).length;
+ main.innerHTML=`<div class="head"><div class="kick">${kick}&nbsp;</div><h1>${FULL[day.d]}</h1>
+   <div class="focus">${day.f}</div>
+   <div class="prog"><div class="bar"><i style="width:${n?k/n*100:0}%"></i></div>${k} / ${n} done</div></div>
+  <div class="list">${day.ex.map((e,j)=>{
+   const yt='https://www.youtube.com/@DeltaBolic/search?query='+encodeURIComponent(e.q);
+   return `<div class="item${done.includes(j)?' done':''}" id="it${j}">
+    <div class="row" data-o="${j}"><button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button>
+     <div class="info"><div class="nm">${e.n}</div>
+      <div class="meta">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
+     <span class="chev">›</span></div>
+    <div class="det"><div class="shot"><img loading="lazy" src="${B}${e.img}" alt="${e.n}"></div>
+     <ul>${(e.c||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+     <a class="vid" href="${yt}" target="_blank" rel="noopener">Form video ↗</a></div></div>`;
+  }).join('')}</div>`;
+}
+
+tabs.onclick=ev=>{const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; render(); window.scrollTo(0,0);};
+main.onclick=ev=>{
+ const c=ev.target.closest('[data-c]');
+ if(c){const j=+c.dataset.c, a=getDone(cur), p=a.indexOf(j); p<0?a.push(j):a.splice(p,1); setDone(cur,a);
+  const open=document.querySelector('.item.open'); const oj=open&&open.id; render(); if(oj&&oj!=='it'+j)document.getElementById(oj).classList.add('open'); return;}
+ const o=ev.target.closest('[data-o]'); if(!o)return;
+ const it=document.getElementById('it'+o.dataset.o), was=it.classList.contains('open');
+ document.querySelectorAll('.item.open').forEach(x=>x.classList.remove('open'));
+ if(!was){it.classList.add('open'); it.scrollIntoView({block:'nearest',behavior:'smooth'});}
+};
+render();
 </script>
 </body>
 </html>
