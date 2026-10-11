@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nick — Training Plan</title>
+<style>
+  :root{
+    --bg:#0d0f12; --card:#15181d; --card2:#1b1f26; --line:#272c34;
+    --txt:#eef1f5; --mut:#9aa3af; --acc:#ff5a3c; --acc2:#36c08b; --chip:#232832;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:40px}
+  header{padding:22px 18px 10px}
+  h1{margin:0;font-size:22px;letter-spacing:.3px}
+  .sub{color:var(--mut);font-size:13px;margin-top:4px}
+  .banner{margin:14px 18px;padding:12px 14px;background:#2a1d16;border:1px solid #4a2d20;
+    border-radius:12px;font-size:13px;color:#ffd9ce}
+  .banner b{color:#ffb4a1}
+  .goals{margin:0 18px 6px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .goals h2{margin:0 0 8px;font-size:14px;color:var(--acc2);text-transform:uppercase;letter-spacing:.6px}
+  .goals li{font-size:14px;margin:6px 0;color:#d7dce3}
+  .goals li b{color:#fff}
+  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:7px;overflow-x:auto;
+    padding:12px 18px;background:rgba(13,15,18,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  .tab{flex:0 0 auto;padding:9px 15px;border-radius:999px;background:var(--chip);
+    color:var(--mut);font-size:13px;font-weight:600;border:1px solid transparent;cursor:pointer}
+  .tab.active{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .tab.rest.active{background:#3a4150;border-color:#3a4150}
+  .day{display:none;padding:16px 18px 0}
+  .day.active{display:block}
+  .dayhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .dayhead h3{margin:0;font-size:19px}
+  .focus{font-size:12px;color:var(--acc2);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:11px}
+  .ex .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .ex .name{font-size:16px;font-weight:650}
+  .ex .sr{font-size:13px;color:var(--mut);margin-top:3px}
+  .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .pill{font-size:11px;padding:4px 9px;border-radius:999px;background:var(--card2);color:#c3cad4;border:1px solid var(--line)}
+  .pill.load{color:#ffd0a6;border-color:#4a3522;background:#231a12}
+  .watch{display:inline-flex;align-items:center;gap:7px;margin-top:12px;
+    text-decoration:none;background:#1f2630;color:#fff;font-size:13px;font-weight:650;
+    padding:9px 13px;border-radius:10px;border:1px solid #30475e}
+  .watch .play{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--acc)}
+  .watch .play svg{width:9px;height:9px;fill:#fff}
+  .rest-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 18px;text-align:center}
+  .rest-card .big{font-size:40px}
+  .rest-card p{color:var(--mut);font-size:14px;margin:8px 0 0}
+  footer{padding:22px 18px;color:var(--mut);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>Nick — Training Plan</h1>
+  <div class="sub">6 days on, Sunday rest · build muscle + even definition · abs priority</div>
+</header>
+
+<div class="banner">
+  <b>Draft layout.</b> I built this from the summary of your handoff (the upload got cut off, so I only saw part of it).
+  Send me the full program and I'll drop in your exact exercises on every day. Tap <b>Watch form</b> on any move — it pulls up
+  <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener" style="color:#ffb4a1">DeltaBolic's</a> form video for that machine.
+</div>
+
+<div class="goals">
+  <h2>How abs pop & muscles even out</h2>
+  <ul style="margin:0;padding-left:18px">
+    <li><b>Build the abs</b>, don't cut lower — at ~10%/120lb more cutting just loses muscle. Train abs weighted, 2–3×/wk, near failure.</li>
+    <li><b>Even = balanced volume.</b> ~10–20 hard sets per muscle per week, full range. Lagging part gets an extra set or two.</li>
+    <li><b>Eat slightly above maintenance</b>, ~90–120g protein/day, to actually add visible muscle.</li>
+  </ul>
+</div>
+
+<nav class="tabs" id="tabs"></nav>
+
+<main id="days"></main>
+
+<footer>Reps shown leave 1–2 in the tank (RIR 1–2). Loads are your machine reference points — go by clean reps, not soreness.<br>
+Research-grade guidance, not licensed trainer/dietitian advice.</footer>
+
+<script>
+const PLAN = [
+  {d:"Mon", f:"Push — Chest / Shoulders / Triceps", ex:[
+    {n:"Machine Chest Press", s:"4 × 8–10", load:"~50", q:"machine chest press"},
+    {n:"Incline Dumbbell Press", s:"3 × 8–12", q:"incline dumbbell press"},
+    {n:"Seated Shoulder Press", s:"3 × 8–12", q:"seated dumbbell shoulder press"},
+    {n:"Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise"},
+    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly"},
+    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown"},
+  ]},
+  {d:"Tue", f:"Pull — Back / Biceps", ex:[
+    {n:"Lat Pulldown", s:"4 × 8–12", load:"~120", q:"lat pulldown"},
+    {n:"Seated Cable Row", s:"3 × 8–12", q:"seated cable row"},
+    {n:"Single-Arm DB Row", s:"3 × 8–12", q:"one arm dumbbell row"},
+    {n:"Face Pull (rear delts)", s:"3 × 15", q:"face pull rear delt"},
+    {n:"Biceps Curl", s:"3 × 10–12", q:"dumbbell biceps curl"},
+    {n:"Hammer Curl", s:"3 × 10–12", q:"hammer curl"},
+  ]},
+  {d:"Wed", f:"Legs", ex:[
+    {n:"Leg Press", s:"4 × 10–12", load:"~130", q:"leg press"},
+    {n:"Romanian Deadlift", s:"3 × 8–10", q:"romanian deadlift"},
+    {n:"Leg Extension", s:"3 × 12–15", q:"leg extension"},
+    {n:"Seated Leg Curl", s:"3 × 12–15", q:"seated leg curl"},
+    {n:"Standing Calf Raise", s:"4 × 12–15", q:"standing calf raise"},
+  ]},
+  {d:"Thu", f:"Upper — Dumbbell focus", ex:[
+    {n:"Flat DB Bench Press", s:"4 × 8–10", q:"flat dumbbell bench press"},
+    {n:"DB Shoulder Press", s:"3 × 8–12", q:"dumbbell shoulder press"},
+    {n:"Chest-Supported DB Row", s:"3 × 8–12", q:"chest supported dumbbell row"},
+    {n:"DB Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise"},
+    {n:"DB Curl", s:"3 × 10–12", q:"dumbbell curl"},
+    {n:"DB Overhead Triceps Ext.", s:"3 × 10–12", q:"dumbbell overhead triceps extension"},
+  ]},
+  {d:"Fri", f:"Chest / Back / Arms", ex:[
+    {n:"Machine Chest Press", s:"3 × 8–10", load:"~50", q:"machine chest press"},
+    {n:"Lat Pulldown", s:"3 × 8–12", load:"~120", q:"lat pulldown"},
+    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly"},
+    {n:"Straight-Arm Pulldown", s:"3 × 12–15", q:"straight arm pulldown"},
+    {n:"EZ-Bar Curl", s:"3 × 10–12", q:"ez bar curl"},
+    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown"},
+  ]},
+  {d:"Sat", f:"Shoulders / Arms + Abs", ex:[
+    {n:"Seated Shoulder Press", s:"4 × 8–12", q:"seated dumbbell shoulder press"},
+    {n:"Lateral Raise", s:"4 × 12–15", q:"dumbbell lateral raise"},
+    {n:"Rear-Delt Fly", s:"3 × 15", q:"rear delt fly"},
+    {n:"Cable Crunch (weighted)", s:"4 × 10–15", q:"cable crunch"},
+    {n:"Hanging Leg Raise", s:"3 × 8–12", q:"hanging leg raise"},
+    {n:"Cable Woodchop (obliques)", s:"3 × 12 each", q:"cable woodchopper oblique"},
+  ]},
+  {d:"Sun", rest:true},
+];
+
+// weave abs into two more days
+const absExtra = [
+  {n:"Cable Crunch (weighted)", s:"3 × 12–15", q:"cable crunch"},
+  {n:"Hanging Leg Raise", s:"3 × 10", q:"hanging leg raise"},
+];
+PLAN[1].ex.push(...absExtra); // Tue
+PLAN[3].ex.push(...absExtra); // Thu
+
+const tabs = document.getElementById('tabs');
+const days = document.getElementById('days');
+
+PLAN.forEach((day, i) => {
+  const t = document.createElement('div');
+  t.className = 'tab' + (day.rest?' rest':'') + (i===0?' active':'');
+  t.textContent = day.d;
+  t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('day'+i).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  tabs.appendChild(t);
+
+  const sec = document.createElement('section');
+  sec.className = 'day' + (i===0?' active':'');
+  sec.id = 'day'+i;
+
+  if (day.rest){
+    sec.innerHTML = `<div class="rest-card"><div class="big">😴</div>
+      <h3 style="margin:10px 0 0">Rest Day</h3>
+      <p>Sunday is always off. This is when the muscle you built this week actually grows. Eat, sleep, walk — no guilt.</p></div>`;
+  } else {
+    let html = `<div class="dayhead"><h3>${day.d}</h3><span class="focus">${day.f}</span></div>`;
+    day.ex.forEach(e=>{
+      const yt = 'https://www.youtube.com/@DeltaBolic/search?query=' + encodeURIComponent(e.q);
+      html += `<div class="ex"><div class="top"><div>
+          <div class="name">${e.n}</div><div class="sr">${e.s} · RIR 1–2</div></div></div>
+        <div class="meta">
+          ${e.load?`<span class="pill load">ref load ${e.load}</span>`:''}
+          <span class="pill">rest 60–90s</span>
+        </div>
+        <a class="watch" href="${yt}" target="_blank" rel="noopener">
+          <span class="play"><svg viewBox="0 0 10 10"><path d="M1 0l8 5-8 5z"/></svg></span> Watch form · DeltaBolic</a>
+      </div>`;
+    });
+    sec.innerHTML = html;
+  }
+  days.appendChild(sec);
+});
+</script>
+</body>
+</html>
