@@ -18,6 +18,7 @@
   .banner{margin:14px 18px;padding:12px 14px;background:#2a1d16;border:1px solid #4a2d20;
     border-radius:12px;font-size:13px;color:#ffd9ce}
   .banner b{color:#ffb4a1}
+  .banner a{color:#ffb4a1}
   .goals{margin:0 18px 6px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:14px}
   .goals h2{margin:0 0 8px;font-size:14px;color:var(--acc2);text-transform:uppercase;letter-spacing:.6px}
   .goals li{font-size:14px;margin:6px 0;color:#d7dce3}
@@ -41,6 +42,11 @@
   .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
   .pill{font-size:11px;padding:4px 9px;border-radius:999px;background:var(--card2);color:#c3cad4;border:1px solid var(--line)}
   .pill.load{color:#ffd0a6;border-color:#4a3522;background:#231a12}
+  .cues{margin:12px 0 0;padding:11px 12px;background:var(--card2);border:1px solid var(--line);border-radius:10px}
+  .cues .lab{font-size:11px;color:var(--acc2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .cues ul{margin:0;padding:0;list-style:none}
+  .cues li{font-size:13px;color:#d7dce3;padding-left:18px;position:relative;margin:4px 0;line-height:1.45}
+  .cues li:before{content:"✓";position:absolute;left:0;color:var(--acc2);font-weight:700}
   .watch{display:inline-flex;align-items:center;gap:7px;margin-top:12px;
     text-decoration:none;background:#1f2630;color:#fff;font-size:13px;font-weight:650;
     padding:9px 13px;border-radius:10px;border:1px solid #30475e}
@@ -50,6 +56,7 @@
   .rest-card .big{font-size:40px}
   .rest-card p{color:var(--mut);font-size:14px;margin:8px 0 0}
   footer{padding:22px 18px;color:var(--mut);font-size:12px;text-align:center}
+  footer a{color:var(--acc2)}
 </style>
 </head>
 <body>
@@ -59,13 +66,13 @@
 </header>
 
 <div class="banner">
-  <b>Draft layout.</b> I built this from the summary of your handoff (the upload got cut off, so I only saw part of it).
-  Send me the full program and I'll drop in your exact exercises on every day. Tap <b>Watch form</b> on any move — it pulls up
-  <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener" style="color:#ffb4a1">DeltaBolic's</a> form video for that machine.
+  <b>Draft layout.</b> Built from the summary of your handoff (the upload got cut off). Send the full program and I'll drop in your exact
+  exercises. Form cues &amp; videos are from <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>
+  — tap <b>Watch form</b> on any move for his red/green demo.
 </div>
 
 <div class="goals">
-  <h2>How abs pop & muscles even out</h2>
+  <h2>How abs pop &amp; muscles even out</h2>
   <ul style="margin:0;padding-left:18px">
     <li><b>Build the abs</b>, don't cut lower — at ~10%/120lb more cutting just loses muscle. Train abs weighted, 2–3×/wk, near failure.</li>
     <li><b>Even = balanced volume.</b> ~10–20 hard sets per muscle per week, full range. Lagging part gets an extra set or two.</li>
@@ -78,67 +85,100 @@
 <main id="days"></main>
 
 <footer>Reps shown leave 1–2 in the tank (RIR 1–2). Loads are your machine reference points — go by clean reps, not soreness.<br>
-Research-grade guidance, not licensed trainer/dietitian advice.</footer>
+Form cues adapted from <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. Research-grade guidance, not licensed trainer/dietitian advice.</footer>
 
 <script>
+const ABS = [
+  {n:"Cable Crunch (weighted)", s:"3 × 12–15", q:"cable crunch", c:["Round your spine down to crunch — it's the abs flexing, not a hip bend","Keep hips fixed; only the torso moves","Hold the weight by your head, squeeze hard at the bottom"]},
+  {n:"Hanging Leg Raise", s:"3 × 10", q:"hanging leg raise", c:["Curl your pelvis up (posterior tilt), don't just swing the legs","Control the way down — no momentum","Keep it slow; add a pause to make it harder over time"]},
+];
 const PLAN = [
   {d:"Mon", f:"Push — Chest / Shoulders / Triceps", ex:[
-    {n:"Machine Chest Press", s:"4 × 8–10", load:"~50", q:"machine chest press"},
-    {n:"Incline Dumbbell Press", s:"3 × 8–12", q:"incline dumbbell press"},
-    {n:"Seated Shoulder Press", s:"3 × 8–12", q:"seated dumbbell shoulder press"},
-    {n:"Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise"},
-    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly"},
-    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown"},
+    {n:"Machine Chest Press", s:"4 × 8–10", load:"~50", q:"machine chest press",
+      c:["Set seat so handles line up with mid-chest","Depress shoulders & pinch shoulder blades back","Keep wrists neutral; don't fully lock out at the top","Control the stretch, don't let the weight slam"]},
+    {n:"Incline Dumbbell Press", s:"3 × 8–12", q:"incline dumbbell press",
+      c:["Bench ~30° — higher turns it into a shoulder press","Lower to the upper chest with elbows ~45°","Full stretch at the bottom, no bouncing"]},
+    {n:"Seated Shoulder Press", s:"3 × 8–12", q:"seated dumbbell shoulder press",
+      c:["Start at about ear height","Press up without a hard lockout","Keep ribs down — don't arch the lower back"]},
+    {n:"Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise",
+      c:["Thumbless grip to take the forearms out of it","Slight bend in the elbows, don't lock them","Lean forward slightly & lead with the elbows to hit side delts"]},
+    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly",
+      c:["Hold a soft elbow bend the whole time","Squeeze across the chest at the front","Control back for a full stretch"]},
+    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown",
+      c:["Pin elbows at your sides — don't let them flare out","Full lockout at the bottom","Control the way back up"]},
   ]},
   {d:"Tue", f:"Pull — Back / Biceps", ex:[
-    {n:"Lat Pulldown", s:"4 × 8–12", load:"~120", q:"lat pulldown"},
-    {n:"Seated Cable Row", s:"3 × 8–12", q:"seated cable row"},
-    {n:"Single-Arm DB Row", s:"3 × 8–12", q:"one arm dumbbell row"},
-    {n:"Face Pull (rear delts)", s:"3 × 15", q:"face pull rear delt"},
-    {n:"Biceps Curl", s:"3 × 10–12", q:"dumbbell biceps curl"},
-    {n:"Hammer Curl", s:"3 × 10–12", q:"hammer curl"},
+    {n:"Lat Pulldown", s:"4 × 8–12", load:"~120", q:"lat pulldown",
+      c:["Secure the thigh pad tight for leverage","Thumbless grip + depress your shoulders","Slight lean back and tuck your elbows down to drive the lats"]},
+    {n:"Seated Cable Row", s:"3 × 8–12", q:"seated cable row",
+      c:["Keep wrists neutral — don't bend them in","Pull low toward your waist with elbows tucked (that's lats)","Pulling high to the chest shifts it to biceps/upper back"]},
+    {n:"Single-Arm DB Row", s:"3 × 8–12", q:"one arm dumbbell row",
+      c:["Flat back, pull the dumbbell to your hip","Keep the elbow close to the body","Full stretch at the bottom each rep"]},
+    {n:"Face Pull (rear delts)", s:"3 × 15", q:"face pull rear delt",
+      c:["Pull toward your face/ears with elbows high","Squeeze the rear delts at the back","Light weight, high reps — it's a detail muscle"]},
+    {n:"Biceps Curl", s:"3 × 10–12", q:"dumbbell biceps curl",
+      c:["Pin your elbows, no swinging the weight up","Full stretch at the bottom","Squeeze at the top"]},
+    {n:"Hammer Curl", s:"3 × 10–12", q:"hammer curl",
+      c:["Neutral (palms-in) grip","Elbows stay still","Control the lowering"]},
   ]},
   {d:"Wed", f:"Legs", ex:[
-    {n:"Leg Press", s:"4 × 10–12", load:"~130", q:"leg press"},
-    {n:"Romanian Deadlift", s:"3 × 8–10", q:"romanian deadlift"},
-    {n:"Leg Extension", s:"3 × 12–15", q:"leg extension"},
-    {n:"Seated Leg Curl", s:"3 × 12–15", q:"seated leg curl"},
-    {n:"Standing Calf Raise", s:"4 × 12–15", q:"standing calf raise"},
+    {n:"Leg Press", s:"4 × 10–12", load:"~130", q:"leg press",
+      c:["Set the seat on a low angle for a bigger range","Lower until knees hit ~90° (deeper if your back stays flat)","Knees track over your toes — don't let them cave in","Lower back pressed to the seat; don't fully lock out the knees"]},
+    {n:"Romanian Deadlift", s:"3 × 8–10", q:"romanian deadlift",
+      c:["Soft knees, push the hips back","Keep the bar/dumbbells close to your body","Lower to a slight hamstring stretch, neutral spine","Squeeze the glutes to stand up"]},
+    {n:"Leg Extension", s:"3 × 12–15", q:"leg extension",
+      c:["Squeeze hard at full lockout","Control the way down, don't swing","Full range every rep"]},
+    {n:"Seated Leg Curl", s:"3 × 12–15", q:"seated leg curl",
+      c:["Squeeze the hamstrings at the bottom","Full range, controlled tempo"]},
+    {n:"Standing Calf Raise", s:"4 × 12–15", q:"standing calf raise",
+      c:["Full stretch at the bottom","Pause and squeeze at the top","Slow reps beat bouncy ones"]},
   ]},
   {d:"Thu", f:"Upper — Dumbbell focus", ex:[
-    {n:"Flat DB Bench Press", s:"4 × 8–10", q:"flat dumbbell bench press"},
-    {n:"DB Shoulder Press", s:"3 × 8–12", q:"dumbbell shoulder press"},
-    {n:"Chest-Supported DB Row", s:"3 × 8–12", q:"chest supported dumbbell row"},
-    {n:"DB Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise"},
-    {n:"DB Curl", s:"3 × 10–12", q:"dumbbell curl"},
-    {n:"DB Overhead Triceps Ext.", s:"3 × 10–12", q:"dumbbell overhead triceps extension"},
+    {n:"Flat DB Bench Press", s:"4 × 8–10", q:"flat dumbbell bench press",
+      c:["Lower to mid/lower chest, neutral wrists","Pinch shoulder blades together","Full stretch at the bottom, no bounce"]},
+    {n:"DB Shoulder Press", s:"3 × 8–12", q:"dumbbell shoulder press",
+      c:["Start at ear height","Don't over-arch the lower back","Control up and down"]},
+    {n:"Chest-Supported DB Row", s:"3 × 8–12", q:"chest supported dumbbell row",
+      c:["Chest on the pad, pull to your hips","Squeeze the back, no momentum"]},
+    {n:"DB Lateral Raise", s:"3 × 12–15", q:"dumbbell lateral raise",
+      c:["Thumbless grip, slight elbow bend","Lean forward slightly, lead with the elbows"]},
+    {n:"DB Curl", s:"3 × 10–12", q:"dumbbell curl",
+      c:["Elbows pinned, full range","No swinging"]},
+    {n:"DB Overhead Triceps Ext.", s:"3 × 10–12", q:"dumbbell overhead triceps extension",
+      c:["Keep elbows in, pointed forward","Full stretch behind the head"]},
   ]},
   {d:"Fri", f:"Chest / Back / Arms", ex:[
-    {n:"Machine Chest Press", s:"3 × 8–10", load:"~50", q:"machine chest press"},
-    {n:"Lat Pulldown", s:"3 × 8–12", load:"~120", q:"lat pulldown"},
-    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly"},
-    {n:"Straight-Arm Pulldown", s:"3 × 12–15", q:"straight arm pulldown"},
-    {n:"EZ-Bar Curl", s:"3 × 10–12", q:"ez bar curl"},
-    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown"},
+    {n:"Machine Chest Press", s:"3 × 8–10", load:"~50", q:"machine chest press",
+      c:["Handles at mid-chest","Shoulders down & blades pinched","Don't fully lock out"]},
+    {n:"Lat Pulldown", s:"3 × 8–12", load:"~120", q:"lat pulldown",
+      c:["Thumbless grip, shoulders depressed","Slight lean back, tuck the elbows"]},
+    {n:"Cable Fly", s:"3 × 12–15", q:"cable chest fly",
+      c:["Soft constant elbow bend","Squeeze across the chest, control the stretch"]},
+    {n:"Straight-Arm Pulldown", s:"3 × 12–15", q:"straight arm pulldown",
+      c:["Pulley slightly above head, grip a bit wider than shoulders","Thumbless grip; step back and let the shoulders stretch at the top","Soft elbow bend held constant; pull to your upper thighs","Squeeze the lats, return with control"]},
+    {n:"EZ-Bar Curl", s:"3 × 10–12", q:"ez bar curl",
+      c:["Elbows pinned, no swing","Full range top and bottom"]},
+    {n:"Triceps Pushdown", s:"3 × 10–12", q:"triceps rope pushdown",
+      c:["Elbows tucked — don't flare them","Full lockout"]},
   ]},
   {d:"Sat", f:"Shoulders / Arms + Abs", ex:[
-    {n:"Seated Shoulder Press", s:"4 × 8–12", q:"seated dumbbell shoulder press"},
-    {n:"Lateral Raise", s:"4 × 12–15", q:"dumbbell lateral raise"},
-    {n:"Rear-Delt Fly", s:"3 × 15", q:"rear delt fly"},
-    {n:"Cable Crunch (weighted)", s:"4 × 10–15", q:"cable crunch"},
-    {n:"Hanging Leg Raise", s:"3 × 8–12", q:"hanging leg raise"},
-    {n:"Cable Woodchop (obliques)", s:"3 × 12 each", q:"cable woodchopper oblique"},
+    {n:"Seated Shoulder Press", s:"4 × 8–12", q:"seated dumbbell shoulder press",
+      c:["Start at ear height","No hard lockout, ribs down"]},
+    {n:"Lateral Raise", s:"4 × 12–15", q:"dumbbell lateral raise",
+      c:["Thumbless grip, slight elbow bend","Lean forward slightly, lead with elbows"]},
+    {n:"Rear-Delt Fly", s:"3 × 15", q:"rear delt fly",
+      c:["Slight elbow bend, squeeze the rear delts","Don't shrug the traps into it"]},
+    {n:"Cable Crunch (weighted)", s:"4 × 10–15", q:"cable crunch",
+      c:["Round the spine down to crunch, hips fixed","Hold weight by your head, squeeze hard"]},
+    {n:"Hanging Leg Raise", s:"3 × 8–12", q:"hanging leg raise",
+      c:["Curl the pelvis up, don't swing","Control the way down"]},
+    {n:"Cable Woodchop (obliques)", s:"3 × 12 each", q:"cable woodchopper oblique",
+      c:["Rotate through the torso, arms fairly straight","Control it both ways — no yanking"]},
   ]},
   {d:"Sun", rest:true},
 ];
-
-// weave abs into two more days
-const absExtra = [
-  {n:"Cable Crunch (weighted)", s:"3 × 12–15", q:"cable crunch"},
-  {n:"Hanging Leg Raise", s:"3 × 10", q:"hanging leg raise"},
-];
-PLAN[1].ex.push(...absExtra); // Tue
-PLAN[3].ex.push(...absExtra); // Thu
+PLAN[1].ex.push(...ABS); // Tue
+PLAN[3].ex.push(...ABS); // Thu
 
 const tabs = document.getElementById('tabs');
 const days = document.getElementById('days');
@@ -168,12 +208,14 @@ PLAN.forEach((day, i) => {
     let html = `<div class="dayhead"><h3>${day.d}</h3><span class="focus">${day.f}</span></div>`;
     day.ex.forEach(e=>{
       const yt = 'https://www.youtube.com/@DeltaBolic/search?query=' + encodeURIComponent(e.q);
+      const cues = (e.c||[]).map(x=>`<li>${x}</li>`).join('');
       html += `<div class="ex"><div class="top"><div>
           <div class="name">${e.n}</div><div class="sr">${e.s} · RIR 1–2</div></div></div>
         <div class="meta">
           ${e.load?`<span class="pill load">ref load ${e.load}</span>`:''}
           <span class="pill">rest 60–90s</span>
         </div>
+        ${cues?`<div class="cues"><div class="lab">Correct form</div><ul>${cues}</ul></div>`:''}
         <a class="watch" href="${yt}" target="_blank" rel="noopener">
           <span class="play"><svg viewBox="0 0 10 10"><path d="M1 0l8 5-8 5z"/></svg></span> Watch form · DeltaBolic</a>
       </div>`;
