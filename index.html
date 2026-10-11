@@ -7,244 +7,226 @@
 <meta name="theme-color" content="#09090b">
 <title>Nick — Training</title>
 <style>
-  :root{--bg:#09090b;--card:#141417;--line:#26262b;--txt:#f4f4f5;--mut:#8e8e96;--soft:#c4c4cb;--ok:#4ade80}
+  :root{--bg:#09090b;--card:#141417;--line:#26262b;--txt:#f4f4f5;--mut:#8e8e96;--soft:#d0d0d6;--ok:#4ade80;--bad:#f87171;--gold:#e8d4b4}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{margin:0;background:var(--bg);color:var(--txt);
     font:19px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%;padding-bottom:48px}
   .wrap{max-width:640px;margin:0 auto}
   button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  a{color:inherit}
 
   .tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
-    padding:10px 12px;background:rgba(9,9,11,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    padding:10px 12px;background:rgba(9,9,11,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .tab{padding:10px 0;border-radius:10px;color:var(--mut);font-size:16px;font-weight:600;text-align:center;position:relative}
   .tab.on{background:var(--txt);color:var(--bg)}
   .tab.today:after{content:"";position:absolute;left:50%;bottom:3px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok)}
 
-  .head{padding:22px 20px 6px}
+  .head{padding:20px 16px 4px}
   .kick{font-size:14px;color:var(--ok);font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
-  .head h1{margin:4px 0 0;font-size:32px;font-weight:700;letter-spacing:-.5px}
-  .focus{font-size:18px;color:var(--mut);margin-top:2px}
-  .prog{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:16px;color:var(--mut)}
+  .head h1{margin:2px 0 0;font-size:32px;font-weight:700;letter-spacing:-.5px}
+  .focus{font-size:19px;color:var(--soft);margin-top:2px}
+  .sub{font-size:16px;color:var(--mut);margin-top:2px}
+  .prog{display:flex;align-items:center;gap:12px;margin-top:12px;font-size:16px;color:var(--mut)}
   .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
   .bar i{display:block;height:100%;background:var(--ok);transition:width .25s}
 
-  .list{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .item+.item{border-top:1px solid var(--line)}
-  .row{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:68px}
-  .chk{flex:0 0 30px;height:30px;border-radius:50%;border:2px solid #4a4a52;display:grid;place-items:center}
-  .chk svg{width:15px;height:15px;stroke:var(--bg);stroke-width:3.5;fill:none;opacity:0}
+  .check{margin:12px 12px 0;padding:12px 14px;border-radius:14px;background:#0f1d14;border:1px solid #1e3a27;font-size:16px;color:#bfe8cc}
+  .check b{color:var(--ok)}
+
+  .ovh{margin:16px 14px 0;font-size:14px;color:var(--mut);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+  .ov{margin:6px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2px 14px}
+  .ov a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:12px 0;text-decoration:none}
+  .ov a+a{border-top:1px solid var(--line)}
+  .ov .ovl{min-width:0}
+  .ov .ovl b{font-size:17px;font-weight:600;display:block;line-height:1.25}
+  .ov .ovl em{font-style:normal;font-size:14px;color:var(--mut);display:block;margin-top:3px;line-height:1.35}
+  .ov .sets{color:var(--gold);white-space:nowrap;font-size:15px;font-weight:600}
+  .ov .d b{color:var(--mut);text-decoration:line-through}
+  .ov .d em{opacity:.55}
+
+  .ex{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;scroll-margin-top:70px}
+  .top{display:flex;gap:12px;align-items:flex-start}
+  .num{flex:0 0 30px;height:30px;border-radius:50%;background:#26262b;color:var(--mut);display:grid;place-items:center;font-size:15px;font-weight:700;margin-top:2px}
+  .t{flex:1;min-width:0}
+  .nm{font-size:21px;font-weight:700;line-height:1.25}
+  .sets{font-size:18px;margin-top:3px;color:var(--txt)}
+  .sets b{color:var(--gold);font-weight:600}
+  .chk{flex:0 0 40px;height:40px;border-radius:50%;border:2px solid #4a4a52;display:grid;place-items:center}
+  .chk svg{width:18px;height:18px;stroke:var(--bg);stroke-width:3.5;fill:none;opacity:0}
   .done .chk{background:var(--ok);border-color:var(--ok)}
   .done .chk svg{opacity:1}
-  .info{flex:1;text-align:left;min-width:0}
-  .nm{font-size:19px;font-weight:600;line-height:1.3}
-  .meta{font-size:16px;color:var(--mut);margin-top:3px}
-  .meta b{color:#e8d4b4;font-weight:600}
   .done .nm{color:var(--mut);text-decoration:line-through}
-  .chev{color:#55555d;font-size:24px;transition:transform .2s;line-height:1}
-  .open .chev{transform:rotate(90deg)}
+  .done .pair,.done ul,.done .facts{display:none}
+  .facts{margin:10px 0 12px;font-size:16px;color:var(--mut);line-height:1.45}
+  .facts div b{color:var(--soft);font-weight:600}
+  .note{color:var(--gold)}
 
-  .det{display:none;padding:0 16px 18px}
-  .open .det{display:block}
-  .shot{background:#f4f4f5;border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .shot img{max-width:100%;max-height:220px;object-fit:contain}
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .pair.one{grid-template-columns:1fr;max-width:300px;margin:0 auto}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pair.one{grid-template-columns:1fr;max-width:62%;margin:0 auto}
   .fr{position:relative;border-radius:12px;overflow:hidden;border:3px solid #22c55e;background:#000}
   .fr.bad{border-color:#ef4444}
   .fr img{display:block;width:100%;aspect-ratio:9/13;object-fit:cover;object-position:center 45%}
-  .tag{position:absolute;left:8px;top:8px;font-size:15px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#4ade80}
-  .bad .tag{color:#f87171}
-  .det ul{margin:14px 0 0;padding:0;list-style:none}
-  .det li{font-size:18px;color:var(--soft);padding-left:20px;position:relative;margin:9px 0;line-height:1.45}
-  .det li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--ok)}
-  .vid{display:inline-block;margin-top:12px;color:var(--mut);font-size:16px;text-decoration:none;border-bottom:1px solid #33333a}
+  .wide .fr img{aspect-ratio:9/8;object-fit:cover}
+  .tag{position:absolute;left:6px;bottom:6px;font-size:15px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.75);color:var(--ok)}
+  .bad .tag{color:var(--bad)}
+  .shot{background:#f4f4f5;border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .shot img{max-width:100%;max-height:220px;object-fit:contain}
 
-  .rest{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px 20px;text-align:center;color:var(--mut);font-size:18px}
+  ul{margin:12px 0 0;padding:0;list-style:none}
+  li{font-size:18px;color:var(--soft);padding-left:22px;position:relative;margin:7px 0;line-height:1.4}
+  li:before{content:"✓";position:absolute;left:0;top:0;color:var(--ok);font-weight:800;font-size:16px}
+  .vid{display:inline-block;margin-top:8px;color:var(--mut);font-size:15px;text-decoration:none;border-bottom:1px solid #33333a}
+
+  .rest{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 20px;text-align:center;color:var(--mut);font-size:18px}
   .rest b{display:block;color:var(--txt);font-size:24px;margin-bottom:8px}
 
-  details{margin:22px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px}
-  summary{padding:16px 18px;font-size:18px;font-weight:600;list-style:none;cursor:pointer;display:flex;justify-content:space-between}
-  summary::-webkit-details-marker{display:none}
-  summary:after{content:"›";color:#55555d;font-size:24px;line-height:1;transition:transform .2s}
-  details[open] summary:after{transform:rotate(90deg)}
-  .notes{padding:0 18px 18px;font-size:17px;color:var(--soft)}
+  .notes{margin:22px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;color:var(--soft);font-size:17px}
+  .notes h2{margin:0 0 6px;font-size:20px;color:var(--txt)}
   .notes p{margin:10px 0}
   .notes b{color:var(--txt)}
-  .notes small{display:block;margin-top:14px;font-size:14px;color:var(--mut);line-height:1.5}
-  .notes a{color:var(--soft)}
+  .notes small{display:block;color:var(--mut);font-size:14px;margin-top:12px;line-height:1.5}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
-<details>
-  <summary>Plan notes</summary>
-  <div class="notes">
-    <p><b>Week:</b> Mon push · Tue pull · Wed legs · Thu upper (DB) · Fri chest/back/arms · Sat delts/arms · Sun rest.</p>
-    <p><b>Goal:</b> add lean muscle evenly and make abs pop — not cut lower. Abs 3×/week, weighted.</p>
-    <p><b>Every set:</b> stop 1–2 reps short of failure. Rest 60–90s. Add weight or reps over time.</p>
-    <p><b>Food:</b> slight surplus, ~90–120g protein a day.</p>
-    <small>Draft exercises — your plan upload cut off; send the full one to swap in your exact lifts. Loads are reference points: go by clean reps. Form fixes from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a> and <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. Research-grade guidance, not licensed trainer advice.</small>
-  </div>
-</details>
+<section class="notes" id="notes">
+  <h2>Is this plan good? Yes.</h2>
+  <p>I checked your plan set by set. Every main muscle gets trained about <b>twice a week</b>. The weekly sets are in the range that builds muscle: chest ~14, back ~12, biceps ~9, triceps ~9, legs ~15. The rep ranges are right (8–12 for big lifts, 10–15 for small ones), and Sunday is always rest.</p>
+  <p><b>One optional tweak:</b> broad shoulders are a top goal, but side delts only get 5 direct sets a week. Adding one more lateral-raise set on Thursday and Friday would help.</p>
+  <p><b>How to get stronger:</b> pick a weight you can do with clean form, stopping 1–3 reps before you'd fail. When you hit the top of the rep range on every set (e.g. 12/12/12), go up one weight step next time.</p>
+  <p><b>Rest:</b> 2–3 min on big lifts (presses, rows, pulldown, leg press, RDL), 1–2 min on small ones. Being sore isn't the goal; adding reps or weight is.</p>
+  <p><b>Food:</b> about 250 calories over maintenance and 90–110 g protein a day. Aim to gain 0.25–0.5 lb a week. Sleep 7–9 hours.</p>
+  <p><b>Machine taken?</b> Do the next lift and come back to it, or use the swap listed under the lift.</p>
+  <small>Weights shown are what you've used on your usual machines, as a starting point only. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a> and <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. General fitness guidance, not medical advice. Stop anything that causes sharp pain.</small>
+</section>
 </div>
 
 <script>
-const B="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
-const ABS=[
- {n:"Cable Crunch (weighted)",s:"3 × 12–15",q:"cable crunch",img:"Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists/0.jpg",
-  c:["Curl your spine down like rolling over a ball", "Hips stay still — abs do the work, not a hip bend", "Weight by your head, squeeze hard"]},
- {n:"Hanging Leg Raise",s:"3 × 10",q:"hanging leg raise",img:"Hanging_Leg_Raise/0.jpg",
-  c:["Curl the pelvis up, don't just swing the legs","Control the way down, no momentum"]},
-];
-const RR={ // [frame key, has wrong frame, Raj & Roh video id]
- "Lat Pulldown":["pulldown",1,"7685172542339845390"],"Seated Cable Row":["row",1,"7690741436286881037"],
- "Incline Dumbbell Press":["incline",1,"7690741436286881037"],"Triceps Pushdown":["pushdown",1,"7687088923482410254"],
- "Cable Fly":["fly",1,"7684442069712162061"],"Lateral Raise":["lateral",1,"7683323526920621326"],
- "DB Lateral Raise":["lateral",1,"7683323526920621326"],"Single-Arm DB Row":["dbrow",1,"7675143011684125966"],
- "Biceps Curl":["curl",1,"7685172542339845390"],"DB Curl":["curl",1,"7685172542339845390"],
- "DB Overhead Triceps Ext.":["ohext",1,"7683323526920621326"],"Leg Press":["legpress",1,"7678109050634112270"],
- "Romanian Deadlift":["rdl",1,"7678109050634112270"],"Leg Extension":["legext",1,"7678109050634112270"],
- "Seated Leg Curl":["legcurl",1,"7678109050634112270"],"Face Pull (rear delts)":["facepull",0,"7684442069712162061"],
- "Hammer Curl":["hammer",0,"7684442069712162061"],"Straight-Arm Pulldown":["straightarm",0,"7681837394017996045"],
- "Cable Crunch (weighted)":["crunch",0,"7681837394017996045"],"Rear-Delt Fly":["reardelt",0,"7692553347102018829"],
+const TT="https://www.tiktok.com/@rajandroh/video/", YT="https://www.youtube.com/shorts/";
+// i: photo key (img/<i>-x.jpg wrong, img/<i>-ok.jpg right); x: has a wrong photo; w: wide photos
+const L={
+ chestpress:{n:"Seated Chest Press",m:"Seated chest press machine",w:"Chest, front shoulders, triceps",i:"chestpress",x:1,v:YT+"Qu7-ceCvq7w",
+  c:["Back flat on the pad, handles level with mid-chest","Shoulders down and back, not rolling forward","Control the way back; don't lock your elbows"]},
+ incline:{n:"Incline Dumbbell Press",m:"Dumbbells + bench set low (15–30°)",w:"Upper chest",i:"incline",x:1,v:TT+"7690741436286881037",
+  c:["Keep the bench low; higher turns it into a shoulder press","Shoulders pinned back, elbows ~45° (not flared wide)","Lower beside your upper chest, press up and slightly in"]},
+ pecdeck:{n:"Pec Deck (chest fly)",m:"Pec deck machine, chest setting (face out, handles in front)",w:"Chest",i:"pecdeck",x:1,v:YT+"Dy4Bl-ituTo",
+  c:["Seat high enough that your arms are level with your chest","Slight bend in the elbows, bring hands together in front","Squeeze your chest; don't let it pull you into a painful stretch"]},
+ pushdown:{n:"Rope Triceps Pushdown",m:"Cable machine, rope, pulley at the top",w:"Triceps",i:"pushdown",x:1,v:TT+"7687088923482410254",
+  c:["Small step back, slight lean, chest out","Elbows pinned to your sides the whole time","Spread the rope apart at the bottom and squeeze"]},
+ ohrope:{n:"Overhead Rope Triceps Extension",m:"Cable machine, rope; face away from the cable",w:"Triceps (the long, biggest part)",i:"ohrope",x:0,v:TT+"7675912227567815949",
+  c:["Rope behind your head, elbows pointing forward","Straighten your arms overhead, elbows stay narrow","Ribs down; don't arch your back"]},
+ pulldown:{n:"Lat Pulldown",m:"Lat pulldown machine, wide bar",w:"Lats (back width)",i:"pulldown",x:1,v:TT+"7685172542339845390",
+  c:["Thumbs over the bar, slight lean back, chest up","Pull to your upper chest (never behind your neck)","Drive elbows down; no swinging"]},
+ row:{n:"Seated Row",m:"Seated cable row or row machine",w:"Mid back, lats",i:"row",x:1,v:TT+"7690741436286881037",
+  c:["Sit tall, chest up","Elbows tucked; pull to your lower ribs, not your chest","Squeeze your shoulder blades, slow return"]},
+ revfly:{n:"Reverse Pec Deck (rear-delt fly)",m:"Pec deck machine, rear-delt setting (chest against the pad)",w:"Back of the shoulders",i:"reversefly",x:1,wide:1,v:YT+"8thtiUfdbf4",
+  c:["Face the pad, handles straight out in front","Open your arms out wide with a slight elbow bend","Keep shoulders down; if your traps burn, go lighter"]},
+ machcurl:{n:"Biceps Curl Machine",m:"Biceps curl / preacher curl machine",w:"Biceps",i:"machinecurl",x:1,v:YT+"eNxTbiHWKtA",
+  c:["Upper arms flat on the pad the whole time","Keep your wrists straight; don't curl them in","Lower slowly until your arms are almost straight"]},
+ hammer:{n:"Dumbbell Hammer Curl",m:"Dumbbells, standing",w:"Biceps + forearms (arm thickness)",i:"dbhammer",x:1,v:YT+"JP4wquWfFyI",
+  c:["Palms face each other","Elbows stay at your sides; don't swing them forward","No leaning back to lift it"]},
+ legpress:{n:"Seated Leg Press",m:"Leg press machine",w:"Quads, glutes",i:"legpress",x:1,v:TT+"7678109050634112270",
+  c:["Feet shoulder-width on the platform","Knees track slightly out; never cave in","Hips stay on the pad; don't lock your knees"]},
+ legcurl:{n:"Seated Leg Curl",m:"Seated leg curl machine",w:"Hamstrings",i:"legcurl",x:1,v:TT+"7678109050634112270",
+  c:["Pad just above your heels, thigh pad snug","Toes pulled up toward you, not pointed","Squeeze at the bottom, slow on the way back"]},
+ legext:{n:"Leg Extension",m:"Leg extension machine",w:"Quads",i:"legext",x:1,v:TT+"7678109050634112270",
+  c:["Sit back against the pad; don't hunch forward","Squeeze hard at the top","Lower slowly; don't slam the stack"]},
+ rdl:{n:"Dumbbell Romanian Deadlift",m:"Dumbbells (photo shows a bar; same movement)",w:"Hamstrings, glutes",i:"rdl",x:1,v:TT+"7678109050634112270",
+  c:["Start light; this one is all about form","Push your hips back with soft knees; don't just bend over","Weights close to your legs, back flat; squeeze glutes to stand"]},
+ calf:{n:"Standing Calf Raise",m:"On a step with bodyweight or dumbbells (or a calf machine)",w:"Calves",i:"calf",x:0,v:TT+"7675143011684125966",
+  c:["Let your heels drop for a full stretch","Rise high on your toes and pause","Lower slowly; no bouncing"]},
+ abmach:{n:"Ab Crunch Machine",m:"Ab crunch machine",w:"Abs",i:"abmachine",x:0,v:YT+"LQ1VKHflOXQ",
+  c:["Curl your ribs down toward your hips","Arms just hold the handles; don't pull with them","Come back up slowly"]},
+ shpress:{n:"Seated Dumbbell Shoulder Press",m:"Dumbbells + upright bench with backrest",w:"Shoulders",i:"shoulderpress",x:1,v:YT+"ks4kN8HxTLQ",
+  c:["Back on the pad; don't arch","Elbows slightly in front of you, not flared straight out","Start at ear height, press overhead"]},
+ lateral:{n:"Dumbbell Lateral Raise",m:"Dumbbells",w:"Side shoulders (width)",i:"lateral",x:1,v:TT+"7683323526920621326",
+  c:["Lead with your elbows, not your hands","Raise out to the sides, up to shoulder height","No swinging, no shrugging; go light"]},
+ shrug:{n:"Dumbbell Shrug",m:"Dumbbells",w:"Traps",i:"shrug",x:1,v:YT+"rFsSeClGnNA",
+  c:["Stand tall with your head neutral; don't hunch forward","Lift your shoulders straight up toward your ears","Pause at the top; don't roll them"]},
+ curl:{n:"Dumbbell Biceps Curl",m:"Dumbbells",w:"Biceps",i:"curl",x:1,v:TT+"7685172542339845390",
+  c:["Elbows by your sides","Turn your pinkies up as you curl","Lower slowly"]},
+ csrow:{n:"Chest-Supported Row",m:"Bench at ~30° + dumbbells, or a chest-supported row machine",w:"Mid back, lats",i:"csrow",x:1,v:YT+"2ByilQ4NaAs",
+  c:["Chest on the pad; keep the bench low (~30°)","Pull your elbows back toward your hips","Squeeze your back at the top; no jerking"]},
+ knee:{n:"Captain's Chair Knee Raise",m:"Captain's chair (forearms on pads, back on the pad)",w:"Lower abs",i:"kneeraise",x:0,v:YT+"90AbO62xJWE",
+  c:["Back against the pad, forearms pressed down","Raise your knees, then curl your hips up a little","No swinging; lower slowly"]},
+ cablecrunch:{n:"Kneeling Cable Crunch",m:"Cable machine + rope, kneeling",w:"Abs",i:"crunch",x:0,v:TT+"7681837394017996045",
+  c:["Curl your spine down like you're rolling over a ball","Hips stay still; your abs do the work","Hands just hold the rope by your head"]},
+ plank:{n:"Forearm Plank",m:"Floor or mat",w:"Abs, core",i:"plank",x:1,v:YT+"xe2MXatLTUw",
+  c:["Straight line from head to heels","Squeeze your abs and glutes","Don't let your hips sag"]},
 };
-const fr=(k,bad)=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.jpg" alt=""></div>`;
+const E=(k,s,o)=>Object.assign({},L[k],{s},o||{});
 const PLAN=[
- {d:"Mon",f:"Push — Chest / Shoulders / Triceps",ex:[
-  {n:"Machine Chest Press",s:"4 × 8–10",load:"~50",q:"machine chest press",img:"Machine_Bench_Press/0.jpg",
-   c:["Handles at mid-chest", "Shoulders down, blades pinched back, chest up", "Don't fully lock out", "Control the stretch, no slamming"]},
-  {n:"Incline Dumbbell Press",s:"3 × 8–12",q:"incline dumbbell press",img:"Incline_Dumbbell_Press/0.jpg",
-   c:["Bench ~30° — higher turns it into a shoulder press", "Shoulders pinned back", "Elbows tucked ~45°, not flared out wide", "Press up and slightly in"]},
-  {n:"Seated Shoulder Press",s:"3 × 8–12",q:"seated dumbbell shoulder press",img:"Seated_Dumbbell_Press/0.jpg",
-   c:["Start at ear height", "Ribs down — don't arch your low back", "Press up, no hard lockout"]},
-  {n:"Lateral Raise",s:"3 × 12–15",q:"dumbbell lateral raise",img:"Side_Lateral_Raise/0.jpg",
-   c:["Lead with your elbows, not your hands", "Raise out to the side, not across your front", "Thumbless grip, slight elbow bend"]},
-  {n:"Cable Fly",s:"3 × 12–15",q:"cable chest fly",img:"Cable_Crossover/0.jpg",
-   c:["Hands meet in the middle — don't cross them", "Picture squeezing a pencil between your pecs", "Soft elbow bend, control the stretch"]},
-  {n:"Triceps Pushdown",s:"3 × 10–12",q:"triceps rope pushdown",img:"Triceps_Pushdown_-_Rope_Attachment/0.jpg",
-   c:["Small step back, slight lean, chest out", "Elbows tucked by your ribs — picture a pencil in your armpit", "Spread the rope apart at the bottom, squeeze", "Let your wrists bend a little on the way up (saves your elbows)"]},
- ]},
- {d:"Tue",f:"Pull — Back / Biceps",ex:[
-  {n:"Lat Pulldown",s:"4 × 8–12",load:"~120",q:"lat pulldown",img:"Wide-Grip_Lat_Pulldown/0.jpg",
-   c:["Thumbs over the bar, slight lean back, chest up", "Picture breaking the bar in half — feel back, not biceps", "Elbows turned in = lats; flared out = upper back", "Stop around your chin, control the way up"]},
-  {n:"Seated Cable Row",s:"3 × 8–12",q:"seated cable row",img:"Seated_Cable_Rows/0.jpg",
-   c:["Sit tall, chest up", "Elbows tucked, pull to your hips/waist — not your chest", "Squeeze the shoulder blades, control the return"]},
-  {n:"Single-Arm DB Row",s:"3 × 8–12",q:"one arm dumbbell row",img:"One-Arm_Dumbbell_Row/0.jpg",
-   c:["Pull to your hip, not your chest", "Flat back, elbow close", "Full stretch at the bottom"]},
-  {n:"Face Pull (rear delts)",s:"3 × 15",q:"face pull rear delt",img:"Face_Pull/0.jpg",
-   c:["Picture putting on headphones every rep", "Elbows high, pull to your ears", "Light weight — feel rear delts, not traps"]},
-  {n:"Biceps Curl",s:"3 × 10–12",q:"dumbbell biceps curl",img:"Dumbbell_Bicep_Curl/0.jpg",
-   c:["Pin your elbows, no swinging", "Turn pinkies up as you curl (that's what hits the bicep)", "Full stretch bottom, squeeze top"]},
-  {n:"Hammer Curl",s:"3 × 10–12",q:"hammer curl",img:"Preacher_Hammer_Dumbbell_Curl/0.jpg",
-   c:["Palms facing in", "Elbows still, control down", "On cable rope: pull the rope apart at the top"]},
- ]},
- {d:"Wed",f:"Legs",ex:[
-  {n:"Leg Press",s:"4 × 10–12",load:"~130",q:"leg press",img:"Leg_Press/0.jpg",
-   c:["Low seat for a bigger range", "Lower to ~90° at the knee", "Knees track slightly out — never caving in", "Low back flat on the pad; don't lock out"]},
-  {n:"Romanian Deadlift",s:"3 × 8–10",q:"romanian deadlift",img:"Romanian_Deadlift/0.jpg",
-   c:["Push your hips back — don't just bend forward", "Soft knees, weight close to your legs", "Neutral back, stop at a hamstring stretch", "Squeeze glutes to stand"]},
-  {n:"Leg Extension",s:"3 × 12–15",q:"leg extension",img:"Single-Leg_Leg_Extension/0.jpg",
-   c:["Sit back / lean back, don't hunch forward", "Squeeze hard at the top", "Control down, no swing"]},
-  {n:"Seated Leg Curl",s:"3 × 12–15",q:"seated leg curl",img:"Seated_Leg_Curl/0.jpg",
-   c:["Toes pulled up toward you, not pointed", "Squeeze the hamstrings at the bottom", "Full range, controlled"]},
-  {n:"Standing Calf Raise",s:"4 × 12–15",q:"standing calf raise",img:"Rocking_Standing_Calf_Raise/0.jpg",
-   c:["Full stretch at the bottom","Pause + squeeze at the top","Slow beats bouncy"]},
- ]},
- {d:"Thu",f:"Upper — Dumbbell focus",ex:[
-  {n:"Flat DB Bench Press",s:"4 × 8–10",q:"flat dumbbell bench press",img:"Dumbbell_Bench_Press/0.jpg",
-   c:["Shoulders pinned back", "Elbows tucked ~45°", "Lower to mid chest, full stretch, no bounce"]},
-  {n:"DB Shoulder Press",s:"3 × 8–12",q:"dumbbell shoulder press",img:"Dumbbell_Shoulder_Press/0.jpg",
-   c:["Start at ear height", "Ribs down — don't arch your low back"]},
-  {n:"Chest-Supported DB Row",s:"3 × 8–12",q:"chest supported dumbbell row",img:"Dumbbell_Incline_Row/0.jpg",
-   c:["Chest on the pad, pull to your hips — not your chest", "Squeeze the back, no momentum"]},
-  {n:"DB Lateral Raise",s:"3 × 12–15",q:"dumbbell lateral raise",img:"Side_Lateral_Raise/0.jpg",
-   c:["Lead with your elbows, not your hands", "Raise out to the side, not across your front", "Thumbless grip, slight elbow bend"]},
-  {n:"DB Curl",s:"3 × 10–12",q:"dumbbell curl",img:"Dumbbell_Bicep_Curl/0.jpg",
-   c:["Elbows pinned, no swinging", "Turn pinkies up as you curl", "Full range, squeeze top"]},
-  {n:"DB Overhead Triceps Ext.",s:"3 × 10–12",q:"dumbbell overhead triceps extension",img:"Decline_Dumbbell_Triceps_Extension/0.jpg",
-   c:["Elbows stay pointed forward — don't let them flare", "Picture a beach ball between your elbows", "Full stretch behind the head"]},
- ]},
- {d:"Fri",f:"Chest / Back / Arms",ex:[
-  {n:"Machine Chest Press",s:"3 × 8–10",load:"~50",q:"machine chest press",img:"Machine_Bench_Press/0.jpg",
-   c:["Handles at mid-chest", "Shoulders down, blades pinched back, chest up", "Don't fully lock out", "Control the stretch, no slamming"]},
-  {n:"Lat Pulldown",s:"3 × 8–12",load:"~120",q:"lat pulldown",img:"Wide-Grip_Lat_Pulldown/0.jpg",
-   c:["Thumbs over the bar, slight lean back, chest up", "Picture breaking the bar in half — feel back, not biceps", "Elbows turned in = lats; flared out = upper back", "Stop around your chin, control the way up"]},
-  {n:"Cable Fly",s:"3 × 12–15",q:"cable chest fly",img:"Cable_Crossover/0.jpg",
-   c:["Hands meet in the middle — don't cross them", "Picture squeezing a pencil between your pecs", "Soft elbow bend, control the stretch"]},
-  {n:"Straight-Arm Pulldown",s:"3 × 12–15",q:"straight arm pulldown",img:"Straight-Arm_Pulldown/0.jpg",
-   c:["Grip a bit wider than shoulders, thumbless", "Hips still — picture balancing a glass of water on your butt", "Soft elbow bend; pull to your upper thighs", "Squeeze the lats, return slow"]},
-  {n:"EZ-Bar Curl",s:"3 × 10–12",q:"ez bar curl",img:"Close-Grip_EZ_Bar_Curl/0.jpg",
-   c:["Elbows pinned, no swing", "Full range top and bottom"]},
-  {n:"Triceps Pushdown",s:"3 × 10–12",q:"triceps rope pushdown",img:"Triceps_Pushdown_-_Rope_Attachment/0.jpg",
-   c:["Small step back, slight lean, chest out", "Elbows tucked by your ribs — picture a pencil in your armpit", "Spread the rope apart at the bottom, squeeze", "Let your wrists bend a little on the way up (saves your elbows)"]},
- ]},
- {d:"Sat",f:"Shoulders / Arms + Abs",ex:[
-  {n:"Seated Shoulder Press",s:"4 × 8–12",q:"seated dumbbell shoulder press",img:"Seated_Dumbbell_Press/0.jpg",
-   c:["Start at ear height", "Ribs down — don't arch your low back", "Press up, no hard lockout"]},
-  {n:"Lateral Raise",s:"4 × 12–15",q:"dumbbell lateral raise",img:"Side_Lateral_Raise/0.jpg",
-   c:["Lead with your elbows, not your hands", "Raise out to the side, not across your front", "Thumbless grip, slight elbow bend"]},
-  {n:"Rear-Delt Fly",s:"3 × 15",q:"rear delt fly",img:"Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench/0.jpg",
-   c:["Slight elbow bend, squeeze rear delts", "Don't shrug traps into it"]},
-  {n:"Cable Crunch (weighted)",s:"4 × 10–15",q:"cable crunch",img:"Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists/0.jpg",
-   c:["Curl your spine down like rolling over a ball", "Hips stay still — abs do the work, not a hip bend", "Weight by your head, squeeze hard"]},
-  {n:"Hanging Leg Raise",s:"3 × 8–12",q:"hanging leg raise",img:"Hanging_Leg_Raise/0.jpg",
-   c:["Curl the pelvis up, don't swing","Control the way down"]},
-  {n:"Cable Woodchop (obliques)",s:"3 × 12 each",q:"cable woodchopper oblique",img:"Standing_Cable_Wood_Chop/0.jpg",
-   c:["Rotate through the torso, arms fairly straight","Control both ways — no yanking"]},
- ]},
+ {d:"Mon",f:"Chest + Triceps",min:"~50 min",ex:[
+  E("chestpress","3 × 8–12",{load:"~50 lb"}),E("incline","3 × 8–12"),E("pecdeck","2 × 10–15"),
+  E("pushdown","3 × 10–15"),E("ohrope","2 × 10–15")]},
+ {d:"Tue",f:"Back + Biceps",min:"~50 min",ex:[
+  E("pulldown","3 × 8–12",{load:"~120 lb"}),E("row","3 × 8–12"),E("revfly","2 × 12–15"),
+  E("machcurl","3 × 8–12"),E("hammer","2 × 10–15")]},
+ {d:"Wed",f:"Legs + Abs",min:"~60 min",ex:[
+  E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),
+  E("rdl","2 × 8–12"),E("calf","3 × 12–20"),E("abmach","3 × 10–15")]},
+ {d:"Thu",f:"Shoulders + Arms + Traps",min:"~45 min",ex:[
+  E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","3 × 12–15",{load:"start 5–10 lb each"}),
+  E("shrug","2 × 10–15"),E("curl","2 × 10–15"),E("pushdown","2 × 10–15")]},
+ {d:"Fri",f:"Chest + Back + Arm finisher",min:"65–80 min",ex:[
+  E("incline","3 × 8–12"),E("pulldown","3 × 8–12",{load:"~120 lb"}),E("chestpress","3 × 8–12",{load:"~50 lb"}),
+  E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","2 × 12–15"),
+  E("hammer","2 × 10–12",{note:"Finisher: skip if your arms are already fried."}),
+  E("ohrope","2 × 10–15",{note:"Finisher: skip if your triceps are already fried."})]},
+ {d:"Sat",f:"Light Legs + Abs",min:"~40 min",ex:[
+  E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcurl","2 × 12–15"),
+  E("knee","3 × 8–15"),E("cablecrunch","2 × 10–15"),E("plank","2 × 30–60 sec")]},
  {d:"Sun",rest:true},
 ];
-PLAN[1].ex.push(...ABS);
-PLAN[3].ex.push(...ABS);
 
 const FULL={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
 const today=(new Date().getDay()+6)%7;
 const wk=(()=>{const d=new Date();d.setDate(d.getDate()-today);return d.toDateString()})();
-const key=i=>'wp:'+wk+':'+i;
+const key=i=>'wp2:'+wk+':'+i;
 const getDone=i=>{try{return JSON.parse(localStorage.getItem(key(i)))||[]}catch(e){return[]}};
 const setDone=(i,a)=>{try{localStorage.setItem(key(i),JSON.stringify(a))}catch(e){}};
 const tabs=document.getElementById('tabs'), main=document.getElementById('main');
 const tick='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+const fr=(k,bad)=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.jpg" alt="${bad?'Wrong':'Right'} form"></div>`;
 let cur=today;
+
+function card(e,j,done){
+ return `<article class="ex${done?' done':''}" id="ex${j}">
+  <div class="top"><div class="num">${j+1}</div>
+   <div class="t"><div class="nm">${e.n}</div><div class="sets">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
+   <button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button></div>
+  <div class="facts"><div><b>Machine:</b> ${e.m}</div><div><b>Works:</b> ${e.w}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
+  <div class="pair${e.x?'':' one'}${e.wide?' wide':''}">${e.x?fr(e.i,1):''}${fr(e.i,0)}</div>
+  <ul>${e.c.map(x=>`<li>${x}</li>`).join('')}</ul>
+  <a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a></article>`;
+}
 
 function render(){
  tabs.innerHTML=PLAN.map((d,i)=>`<button class="tab${i===cur?' on':''}${i===today?' today':''}" data-t="${i}">${d.d}</button>`).join('');
- const day=PLAN[cur];
- const kick=cur===today?'Today':'';
+ const day=PLAN[cur], kick=cur===today?'Today':'&nbsp;';
  if(day.rest){
-  main.innerHTML=`<div class="head"><div class="kick">${kick}&nbsp;</div><h1>${FULL[day.d]}</h1></div>
+  main.innerHTML=`<div class="head"><div class="kick">${kick}</div><h1>${FULL[day.d]}</h1></div>
    <div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk.</div>`;
   return;
  }
  const done=getDone(cur), n=day.ex.length, k=day.ex.filter((_,j)=>done.includes(j)).length;
- main.innerHTML=`<div class="head"><div class="kick">${kick}&nbsp;</div><h1>${FULL[day.d]}</h1>
-   <div class="focus">${day.f}</div>
-   <div class="prog"><div class="bar"><i style="width:${n?k/n*100:0}%"></i></div>${k} / ${n} done</div></div>
-  <div class="list">${day.ex.map((e,j)=>{
-   const yt='https://www.youtube.com/@DeltaBolic/search?query='+encodeURIComponent(e.q); const r=RR[e.n];
-   return `<div class="item${done.includes(j)?' done':''}" id="it${j}">
-    <div class="row" data-o="${j}"><button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button>
-     <div class="info"><div class="nm">${e.n}</div>
-      <div class="meta">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
-     <span class="chev">›</span></div>
-    <div class="det">${r?`<div class="pair${r[1]?'':' one'}">${r[1]?fr(r[0],1):''}${fr(r[0],0)}</div>`:`<div class="shot"><img loading="lazy" src="${B}${e.img}" alt="${e.n}"></div>`}
-     <ul>${(e.c||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
-     <a class="vid" href="${r?'https://www.tiktok.com/@rajandroh/video/'+r[2]:yt}" target="_blank" rel="noopener">Form video ↗</a></div></div>`;
-  }).join('')}</div>`;
+ main.innerHTML=`<div class="head"><div class="kick">${kick}</div><h1>${FULL[day.d]}</h1>
+   <div class="focus">${day.f}</div><div class="sub">${n} lifts · ${day.min}</div>
+   <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
+  <div class="check"><b>✓ Plan checked:</b> solid. Every main muscle twice a week, right sets and reps. <a href="#notes">Details</a></div>
+  <div class="ovh">The workout · tap a line to jump to it</div>
+  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.m} · ${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
+  ${day.ex.map((e,j)=>card(e,j,done.includes(j))).join('')}`;
 }
 
 tabs.onclick=ev=>{const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; render(); window.scrollTo(0,0);};
 main.onclick=ev=>{
- const c=ev.target.closest('[data-c]');
- if(c){const j=+c.dataset.c, a=getDone(cur), p=a.indexOf(j); p<0?a.push(j):a.splice(p,1); setDone(cur,a);
-  const open=document.querySelector('.item.open'); const oj=open&&open.id; render(); if(oj&&oj!=='it'+j)document.getElementById(oj).classList.add('open'); return;}
- const o=ev.target.closest('[data-o]'); if(!o)return;
- const it=document.getElementById('it'+o.dataset.o), was=it.classList.contains('open');
- document.querySelectorAll('.item.open').forEach(x=>x.classList.remove('open'));
- if(!was){it.classList.add('open'); it.scrollIntoView({block:'nearest',behavior:'smooth'});}
+ const c=ev.target.closest('[data-c]'); if(!c)return;
+ const j=+c.dataset.c, a=getDone(cur), p=a.indexOf(j); p<0?a.push(j):a.splice(p,1); setDone(cur,a);
+ const y=window.scrollY; render(); window.scrollTo(0,y);
 };
 render();
 </script>
