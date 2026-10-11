@@ -71,6 +71,8 @@
   .fr.bad{border-color:#ef4444}
   .fr img{display:block;width:100%;aspect-ratio:9/13;object-fit:cover;object-position:center 45%}
   .wide .fr img{aspect-ratio:9/8;object-fit:cover}
+  .pair.land{max-width:100%}
+  .land .fr img{aspect-ratio:3/2;object-position:center}
   .tag{position:absolute;left:6px;bottom:6px;font-size:15px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.75);color:var(--ok)}
   .bad .tag{color:var(--bad)}
   .shot{background:#f4f4f5;border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -97,8 +99,9 @@
 <main id="main"></main>
 <section class="notes" id="notes">
   <h2>Is this plan good? Yes.</h2>
-  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 15, legs 15. That's the range that builds muscle.</p>
+  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle.</p>
   <p><b>What I changed for your goals:</b> arms, shoulders and abs were a bit light, so I added one set to Thursday curls, pushdowns and lateral raises, Friday lateral raises, and Saturday cable crunches. Nothing else moved.</p>
+  <p><b>Calves:</b> moved off the calf station onto the leg press, right after your leg press sets, so you never have to go over there. Added 2 sets on Saturday so they get worked twice a week like everything else.</p>
   <p><b>From Raj &amp; Roh's workouts:</b> their split (each muscle twice a week) matches yours, so the plan stays. Three swaps from their ab and arm routines: lying leg raises on Wednesday for lower abs, Bayesian cable curls on Thursday for the biceps peak, and side cable crunches instead of planks on Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
   <p><b>Arms and chest:</b> the sets are there now. What makes them grow is adding reps or weight every week or two. Log it.</p>
@@ -107,7 +110,7 @@
   <p><b>Rest:</b> 2–3 min on big lifts (presses, rows, pulldown, leg press, RDL), 1–2 min on small ones. Being sore isn't the goal; adding reps or weight is.</p>
   <p><b>Food:</b> about 250 calories over maintenance and 90–110 g protein a day. Aim to gain 0.25–0.5 lb a week. Sleep 7–9 hours.</p>
   <p><b>Machine taken?</b> Do the next lift and come back to it, or use the swap listed under the lift.</p>
-  <small>Weights shown are what you've used on your usual machines, as a starting point only. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a> and <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>. General fitness guidance, not medical advice. Stop anything that causes sharp pain.</small>
+  <small>Weights shown are what you've used on your usual machines, as a starting point only. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a>, <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a> and public exercise guides. General fitness guidance, not medical advice. Stop anything that causes sharp pain.</small>
 </section>
 </div>
 
@@ -145,6 +148,8 @@ const L={
   c:["Start light; this one is all about form","Push your hips back with soft knees; don't just bend over","Weights close to your legs, back flat; squeeze glutes to stand"]},
  calf:{n:"Standing Calf Raise",m:"On a step with bodyweight or dumbbells (or a calf machine)",w:"Calves",i:"calf",x:0,v:TT+"7675143011684125966",
   c:["Let your heels drop for a full stretch","Rise high on your toes and pause","Lower slowly; no bouncing"]},
+ legcalf:{n:"Calf Raise on the Leg Press",m:"The same leg press you just used. Stay seated, no calf station needed",w:"Calves",i:"legcalf",x:0,land:1,
+  c:["Legs straight, knees soft; only the balls of your feet on the bottom edge of the platform","Push through your toes as high as you can, pause a second at the top","Let your heels sink back slowly for a full stretch. Go lighter than your leg press weight"]},
  abmach:{n:"Ab Crunch Machine",m:"Ab crunch machine",w:"Abs",i:"abmachine",x:0,v:YT+"LQ1VKHflOXQ",
   c:["Curl your ribs down toward your hips","Arms just hold the handles; don't pull with them","Come back up slowly"]},
  shpress:{n:"Seated Dumbbell Shoulder Press",m:"Dumbbells + upright bench with backrest",w:"Shoulders",i:"shoulderpress",x:1,v:YT+"ks4kN8HxTLQ",
@@ -179,8 +184,8 @@ const PLAN=[
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("row","3 × 8–12"),E("revfly","2 × 12–15"),
   E("machcurl","3 × 8–12"),E("hammer","2 × 10–15")]},
  {d:"Wed",f:"Legs + Abs",min:"~65 min",ex:[
-  E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),
-  E("rdl","2 × 8–12"),E("calf","3 × 12–20"),E("abmach","3 × 10–15"),
+  E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcalf","3 × 12–20",{note:"Replaces standing calf raises: do these right after your leg press sets without getting up."}),
+  E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),E("rdl","2 × 8–12"),E("abmach","3 × 10–15"),
   E("legraise","3 × 10–15",{note:"New, from Raj & Roh: hits the lower abs the machine misses."})]},
  {d:"Thu",f:"Shoulders + Arms + Traps",min:"~55 min",ex:[
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","4 × 12–15",{load:"start 5–10 lb each",note:"+1 set: wider shoulders make arms look bigger."}),
@@ -190,8 +195,8 @@ const PLAN=[
   E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."}),
   E("hammer","2 × 10–12",{note:"Finisher: skip if your arms are already fried."}),
   E("ohrope","2 × 10–15",{note:"Finisher: skip if your triceps are already fried."})]},
- {d:"Sat",f:"Light Legs + Abs",min:"~40 min",ex:[
-  E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcurl","2 × 12–15"),
+ {d:"Sat",f:"Light Legs + Abs",min:"~45 min",ex:[
+  E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcalf","2 × 12–20",{note:"Same spot as your leg press. Now calves get hit twice a week too."}),E("legcurl","2 × 12–15"),
   E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("sidecrunch","3 × 10–12 per side",{note:"Replaces planks (Raj & Roh): planks build endurance, this builds the V-cut."})]},
  {d:"Sun",rest:true},
 ];
@@ -213,9 +218,9 @@ function card(e,j,done){
    <div class="t"><div class="nm">${e.n}</div><div class="sets">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
    <button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button></div>
   <div class="facts"><div><b>Machine:</b> ${e.m}</div><div><b>Works:</b> ${e.w}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
-  <div class="pair${e.x?'':' one'}${e.wide?' wide':''}">${e.x?fr(e.i,1):''}${fr(e.i,0)}</div>
+  <div class="pair${e.x?'':' one'}${e.wide?' wide':''}${e.land?' land':''}">${e.x?fr(e.i,1):''}${fr(e.i,0)}</div>
   <ul>${e.c.map(x=>`<li>${x}</li>`).join('')}</ul>
-  <a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a></article>`;
+  ${e.v?`<a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a>`:''}</article>`;
 }
 
 function render(){
