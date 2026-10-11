@@ -11,59 +11,59 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{margin:0;background:var(--bg);color:var(--txt);
-    font:21px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font:26px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     padding-bottom:40px;-webkit-font-smoothing:antialiased;text-size-adjust:100%;-webkit-text-size-adjust:100%}
-  .wrap{max-width:640px;margin:0 auto}
+  .wrap{max-width:680px;margin:0 auto}
   header{padding:28px 20px 14px}
-  h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-.4px}
-  .sub{color:var(--mut);font-size:18px;margin-top:7px}
+  h1{margin:0;font-size:40px;font-weight:600;letter-spacing:-.4px}
+  .sub{color:var(--mut);font-size:22px;margin-top:8px}
 
-  .card{margin:16px 20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px 20px}
-  .lab{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:1.3px;font-weight:600}
-  .card .lab{margin-bottom:13px;display:block}
-  .sumrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}
-  .sumrow span{font-size:16.5px;background:var(--chip);color:var(--soft);padding:8px 13px;border-radius:9px}
+  .card{margin:16px 20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .lab{font-size:16px;color:var(--mut);text-transform:uppercase;letter-spacing:1.3px;font-weight:600}
+  .card .lab{margin-bottom:14px;display:block}
+  .sumrow{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}
+  .sumrow span{font-size:20px;background:var(--chip);color:var(--soft);padding:9px 15px;border-radius:9px}
   .card ul{margin:0;padding:0;list-style:none}
-  .card li{font-size:18px;margin:10px 0;color:var(--soft);padding-left:18px;position:relative;line-height:1.5}
-  .card li:before{content:"";position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:#3f3f46}
+  .card li{font-size:23px;margin:12px 0;color:var(--soft);padding-left:20px;position:relative;line-height:1.5}
+  .card li:before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:#3f3f46}
   .card li b{color:var(--txt);font-weight:600}
 
-  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
+  .tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
     padding:13px 20px;background:rgba(9,9,11,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;padding:10px 17px;border-radius:10px;background:transparent;
-    color:var(--mut);font-size:17px;font-weight:600;cursor:pointer;transition:.15s}
+  .tab{flex:0 0 auto;padding:12px 20px;border-radius:10px;background:transparent;
+    color:var(--mut);font-size:21px;font-weight:600;cursor:pointer;transition:.15s}
   .tab.active{background:#f4f4f5;color:#09090b}
 
   .day{display:none;padding:18px 20px 0}
   .day.active{display:block}
   .dayhead{margin:0 2px 18px}
-  .dayhead h3{margin:0;font-size:27px;font-weight:600;letter-spacing:-.3px}
-  .focus{font-size:17px;color:var(--mut);margin-top:4px}
+  .dayhead h3{margin:0;font-size:34px;font-weight:600;letter-spacing:-.3px}
+  .focus{font-size:22px;color:var(--mut);margin-top:5px}
 
-  .ex{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:15px;overflow:hidden}
-  .ex .shot{background:#f4f4f5;height:230px;display:flex;align-items:center;justify-content:center}
-  .ex img{display:block;max-width:100%;max-height:230px;object-fit:contain}
-  .body{padding:17px 18px 18px}
-  .name{font-size:23px;font-weight:600;letter-spacing:-.2px}
-  .sr{font-size:17px;color:var(--mut);margin-top:5px}
-  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  .pill{font-size:15px;padding:6px 12px;border-radius:8px;background:var(--chip);color:var(--soft)}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:16px;overflow:hidden}
+  .ex .shot{background:#f4f4f5;height:260px;display:flex;align-items:center;justify-content:center}
+  .ex img{display:block;max-width:100%;max-height:260px;object-fit:contain}
+  .body{padding:18px 20px 20px}
+  .name{font-size:29px;font-weight:600;letter-spacing:-.2px}
+  .sr{font-size:22px;color:var(--mut);margin-top:6px}
+  .pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+  .pill{font-size:19px;padding:7px 14px;border-radius:8px;background:var(--chip);color:var(--soft)}
   .pill.load{color:#e8d4b4;background:#211d16}
-  .cues{margin-top:16px}
-  .cues ul{margin:9px 0 0;padding:0;list-style:none}
-  .cues li{font-size:18px;color:var(--soft);padding-left:19px;position:relative;margin:9px 0;line-height:1.5}
-  .cues li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:#52525b}
-  .watch{display:inline-block;margin-top:16px;color:var(--mut);font-size:16.5px;font-weight:500;
-    text-decoration:none;border-bottom:1px solid #2e2e33;padding-bottom:2px}
+  .cues{margin-top:18px}
+  .cues ul{margin:10px 0 0;padding:0;list-style:none}
+  .cues li{font-size:23px;color:var(--soft);padding-left:22px;position:relative;margin:11px 0;line-height:1.5}
+  .cues li:before{content:"";position:absolute;left:0;top:13px;width:7px;height:7px;border-radius:50%;background:#52525b}
+  .watch{display:inline-block;margin-top:18px;color:var(--mut);font-size:20px;font-weight:500;
+    text-decoration:none;border-bottom:1px solid #2e2e33;padding-bottom:3px}
   .watch:hover{color:var(--txt)}
 
-  .rest-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px 18px;text-align:center}
-  .rest-card h3{margin:0;font-size:26px;font-weight:600}
-  .rest-card p{color:var(--mut);font-size:18px;margin:12px auto 0;max-width:400px;line-height:1.5}
-  footer{padding:28px 20px;color:#6b6b73;font-size:15.5px;text-align:center;line-height:1.65}
+  .rest-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px 20px;text-align:center}
+  .rest-card h3{margin:0;font-size:32px;font-weight:600}
+  .rest-card p{color:var(--mut);font-size:23px;margin:14px auto 0;max-width:440px;line-height:1.5}
+  footer{padding:28px 20px;color:#6b6b73;font-size:18px;text-align:center;line-height:1.65}
   footer a{color:var(--soft)}
-  .note{margin:16px 20px 0;font-size:16.5px;color:#7a7a82;line-height:1.55}
+  .note{margin:16px 20px 0;font-size:20px;color:#7a7a82;line-height:1.55}
   .note b{color:var(--soft);font-weight:600}
   .note a{color:var(--soft)}
 </style>
