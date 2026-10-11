@@ -97,8 +97,9 @@
 <main id="main"></main>
 <section class="notes" id="notes">
   <h2>Is this plan good? Yes.</h2>
-  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 9 plus planks, legs 15. That's the range that builds muscle.</p>
+  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 15, legs 15. That's the range that builds muscle.</p>
   <p><b>What I changed for your goals:</b> arms, shoulders and abs were a bit light, so I added one set to Thursday curls, pushdowns and lateral raises, Friday lateral raises, and Saturday cable crunches. Nothing else moved.</p>
+  <p><b>From Raj &amp; Roh's workouts:</b> their split (each muscle twice a week) matches yours, so the plan stays. Three swaps from their ab and arm routines: lying leg raises on Wednesday for lower abs, Bayesian cable curls on Thursday for the biceps peak, and side cable crunches instead of planks on Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
   <p><b>Arms and chest:</b> the sets are there now. What makes them grow is adding reps or weight every week or two. Log it.</p>
   <p><b>How to get stronger:</b> pick a weight you can do with clean form, stopping 1–3 reps before you'd fail. When you hit the top of the rep range on every set (e.g. 12/12/12), go up one weight step next time.</p>
@@ -159,6 +160,12 @@ const L={
   c:["Back against the pad, forearms pressed down","Raise your knees, then curl your hips up a little","No swinging; lower slowly"]},
  cablecrunch:{n:"Kneeling Cable Crunch",m:"Cable machine + rope, kneeling",w:"Abs",i:"crunch",x:0,v:TT+"7681837394017996045",
   c:["Curl your spine down like you're rolling over a ball","Hips stay still; your abs do the work","Hands just hold the rope by your head"]},
+ sidecrunch:{n:"Side Cable Crunch",m:"Cable machine + rope or handle, pulley at the top, kneeling sideways",w:"Obliques (V-cut)",i:"sidecrunch",x:0,v:TT+"7640634029003541774",
+  c:["Kneel side-on to the cable, handle held by your ear","Crunch down and across: bring that elbow to the opposite knee","Hips stay still; do all reps on one side, then switch"]},
+ legraise:{n:"Lying Leg Raise",m:"Flat or slightly inclined bench, hold the bench behind your head",w:"Lower abs",i:"legraise",x:0,v:TT+"7640634029003541774",
+  c:["Grip the bench firmly behind your head","Lift your legs to the ceiling, then curl your hips up off the bench","Lower slowly to a full stretch; don't let your back arch"]},
+ bayesian:{n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
+  c:["Step forward so your arm starts slightly behind your body","Curl up without letting your elbow drift forward","Lower slowly and feel the stretch at the bottom; one arm at a time"]},
  plank:{n:"Forearm Plank",m:"Floor or mat",w:"Abs, core",i:"plank",x:1,v:YT+"xe2MXatLTUw",
   c:["Straight line from head to heels","Squeeze your abs and glutes","Don't let your hips sag"]},
 };
@@ -170,12 +177,13 @@ const PLAN=[
  {d:"Tue",f:"Back + Biceps",min:"~50 min",ex:[
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("row","3 × 8–12"),E("revfly","2 × 12–15"),
   E("machcurl","3 × 8–12"),E("hammer","2 × 10–15")]},
- {d:"Wed",f:"Legs + Abs",min:"~60 min",ex:[
+ {d:"Wed",f:"Legs + Abs",min:"~65 min",ex:[
   E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),
-  E("rdl","2 × 8–12"),E("calf","3 × 12–20"),E("abmach","3 × 10–15")]},
+  E("rdl","2 × 8–12"),E("calf","3 × 12–20"),E("abmach","3 × 10–15"),
+  E("legraise","3 × 10–15",{note:"New, from Raj & Roh: hits the lower abs the machine misses."})]},
  {d:"Thu",f:"Shoulders + Arms + Traps",min:"~55 min",ex:[
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","4 × 12–15",{load:"start 5–10 lb each",note:"+1 set: wider shoulders make arms look bigger."}),
-  E("shrug","2 × 10–15"),E("curl","3 × 10–15",{note:"+1 set: arms are a top goal."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."})]},
+  E("shrug","2 × 10–15"),E("bayesian","3 × 10–12 per arm",{note:"Swapped in for dumbbell curls (Raj & Roh): the stretch builds the biceps peak. Taken? Do incline dumbbell curls."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."})]},
  {d:"Fri",f:"Chest + Back + Arm finisher",min:"65–80 min",ex:[
   E("incline","3 × 8–12"),E("pulldown","3 × 8–12",{load:"~120 lb"}),E("chestpress","3 × 8–12",{load:"~50 lb"}),
   E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."}),
@@ -183,7 +191,7 @@ const PLAN=[
   E("ohrope","2 × 10–15",{note:"Finisher: skip if your triceps are already fried."})]},
  {d:"Sat",f:"Light Legs + Abs",min:"~40 min",ex:[
   E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcurl","2 × 12–15"),
-  E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("plank","2 × 30–60 sec")]},
+  E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("sidecrunch","3 × 10–12 per side",{note:"Replaces planks (Raj & Roh): planks build endurance, this builds the V-cut."})]},
  {d:"Sun",rest:true},
 ];
 
