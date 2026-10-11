@@ -48,6 +48,13 @@
   .open .det{display:block}
   .shot{background:#f4f4f5;border-radius:12px;height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .shot img{max-width:100%;max-height:220px;object-fit:contain}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pair.one{grid-template-columns:1fr;max-width:300px;margin:0 auto}
+  .fr{position:relative;border-radius:12px;overflow:hidden;border:3px solid #22c55e;background:#000}
+  .fr.bad{border-color:#ef4444}
+  .fr img{display:block;width:100%;aspect-ratio:9/13;object-fit:cover;object-position:center 45%}
+  .tag{position:absolute;left:8px;top:8px;font-size:15px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#4ade80}
+  .bad .tag{color:#f87171}
   .det ul{margin:14px 0 0;padding:0;list-style:none}
   .det li{font-size:18px;color:var(--soft);padding-left:20px;position:relative;margin:9px 0;line-height:1.45}
   .det li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--ok)}
@@ -92,6 +99,19 @@ const ABS=[
  {n:"Hanging Leg Raise",s:"3 × 10",q:"hanging leg raise",img:"Hanging_Leg_Raise/0.jpg",
   c:["Curl the pelvis up, don't just swing the legs","Control the way down, no momentum"]},
 ];
+const RR={ // [frame key, has wrong frame, Raj & Roh video id]
+ "Lat Pulldown":["pulldown",1,"7685172542339845390"],"Seated Cable Row":["row",1,"7690741436286881037"],
+ "Incline Dumbbell Press":["incline",1,"7690741436286881037"],"Triceps Pushdown":["pushdown",1,"7687088923482410254"],
+ "Cable Fly":["fly",1,"7684442069712162061"],"Lateral Raise":["lateral",1,"7683323526920621326"],
+ "DB Lateral Raise":["lateral",1,"7683323526920621326"],"Single-Arm DB Row":["dbrow",1,"7675143011684125966"],
+ "Biceps Curl":["curl",1,"7685172542339845390"],"DB Curl":["curl",1,"7685172542339845390"],
+ "DB Overhead Triceps Ext.":["ohext",1,"7683323526920621326"],"Leg Press":["legpress",1,"7678109050634112270"],
+ "Romanian Deadlift":["rdl",1,"7678109050634112270"],"Leg Extension":["legext",1,"7678109050634112270"],
+ "Seated Leg Curl":["legcurl",1,"7678109050634112270"],"Face Pull (rear delts)":["facepull",0,"7684442069712162061"],
+ "Hammer Curl":["hammer",0,"7684442069712162061"],"Straight-Arm Pulldown":["straightarm",0,"7681837394017996045"],
+ "Cable Crunch (weighted)":["crunch",0,"7681837394017996045"],"Rear-Delt Fly":["reardelt",0,"7692553347102018829"],
+};
+const fr=(k,bad)=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.jpg" alt=""></div>`;
 const PLAN=[
  {d:"Mon",f:"Push — Chest / Shoulders / Triceps",ex:[
   {n:"Machine Chest Press",s:"4 × 8–10",load:"~50",q:"machine chest press",img:"Machine_Bench_Press/0.jpg",
@@ -204,15 +224,15 @@ function render(){
    <div class="focus">${day.f}</div>
    <div class="prog"><div class="bar"><i style="width:${n?k/n*100:0}%"></i></div>${k} / ${n} done</div></div>
   <div class="list">${day.ex.map((e,j)=>{
-   const yt='https://www.youtube.com/@DeltaBolic/search?query='+encodeURIComponent(e.q);
+   const yt='https://www.youtube.com/@DeltaBolic/search?query='+encodeURIComponent(e.q); const r=RR[e.n];
    return `<div class="item${done.includes(j)?' done':''}" id="it${j}">
     <div class="row" data-o="${j}"><button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button>
      <div class="info"><div class="nm">${e.n}</div>
       <div class="meta">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
      <span class="chev">›</span></div>
-    <div class="det"><div class="shot"><img loading="lazy" src="${B}${e.img}" alt="${e.n}"></div>
+    <div class="det">${r?`<div class="pair${r[1]?'':' one'}">${r[1]?fr(r[0],1):''}${fr(r[0],0)}</div>`:`<div class="shot"><img loading="lazy" src="${B}${e.img}" alt="${e.n}"></div>`}
      <ul>${(e.c||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
-     <a class="vid" href="${yt}" target="_blank" rel="noopener">Form video ↗</a></div></div>`;
+     <a class="vid" href="${r?'https://www.tiktok.com/@rajandroh/video/'+r[2]:yt}" target="_blank" rel="noopener">Form video ↗</a></div></div>`;
   }).join('')}</div>`;
 }
 
