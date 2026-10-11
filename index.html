@@ -37,7 +37,7 @@
   .ovh{margin:16px 14px 0;font-size:14px;color:var(--mut);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
   .ov{margin:6px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2px 14px}
   .ov a{display:flex;gap:12px;align-items:center;padding:10px 0;text-decoration:none}
-  .ov .th{flex:0 0 58px;height:58px;border-radius:10px;object-fit:cover;object-position:center 40%;background:#222}
+  .ov .th{flex:0 0 84px;height:64px;border-radius:10px;object-fit:cover;object-position:center;background:#222}
   .ov .ovl{flex:1}
   .ov a+a{border-top:1px solid var(--line)}
   .ov .ovl{min-width:0}
@@ -60,11 +60,19 @@
   .done .chk{background:var(--ok);border-color:var(--ok)}
   .done .chk svg{opacity:1}
   .done .nm{color:var(--mut);text-decoration:line-through}
-  .done .pair,.done ul,.done .facts{display:none}
+  .done .pair,.done ul,.done .facts,.done .mach,.done .lbl{display:none}
   .facts{margin:10px 0 12px;font-size:16px;color:var(--mut);line-height:1.45}
   .facts div b{color:var(--soft);font-weight:600}
   .note{color:var(--gold)}
 
+  .lbl{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mut);margin:12px 0 6px}
+  .mach{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/2;background:#000}
+  .mach img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .mach img+img{animation:mv 3s ease-in-out infinite}
+  @keyframes mv{0%,30%{opacity:0}45%,80%{opacity:1}95%,100%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.mach img+img{animation:none;opacity:0}}
+  .mach .tag{color:#fff;left:6px;top:6px;bottom:auto}
+  .mc{font-size:14px;color:var(--mut);margin-top:6px;line-height:1.4}
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .pair.one{grid-template-columns:1fr;max-width:62%;margin:0 auto}
   .fr{position:relative;border-radius:12px;overflow:hidden;border:3px solid #22c55e;background:#000}
@@ -110,7 +118,7 @@
   <p><b>Rest:</b> 2–3 min on big lifts (presses, rows, pulldown, leg press, RDL), 1–2 min on small ones. Being sore isn't the goal; adding reps or weight is.</p>
   <p><b>Food:</b> about 250 calories over maintenance and 90–110 g protein a day. Aim to gain 0.25–0.5 lb a week. Sleep 7–9 hours.</p>
   <p><b>Machine taken?</b> Do the next lift and come back to it, or use the swap listed under the lift.</p>
-  <small>Weights shown are what you've used on your usual machines, as a starting point only. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a>, <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a> and public exercise guides. General fitness guidance, not medical advice. Stop anything that causes sharp pain.</small>
+  <small>Weights shown are what you've used on your usual machines, as a starting point only. Machine photos from the public-domain <a href="https://github.com/yuhonas/free-exercise-db" target="_blank" rel="noopener">Free Exercise DB</a>. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a>, <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a> and public exercise guides. General fitness guidance, not medical advice. Stop anything that causes sharp pain.</small>
 </section>
 </div>
 
@@ -134,7 +142,7 @@ const L={
   c:["Sit tall, chest up","Elbows tucked; pull to your lower ribs, not your chest","Squeeze your shoulder blades, slow return"]},
  revfly:{n:"Reverse Pec Deck (rear-delt fly)",m:"Pec deck machine, rear-delt setting (chest against the pad)",w:"Back of the shoulders",i:"reversefly",x:1,wide:1,v:YT+"8thtiUfdbf4",
   c:["Face the pad, handles straight out in front","Open your arms out wide with a slight elbow bend","Keep shoulders down; if your traps burn, go lighter"]},
- machcurl:{n:"Biceps Curl Machine",m:"Biceps curl / preacher curl machine",w:"Biceps",i:"machinecurl",x:1,v:YT+"eNxTbiHWKtA",
+ machcurl:{mc:"Your gym's curl machine may look a bit different; same movement.",n:"Biceps Curl Machine",m:"Biceps curl / preacher curl machine",w:"Biceps",i:"machinecurl",x:1,v:YT+"eNxTbiHWKtA",
   c:["Upper arms flat on the pad the whole time","Keep your wrists straight; don't curl them in","Lower slowly until your arms are almost straight"]},
  hammer:{n:"Dumbbell Hammer Curl",m:"Dumbbells, standing",w:"Biceps + forearms (arm thickness)",i:"dbhammer",x:1,v:YT+"JP4wquWfFyI",
   c:["Palms face each other","Elbows stay at your sides; don't swing them forward","No leaning back to lift it"]},
@@ -166,16 +174,16 @@ const L={
   c:["Back against the pad, forearms pressed down","Raise your knees, then curl your hips up a little","No swinging; lower slowly"]},
  cablecrunch:{n:"Kneeling Cable Crunch",m:"Cable machine + rope, kneeling",w:"Abs",i:"crunch",x:0,v:TT+"7681837394017996045",
   c:["Curl your spine down like you're rolling over a ball","Hips stay still; your abs do the work","Hands just hold the rope by your head"]},
- sidecrunch:{n:"Side Cable Crunch",m:"Cable machine + rope or handle, pulley at the top, kneeling sideways",w:"Obliques (V-cut)",i:"sidecrunch",x:0,v:TT+"7640634029003541774",
+ sidecrunch:{mc:"Photo is a close variation (kneeling, twisting to one side). For yours, kneel side-on to the cable.",n:"Side Cable Crunch",m:"Cable machine + rope or handle, pulley at the top, kneeling sideways",w:"Obliques (V-cut)",i:"sidecrunch",x:0,v:TT+"7640634029003541774",
   c:["Kneel side-on to the cable, handle held by your ear","Crunch down and across: bring that elbow to the opposite knee","Hips stay still; do all reps on one side, then switch"]},
  legraise:{n:"Lying Leg Raise",m:"Flat or slightly inclined bench, hold the bench behind your head",w:"Lower abs",i:"legraise",x:0,v:TT+"7640634029003541774",
   c:["Grip the bench firmly behind your head","Lift your legs to the ceiling, then curl your hips up off the bench","Lower slowly to a full stretch; don't let your back arch"]},
- bayesian:{n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
+ bayesian:{mc:"Photo shows the machine setup facing the cable. For Bayesian, turn around so the cable is behind you and step forward.",n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
   c:["Step forward so your arm starts slightly behind your body","Curl up without letting your elbow drift forward","Lower slowly and feel the stretch at the bottom; one arm at a time"]},
  plank:{n:"Forearm Plank",m:"Floor or mat",w:"Abs, core",i:"plank",x:1,v:YT+"xe2MXatLTUw",
   c:["Straight line from head to heels","Squeeze your abs and glutes","Don't let your hips sag"]},
 };
-const E=(k,s,o)=>Object.assign({},L[k],{s},o||{});
+const E=(k,s,o)=>Object.assign({},L[k],{s,g:k},o||{});
 const PLAN=[
  {d:"Mon",f:"Chest + Triceps",min:"~50 min",ex:[
   E("chestpress","3 × 8–12",{load:"~50 lb"}),E("incline","3 × 8–12"),E("pecdeck","2 × 10–15"),
@@ -218,6 +226,10 @@ function card(e,j,done){
    <div class="t"><div class="nm">${e.n}</div><div class="sets">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
    <button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button></div>
   <div class="facts"><div><b>Machine:</b> ${e.m}</div><div><b>Works:</b> ${e.w}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
+  <div class="lbl">On the machine · start ↔ finish</div>
+  <div class="mach"><img loading="lazy" src="img/${e.g}-m0.jpg" alt="${e.n} start position"><img loading="lazy" src="img/${e.g}-m1.jpg" alt="${e.n} finish position"><span class="tag">▶ How it moves</span></div>
+  ${e.mc?`<div class="mc">${e.mc}</div>`:''}
+  <div class="lbl">${e.x?'Form check · wrong vs right':'Right form'}</div>
   <div class="pair${e.x?'':' one'}${e.wide?' wide':''}${e.land?' land':''}">${e.x?fr(e.i,1):''}${fr(e.i,0)}</div>
   <ul>${e.c.map(x=>`<li>${x}</li>`).join('')}</ul>
   ${e.v?`<a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a>`:''}</article>`;
@@ -236,8 +248,8 @@ function render(){
    <div class="focus">${day.f}</div><div class="sub">${n} lifts · ${day.min}</div>
    <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
   <div class="check"><b>✓ Plan checked:</b> solid. Every muscle twice a week. Added a few sets for arms, shoulders and abs. <a href="#notes">Details</a></div>
-  <div class="ovh">The workout · tap a line to jump to it</div>
-  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.i}-ok.jpg" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
+  <div class="ovh">The workout · tap one for photos</div>
+  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.g}-m1.jpg" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
   ${day.ex.map((e,j)=>card(e,j,done.includes(j))).join('')}`;
 }
 
