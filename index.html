@@ -22,7 +22,7 @@
   .tab.on{background:var(--txt);color:var(--bg)}
   .tab.today:after{content:"";position:absolute;left:50%;bottom:3px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok)}
 
-  .head{padding:20px 16px 4px}
+  .head{padding:14px 16px 4px}
   .kick{font-size:14px;color:var(--ok);font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
   .head h1{margin:2px 0 0;font-size:32px;font-weight:700;letter-spacing:-.5px}
   .focus{font-size:19px;color:var(--soft);margin-top:2px}
@@ -36,9 +36,12 @@
 
   .ovh{margin:16px 14px 0;font-size:14px;color:var(--mut);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
   .ov{margin:6px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2px 14px}
-  .ov a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:12px 0;text-decoration:none}
+  .ov a{display:flex;gap:12px;align-items:center;padding:10px 0;text-decoration:none}
+  .ov .th{flex:0 0 58px;height:58px;border-radius:10px;object-fit:cover;object-position:center 40%;background:#222}
+  .ov .ovl{flex:1}
   .ov a+a{border-top:1px solid var(--line)}
   .ov .ovl{min-width:0}
+  .ov .d .th{opacity:.4}
   .ov .ovl b{font-size:17px;font-weight:600;display:block;line-height:1.25}
   .ov .ovl em{font-style:normal;font-size:14px;color:var(--mut);display:block;margin-top:3px;line-height:1.35}
   .ov .sets{color:var(--gold);white-space:nowrap;font-size:15px;font-weight:600}
@@ -94,8 +97,10 @@
 <main id="main"></main>
 <section class="notes" id="notes">
   <h2>Is this plan good? Yes.</h2>
-  <p>I checked your plan set by set. Every main muscle gets trained about <b>twice a week</b>. The weekly sets are in the range that builds muscle: chest ~14, back ~12, biceps ~9, triceps ~9, legs ~15. The rep ranges are right (8–12 for big lifts, 10–15 for small ones), and Sunday is always rest.</p>
-  <p><b>One optional tweak:</b> broad shoulders are a top goal, but side delts only get 5 direct sets a week. Adding one more lateral-raise set on Thursday and Friday would help.</p>
+  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 9 plus planks, legs 15. That's the range that builds muscle.</p>
+  <p><b>What I changed for your goals:</b> arms, shoulders and abs were a bit light, so I added one set to Thursday curls, pushdowns and lateral raises, Friday lateral raises, and Saturday cable crunches. Nothing else moved.</p>
+  <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
+  <p><b>Arms and chest:</b> the sets are there now. What makes them grow is adding reps or weight every week or two. Log it.</p>
   <p><b>How to get stronger:</b> pick a weight you can do with clean form, stopping 1–3 reps before you'd fail. When you hit the top of the rep range on every set (e.g. 12/12/12), go up one weight step next time.</p>
   <p><b>Rest:</b> 2–3 min on big lifts (presses, rows, pulldown, leg press, RDL), 1–2 min on small ones. Being sore isn't the goal; adding reps or weight is.</p>
   <p><b>Food:</b> about 250 calories over maintenance and 90–110 g protein a day. Aim to gain 0.25–0.5 lb a week. Sleep 7–9 hours.</p>
@@ -168,17 +173,17 @@ const PLAN=[
  {d:"Wed",f:"Legs + Abs",min:"~60 min",ex:[
   E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),
   E("rdl","2 × 8–12"),E("calf","3 × 12–20"),E("abmach","3 × 10–15")]},
- {d:"Thu",f:"Shoulders + Arms + Traps",min:"~45 min",ex:[
-  E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","3 × 12–15",{load:"start 5–10 lb each"}),
-  E("shrug","2 × 10–15"),E("curl","2 × 10–15"),E("pushdown","2 × 10–15")]},
+ {d:"Thu",f:"Shoulders + Arms + Traps",min:"~55 min",ex:[
+  E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","4 × 12–15",{load:"start 5–10 lb each",note:"+1 set: wider shoulders make arms look bigger."}),
+  E("shrug","2 × 10–15"),E("curl","3 × 10–15",{note:"+1 set: arms are a top goal."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."})]},
  {d:"Fri",f:"Chest + Back + Arm finisher",min:"65–80 min",ex:[
   E("incline","3 × 8–12"),E("pulldown","3 × 8–12",{load:"~120 lb"}),E("chestpress","3 × 8–12",{load:"~50 lb"}),
-  E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","2 × 12–15"),
+  E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."}),
   E("hammer","2 × 10–12",{note:"Finisher: skip if your arms are already fried."}),
   E("ohrope","2 × 10–15",{note:"Finisher: skip if your triceps are already fried."})]},
  {d:"Sat",f:"Light Legs + Abs",min:"~40 min",ex:[
   E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcurl","2 × 12–15"),
-  E("knee","3 × 8–15"),E("cablecrunch","2 × 10–15"),E("plank","2 × 30–60 sec")]},
+  E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("plank","2 × 30–60 sec")]},
  {d:"Sun",rest:true},
 ];
 
@@ -206,19 +211,19 @@ function card(e,j,done){
 
 function render(){
  tabs.innerHTML=PLAN.map((d,i)=>`<button class="tab${i===cur?' on':''}${i===today?' today':''}" data-t="${i}">${d.d}</button>`).join('');
- const day=PLAN[cur], kick=cur===today?'Today':'&nbsp;';
+ const day=PLAN[cur], kick=cur===today?'Today':'';
  if(day.rest){
   main.innerHTML=`<div class="head"><div class="kick">${kick}</div><h1>${FULL[day.d]}</h1></div>
    <div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk.</div>`;
   return;
  }
  const done=getDone(cur), n=day.ex.length, k=day.ex.filter((_,j)=>done.includes(j)).length;
- main.innerHTML=`<div class="head"><div class="kick">${kick}</div><h1>${FULL[day.d]}</h1>
+ main.innerHTML=`<div class="head">${kick?`<div class="kick">${kick}</div>`:''}<h1>${FULL[day.d]}</h1>
    <div class="focus">${day.f}</div><div class="sub">${n} lifts · ${day.min}</div>
    <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
-  <div class="check"><b>✓ Plan checked:</b> solid. Every main muscle twice a week, right sets and reps. <a href="#notes">Details</a></div>
+  <div class="check"><b>✓ Plan checked:</b> solid. Every muscle twice a week. Added a few sets for arms, shoulders and abs. <a href="#notes">Details</a></div>
   <div class="ovh">The workout · tap a line to jump to it</div>
-  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.m} · ${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
+  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.i}-ok.jpg" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
   ${day.ex.map((e,j)=>card(e,j,done.includes(j))).join('')}`;
 }
 
