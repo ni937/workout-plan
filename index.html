@@ -96,27 +96,55 @@
 
   .notes{margin:22px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;color:var(--soft);font-size:17px}
   .notes h2{margin:0 0 6px;font-size:20px;color:var(--txt)}
+  .notes details{border-top:1px solid var(--line);padding:4px 0}
+  .notes details>summary{font-size:18px;font-weight:700;color:var(--txt);padding:10px 0;cursor:pointer}
+  .notes details[open]>summary{color:var(--ok)}
   .notes p{margin:10px 0}
   .notes b{color:var(--txt)}
   .notes small{display:block;color:var(--mut);font-size:14px;margin-top:12px;line-height:1.5}
+
+  .blk{margin:18px 12px 0}
+  .bh{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 8px}
+  .bh b{font-size:22px;font-weight:700}
+  .bh span{font-size:15px;color:var(--mut)}
+  .tip{margin:0 0 10px;padding:11px 14px;border-radius:14px;background:#0f1d14;border:1px solid #1e3a27;font-size:16px;color:#bfe8cc;line-height:1.45}
+  .tip b{color:var(--ok)}
+  .blk>.tip:first-child{margin-top:0}
+  main>.tip{margin:18px 12px 0}
+  .ri{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);padding:12px 14px;font-size:17px;line-height:1.4;color:var(--soft)}
+  .ri:first-child{border-radius:14px 14px 0 0}.ri:last-child{border-radius:0 0 14px 14px}.ri:only-child{border-radius:14px}
+  .ri+.ri{border-top:0}
+  .ri em{display:block;font-style:normal;font-size:14px;color:var(--mut);margin-top:2px}
+  .ri.done .rt{color:var(--mut);text-decoration:line-through}
+  .chk.sm{flex:0 0 28px;height:28px;margin-top:1px}
+  .chk.sm svg{width:14px;height:14px}
+  .ri.done .chk{background:var(--ok);border-color:var(--ok)}.ri.done .chk svg{opacity:1}
+  details.ex{margin:0 0 8px;padding:0;border-radius:14px}
+  details.ex>summary{list-style:none;display:flex;gap:12px;align-items:center;padding:10px 12px;cursor:pointer}
+  details.ex>summary::-webkit-details-marker{display:none}
+  details.ex .th{flex:0 0 76px;height:58px;border-radius:10px;object-fit:cover;background:#222}
+  details.ex .t{flex:1;min-width:0;display:block}
+  details.ex .nm{display:block;font-size:18px;line-height:1.25}
+  details.ex .w{display:block;font-size:14px;color:var(--mut);margin-top:2px;line-height:1.3}
+  details.ex .sets{display:block;font-size:15px;color:var(--gold);font-weight:600;margin-top:3px}
+  details.ex .body{padding:0 14px 14px}
+  details.ex[open]>summary{border-bottom:1px solid var(--line);margin-bottom:10px}
+  details.ex.done .th{opacity:.4}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
-<section class="notes" id="notes">
-  <h2>Why it felt like cardio — and the fix</h2>
-  <p><b>Two reasons a lifting session feels like cardio:</b> the weight's too light and you're not resting. When you breeze through sets 2–3 reps shy of your real limit and jump to the next machine after 45 seconds, it turns into a circuit. Fix: pick a weight where the <b>last set genuinely stops you at 1–2 reps from failure</b> with clean form, and <b>rest 2–3 min</b> on the big lifts (presses, rows, pulldown, leg press) so you can actually lift heavy on the next set. Done right, each set should feel hard — not breezy.</p>
-  <p><b>I also added volume to the short days.</b> Monday and Tuesday were only 5 moves, so they flew by. Monday now has an extra chest and triceps set; Tuesday gets the chest-supported row back plus a set on rear delts and biceps; Thursday gets a trap set. Monday ~55 min, Tuesday ~60 min now.</p>
-  <h2 id="jaw">Jaw, neck and hyoid: the honest version</h2>
-  <p><b>What actually changes the look under your jaw:</b> posture first (a head that pokes forward softens the jaw-to-neck line; chin tucks fix that fastest), staying lean (you already are, so don't cut), and a stronger neck. That's the jaw routine at the end of every day plus neck work on Monday and Thursday.</p>
+<section class="notes" id="notes"><h2 class="nh">Guides</h2>
+<details><summary>Why it felt like cardio — and the fix</summary><p><b>Two reasons a lifting session feels like cardio:</b> the weight's too light and you're not resting. When you breeze through sets 2–3 reps shy of your real limit and jump to the next machine after 45 seconds, it turns into a circuit. Fix: pick a weight where the <b>last set genuinely stops you at 1–2 reps from failure</b> with clean form, and <b>rest 2–3 min</b> on the big lifts (presses, rows, pulldown, leg press) so you can actually lift heavy on the next set. Done right, each set should feel hard — not breezy.</p>
+  <p><b>I also added volume to the short days.</b> Monday and Tuesday were only 5 moves, so they flew by. Monday now has an extra chest and triceps set; Tuesday gets the chest-supported row back plus a set on rear delts and biceps; Thursday gets a trap set. Monday ~55 min, Tuesday ~60 min now.</p></details>
+<details id="jaw"><summary>Jaw, neck and hyoid: the honest version</summary><p><b>What actually changes the look under your jaw:</b> posture first (a head that pokes forward softens the jaw-to-neck line; chin tucks fix that fastest), staying lean (you already are, so don't cut), and a stronger neck. That's the jaw routine at the end of every day plus neck work on Monday and Thursday.</p>
   <p><b>Raising the hyoid:</b> the muscles under your chin can be trained. In one small study of older adults, the resting hyoid sat about 4.5 mm higher after 4 weeks of jaw-opening holds. Nobody has shown a permanent lift in healthy 20-year-olds, so treat this as a low-risk try, not a promise. Give it 8–12 weeks and compare side photos.</p>
   <p><b>Tongue:</b> rest the whole tongue lightly on the roof of your mouth, lips together, breathe through your nose. Light, never pressing. Never push your tongue back or hold your throat tight.</p>
   <p><b>Skip these looksmax trends:</b> bonesmashing, hard mewing, holding swallows all day, jaw trainers and chew devices, chin straps, steroids, peptides and crash diets. They either do nothing or damage your jaw joint, teeth or bite.</p>
-  <p><b>Also skipped from the big looksmax tutorials:</b> thumb pulling on the roof of your mouth (can damage teeth and gums; you're seeing an orthodontist), holding your jaw pushed forward all day (jaw joint strain), tanning without sunscreen, cutting carbs or getting leaner (you're already lean at 120 lb), "debloat" pills and diuretics, raw milk and rare meat, and breath holding. Also: hard "jawline" gum, eye pulling, getting down to 8% body fat, and fillers, Botox or surgery at 20. Hair-loss or acne pills only if a doctor says you need them.</p>
-  <h2 id="looks">Looks checklist (from the looksmax council)</h2>
-  <p><b>Every day:</b> sunscreen (SPF 30+) every morning, a gentle face wash and moisturizer, lip balm with SPF, the jaw routine, and 7–9 hours of sleep. Breakouts? Adapalene at night (no prescription needed); acne or marks that stick around, see a dermatologist.</p>
+  <p><b>Also skipped from the big looksmax tutorials:</b> thumb pulling on the roof of your mouth (can damage teeth and gums; you're seeing an orthodontist), holding your jaw pushed forward all day (jaw joint strain), tanning without sunscreen, cutting carbs or getting leaner (you're already lean at 120 lb), "debloat" pills and diuretics, raw milk and rare meat, and breath holding. Also: hard "jawline" gum, eye pulling, getting down to 8% body fat, and fillers, Botox or surgery at 20. Hair-loss or acne pills only if a doctor says you need them.</p></details>
+<details id="looks"><summary>Looks checklist (from the looksmax council)</summary><p><b>Every day:</b> sunscreen (SPF 30+) every morning, a gentle face wash and moisturizer, lip balm with SPF, the jaw routine, and 7–9 hours of sleep. Breakouts? Adapalene at night (no prescription needed); acne or marks that stick around, see a dermatologist.</p>
   <p><b>Puffy face in the morning:</b> splash with cold water, sleep on your back with your head a little raised, and skip salty food late at night.</p>
   <p><b>Get bigger:</b> at 120 lb, adding muscle changes your look more than anything else, face included. About 250 calories over maintenance and 90–110 g protein a day.</p>
   <p><b>Stand tall:</b> shoulders back, chin level. Your rows and rear-delt work build it; carrying it all day makes you look taller and your jaw sharper.</p>
@@ -133,9 +161,8 @@
   <p><b>Optional, 2 min in the morning:</b> a light face massage with your fingers or a gua sha stone. Sweep from the middle of your face out toward your ears, then down your neck. It drains puffiness for a few hours; it doesn't change bone.</p>
   <p><b>Gum for the jaw:</b> skip it while you have braces; it sticks to the brackets and can bend wires. Ask your orthodontist once they're off.</p>
   <p><b>Showers:</b> hot is fine for your body, but very hot water dries out your face and scalp. Wash your face with lukewarm water, finish with a few seconds of cool, and put moisturizer on within a few minutes of getting out.</p>
-  <p><b>Best next step:</b> ask your orthodontist to look at the side X-ray you already had and tell you whether your hyoid is actually low. If it is, a speech therapist who does tongue and swallowing therapy can give you a supervised plan.</p>
-  <h2>Is this plan good? Yes.</h2>
-  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 15, back 15, biceps 11, triceps 11, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle — the thing that makes it work is pushing each set close to failure, not the count.</p>
+  <p><b>Best next step:</b> ask your orthodontist to look at the side X-ray you already had and tell you whether your hyoid is actually low. If it is, a speech therapist who does tongue and swallowing therapy can give you a supervised plan.</p></details>
+<details><summary>Is this plan good? Yes.</summary><p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 15, back 15, biceps 11, triceps 11, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle — the thing that makes it work is pushing each set close to failure, not the count.</p>
   <p><b>Calves:</b> moved off the calf station onto the leg press, right after your leg press sets, so you never have to go over there. Added 2 sets on Saturday so they get worked twice a week like everything else.</p>
   <p><b>From Raj &amp; Roh's workouts:</b> their split (each muscle twice a week) matches yours, so the plan stays. Three swaps from their ab and arm routines: lying leg raises on Wednesday for lower abs, Bayesian cable curls on Thursday for the biceps peak, and side cable crunches instead of planks on Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
@@ -151,7 +178,8 @@
   Dinner: Pincho protein bowl. Coke Zero or water instead of Coke while you have braces (sugar + brackets = white spots).<br>
   Before bed: a glass of whole milk.<br>
   Creatine 3–5 g every day, any time. Weigh yourself once a week, same morning; if the scale hasn't moved in 2 weeks, add another snack.</p>
-  <p><b>Machine taken?</b> Do the next lift and come back to it, or use the swap listed under the lift.</p>
+  <p><b>Machine taken?</b> Do the next lift and come back to it, or use the swap listed under the lift.</p></details>
+
   <small>Weights shown are what you've used on your usual machines, as a starting point only. Machine photos from the public-domain <a href="https://github.com/yuhonas/free-exercise-db" target="_blank" rel="noopener">Free Exercise DB</a>. Form photos from <a href="https://www.instagram.com/rajandroh/" target="_blank" rel="noopener">Raj &amp; Roh</a>, <a href="https://www.youtube.com/@DeltaBolic" target="_blank" rel="noopener">DeltaBolic</a>, <a href="https://www.youtube.com/watch?v=PYZY00hI43w" target="_blank" rel="noopener">Colossus Fitness</a> and public exercise guides. General fitness guidance, not medical advice. Stop anything that causes sharp pain. Jaw and neck drawings are simple diagrams made for this page; neck photos are from the Free Exercise DB.</small>
 </section>
 </div>
@@ -262,7 +290,7 @@ PLAN.forEach(d=>{d.ex.push(...JAW())});
 const FULL={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
 const today=(new Date().getDay()+6)%7;
 const wk=(()=>{const d=new Date();d.setDate(d.getDate()-today);return d.toDateString()})();
-const key=i=>'wp2:'+wk+':'+i;
+const key=i=>'wp3:'+wk+':'+i;
 const getDone=i=>{try{return JSON.parse(localStorage.getItem(key(i)))||[]}catch(e){return[]}};
 const setDone=(i,a)=>{try{localStorage.setItem(key(i),JSON.stringify(a))}catch(e){}};
 const tabs=document.getElementById('tabs'), main=document.getElementById('main');
@@ -270,12 +298,37 @@ const tick='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
 const fr=(k,bad,x='jpg')=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.${x}" alt="${bad?'Wrong':'Right'} form"></div>`;
 let cur=today;
 
+// day-by-day routine: morning → gym → jaw → after gym → night (Sunday: no gym)
+const AM=[
+ ["Shower: turn it from really hot to warm for the last minute, and keep your face out of the hottest water","really hot water dries your skin and scalp"],
+ ["Face: lukewarm wash, moisturizer, then sunscreen SPF 30+","every day, even cloudy"],
+ ["Lip balm with SPF",""],
+ ["Breakfast: gainer (1 scoop) + whole milk + a banana · creatine 3–5 g",""],
+ ["Tongue up on the roof of your mouth, lips closed, breathe through your nose. Light, never pressing","check it a few times a day"]];
+const MEALS=[
+ ["Lunch: Pollo Tropical chicken platter with rice and beans, water",""],
+ ["Snack: Greek yogurt or a peanut butter sandwich, plus fruit",""],
+ ["Dinner: Pincho protein bowl, Coke Zero or water (braces)",""]];
+const POST=[["Wash your face right after you sweat","stops breakouts"],["Sauna 5–10 min if your gym has one, with water","optional"]];
+const PM=[
+ ["Teeth: Crest (spit, don't rinse), water flosser or threaders, small brush between brackets, fluoride rinse",""],
+ ["Face: lukewarm wash, moisturizer · Vaseline on your lips",""],
+ ["Jaw-opening holds, round 2: 5 × 10 sec",""],
+ ["Glass of whole milk",""],
+ ["Phone down, lights out for 8 hours · sleep on your back, head a bit raised",""]];
+const WEEK=[["Weigh yourself (same morning each week). No change in 2 weeks → add a snack",""],["Every 4th Sunday: side photo, same light, head level",""]];
+const open=new Set();
+const ri=(id,[t,h],done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="chk sm">${tick}</span><span class="rt">${t}${h?`<em>${h}</em>`:''}</span></button>`;
+const block=(title,sub,body)=>`<section class="blk"><div class="bh"><b>${title}</b>${sub?`<span>${sub}</span>`:''}</div>${body}</section>`;
+const list=(pre,items,done)=>items.map((x,i)=>ri(pre+i,x,done)).join('');
+
 function card(e,j,done){
- return `<article class="ex${done?' done':''}" id="ex${j}">
-  <div class="top"><div class="num">${j+1}</div>
-   <div class="t"><div class="nm">${e.n}</div><div class="sets">${e.s}${e.load?` · <b>${e.load}</b>`:''}</div></div>
-   <button class="chk" data-c="${j}" aria-label="Mark done">${tick}</button></div>
-  <div class="facts"><div><b>Machine:</b> ${e.m}</div><div><b>Works:</b> ${e.w}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
+ const id='e'+j, isOpen=open.has(cur+':'+j);
+ return `<details class="ex${done?' done':''}" id="ex${j}" data-o="${j}"${isOpen?' open':''}>
+  <summary><img class="th" src="img/${e.g}-m1.${e.ext||'jpg'}" alt=""><span class="t"><span class="nm">${e.n}</span><span class="w">${e.w}</span><span class="sets">${e.s}${e.load?` · <b>${e.load}</b>`:''}</span></span>
+   <span class="chk" data-c="${id}" role="button" aria-label="Mark done">${tick}</span></summary>
+  <div class="body">
+  <div class="facts"><div><b>Where:</b> ${e.m}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
   <div class="lbl">${e.ext?'How it moves':'On the machine'} · start ↔ finish</div>
   <div class="mach"><img loading="lazy" src="img/${e.g}-m0.${e.ext||'jpg'}" alt="${e.n} start position"><img loading="lazy" src="img/${e.g}-m1.${e.ext||'jpg'}" alt="${e.n} finish position"><span class="tag">▶ How it moves</span></div>
   ${e.mc?`<div class="mc">${e.mc}</div>`:''}
@@ -283,32 +336,34 @@ function card(e,j,done){
   <div class="pair${e.x?'':' one'}${e.wide?' wide':''}${e.land?' land':''}">${e.x?fr(e.i,1,e.ext):''}${fr(e.i,0,e.ext)}</div>
   ${e.xn?`<div class="mc">${e.xn}</div>`:''}
   <ul>${e.c.map(x=>`<li>${x}</li>`).join('')}</ul>
-  ${e.v?`<a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a>`:''}</article>`;
+  ${e.v?`<a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a>`:''}</div></details>`;
 }
 
 function render(){
  tabs.innerHTML=PLAN.map((d,i)=>`<button class="tab${i===cur?' on':''}${i===today?' today':''}" data-t="${i}">${d.d}</button>`).join('');
- const day=PLAN[cur], kick=cur===today?'Today':'';
- if(day.rest){
-  main.innerHTML=`<div class="head"><div class="kick">${kick}</div><h1>${FULL[day.d]}</h1></div>
-   <div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk.</div>`;
-  return;
- }
- const done=getDone(cur), n=day.ex.length, k=day.ex.filter((_,j)=>done.includes(j)).length;
+ const day=PLAN[cur], kick=cur===today?'Today':'', done=getDone(cur);
+ const lifts=day.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw), jaw=day.ex.map((e,j)=>[e,j]).filter(([e])=>e.jaw);
+ const ids=[...AM.map((_,i)=>'a'+i),...MEALS.map((_,i)=>'m'+i),...PM.map((_,i)=>'p'+i),...day.ex.map((_,j)=>'e'+j),
+  ...(day.restday?WEEK.map((_,i)=>'w'+i):POST.map((_,i)=>'g'+i))];
+ const k=ids.filter(x=>done.includes(x)).length, n=ids.length;
  main.innerHTML=`<div class="head">${kick?`<div class="kick">${kick}</div>`:''}<h1>${FULL[day.d]}</h1>
-   <div class="focus">${day.f}</div><div class="sub">${day.restday?'No lifting today':`${day.ex.filter(e=>!e.jaw).length} lifts · ${day.min}`} · jaw routine ~8 min</div>
-   <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
-  ${day.restday?`<div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk. Just do the jaw routine below.</div>`:''}
-  ${day.restday?`<div class="check"><b>Jaw routine: gentle, not max effort.</b> These are small muscles. Never push your tongue back or hold your throat tense, and stop anything that hurts your jaw or makes breathing feel off. Side photo every 4 weeks, same light, head level. <a href="#jaw">Why these</a></div>`:`<div class="check"><b>Felt like cardio?</b> That's the weight, not the plan. The last set of every lift should be a real grind — 1–2 reps from failing, clean form. Rest 2–3 min on big lifts so you can go heavy. Easy set = add weight next time. <a href="#notes">More</a></div>`}
-  <div class="ovh">The workout · tap one for photos</div>
-  <nav class="ov">${day.ex.map((e,j)=>`${e.jaw&&!(day.ex[j-1]||{}).jaw?`<div class="ovh">Jaw routine · ${day.restday?'':'after your lifts, '}~8 min</div>`:''}<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.g}-m1.${e.ext||'jpg'}" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
-  ${day.ex.map((e,j)=>(e.jaw&&!(day.ex[j-1]||{}).jaw&&!day.restday?'<div class="ovh">Jaw routine · ~8 min, right after your lifts</div>':'')+card(e,j,done.includes(j))).join('')}`;
+   <div class="focus">${day.f}</div>
+   <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n}</div></div>
+  ${block('Morning','~10 min',list('a',AM,done))}
+  ${day.restday?`<div class="tip"><b>Rest day.</b> The muscle from this week grows today. Eat, sleep, walk.</div>`:
+   block('Gym',`${lifts.length} lifts · ${day.min}`,`<div class="tip"><b>Every last set = a grind,</b> 1–2 reps from failing, clean form. Rest 2–3 min on big lifts, 1–2 on small. Tap a lift for photos.</div>`+lifts.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''))}
+  ${block('Jaw routine','~8 min · gentle',jaw.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''))}
+  ${day.restday?'':block('After the gym','',list('g',POST,done))}
+  ${block('Food','~2,600 cal · 90–110 g protein',list('m',MEALS,done))}
+  ${block('Night','~10 min',list('p',PM,done))}
+  ${day.restday?block('Weekly','',list('w',WEEK,done)):''}`;
 }
 
 tabs.onclick=ev=>{const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; render(); window.scrollTo(0,0);};
+main.addEventListener('toggle',ev=>{const d=ev.target; if(!d.dataset||d.dataset.o===undefined)return; const key=cur+':'+d.dataset.o; d.open?open.add(key):open.delete(key);},true);
 main.onclick=ev=>{
- const c=ev.target.closest('[data-c]'); if(!c)return;
- const j=+c.dataset.c, a=getDone(cur), p=a.indexOf(j); p<0?a.push(j):a.splice(p,1); setDone(cur,a);
+ const c=ev.target.closest('[data-c]'); if(!c)return; ev.preventDefault();
+ const id=c.dataset.c, a=getDone(cur), p=a.indexOf(id); p<0?a.push(id):a.splice(p,1); setDone(cur,a);
  const y=window.scrollY; render(); window.scrollTo(0,y);
 };
 render();
