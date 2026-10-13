@@ -396,39 +396,53 @@ const getDone=i=>getDoneD(dateFor(i)), setDone=(i,a)=>setDoneD(dateFor(i),a);
 (()=>{const wk=THIS_MON.toDateString(); for(let i=0;i<7;i++){const old=LS.get('wp3:'+addDays(new Date(),-today).toDateString()+':'+i,null)||LS.get('wp3:'+wk+':'+i,null);
  if(old&&old.length&&!localStorage.getItem('wp4:'+ymd(addDays(THIS_MON,i)))) LS.set('wp4:'+ymd(addDays(THIS_MON,i)),old);}})();
 const WEIGHTS=()=>LS.get('wp4:weights',{});
+function migrateIds(){ if(LS.get('wp4:ids2',0))return;
+ for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(!/^wp4:\d{4}-/.test(k))continue;
+  const dt=new Date(k.slice(4)+'T12:00:00'), d=PLAN[(dt.getDay()+6)%7], old=LS.get(k,[]);
+  const map={a:AM,m:MEALS,p:PM,g:POST,w:WEEK};
+  const nu=old.map(x=>{const m=/^([amgpwe])(\d+)$/.exec(x); if(!m)return x; if(m[1]==='e')return d.ex[+m[2]]?lid(d,+m[2]):null; const r=map[m[1]][+m[2]]; return r?r[0]:null;}).filter(Boolean);
+  LS.set(k,[...new Set(nu)]);}
+ LS.set('wp4:ids2',1);}
 const tabs=document.getElementById('tabs'), main=document.getElementById('main');
 const tick='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
-const fr=(k,bad,x='jpg')=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.${x}" alt="${bad?'Wrong':'Right'} form"></div>`;
+const fr=(k,bad,x='jpg',ref)=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':ref?'Reference':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.${x}" alt="${bad?'Wrong':'Right'} form"></div>`;
 let cur=today;
 
 // day-by-day routine: morning → gym → jaw → after gym → night (Sunday: no gym)
 const AM=[
- ["Shower: warm, not scalding","Finish lukewarm, keep your face out of the hot stream"],
- ["Face wash, moisturizer, SPF 30+",""],
- ["Lip balm with SPF",""],
- ["Breakfast shake + banana","Gainer + whole milk · creatine 3–5 g"],
- ["Tongue up, lips closed, nose breathing","Light. Helps breathing, won't reshape your jaw"]];
+ ["am-shower","Shower: warm, not scalding","Finish lukewarm, keep your face out of the hot stream"],
+ ["am-face","Face wash, moisturizer, SPF 30+",""],
+ ["am-lips","Lip balm with SPF",""],
+ ["am-breakfast","Breakfast shake + banana","Gainer + whole milk · creatine 3–5 g"],
+ ["am-tongue","Tongue up, lips closed, nose breathing","Light. Helps breathing, won't reshape your jaw"]];
 const MEALS=[
- ["Lunch: Pollo Tropical platter","Chicken, rice, beans, water"],
- ["Snack: Greek yogurt or PB sandwich","Plus a piece of fruit"],
- ["Dinner: Pincho protein bowl","Water or Coke Zero (braces)"]];
-const POST=[["Wall angels + doorway chest stretch","2 × 10 · 30 sec per side"],["Wash your face","Right after you sweat"],["Sauna 5–10 min","Optional · drink water"]];
+ ["food-lunch","Lunch: Pollo Tropical platter","Chicken, rice, beans, water"],
+ ["food-snack","Snack: Greek yogurt or PB sandwich","Plus a piece of fruit"],
+ ["food-dinner","Dinner: Pincho protein bowl","Water or Coke Zero (braces)"]];
+const POST=[
+ ["post-posture","Wall angels + doorway chest stretch","2 × 10 · 30 sec per side"],
+ ["post-facewash","Wash your face","Right after you sweat"],
+ ["post-sauna","Sauna 5–10 min","Optional · drink water"]];
 const PM=[
- ["Teeth","Crest (spit, don't rinse) · water flosser · fluoride rinse"],
- ["Face wash + moisturizer","Vaseline on your lips"],
- ["Jaw-opening holds, round 2","5 × 10 sec"],
- ["Glass of whole milk","Breaking out? Swap for Greek yogurt"],
- ["Lights out, 8 hours","Phone down · on your back, head a bit raised"]];
-const WEEK=[["Weigh in","Same morning each week · no change in 2 weeks → add a snack"],["Side photo","Every 4th Sunday · same light, head level"]];
+ ["pm-teeth","Teeth","Crest (spit, don't rinse) · water flosser · fluoride rinse"],
+ ["pm-face","Face wash + moisturizer","Vaseline on your lips"],
+ ["pm-jaw2","Jaw-opening holds, round 2","5 × 10 sec"],
+ ["pm-milk","Glass of whole milk","Breaking out? Swap for Greek yogurt"],
+ ["pm-sleep","Lights out, 8 hours","Phone down · on your back, head a bit raised"]];
+const WEEK=[
+ ["wk-weigh","Weigh in","Same morning each week · no change in 2 weeks → add a snack"],
+ ["wk-photo","Side photo","Every 4th Sunday · same light, head level"]];
 const open=new Set();
-const ri=(id,[t,h],done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="rt">${t}${h?`<em>${h}</em>`:''}</span><span class="chk sm">${tick}</span></button>`;
+const ri=(id,t,h,done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="rt">${t}${h?`<em>${h}</em>`:''}</span><span class="chk sm">${tick}</span></button>`;
 const block=(title,sub,body,ids,done)=>{const k=ids?ids.filter(x=>done.includes(x)).length:0, all=ids&&ids.length&&k===ids.length;
  return `<details class="blk"${all?'':' open'}><summary class="bh"><b>${title}</b><span>${ids?`<em>${k}/${ids.length}</em>`:''}${all?' · done':sub?' · '+sub:''}</span></summary>${body}</details>`;};
-const pre=(p,a)=>a.map((_,i)=>p+i);
-const list=(pre,items,done)=>items.map((x,i)=>ri(pre+i,x,done)).join('');
+const pre=(p,a)=>a.map(x=>x[0]);
+// lifts are tracked by exercise key, so adding or moving a lift never shifts saved checks
+const lid=(d,j)=>{const g=d.ex[j].g, n=d.ex.slice(0,j).filter(e=>e.g===g).length; return 'x:'+g+(n?'#'+(n+1):'');};
+const list=(pre,items,done)=>items.map(x=>ri(x[0],x[1],x[2],done)).join('');
 
 function card(e,j,done){
- const id='e'+j, isOpen=open.has(cur+':'+j);
+ const id=lid(PLAN[cur],j), isOpen=open.has(cur+':'+j);
  return `<details class="ex${done?' done':''}" id="ex${j}" data-o="${j}"${isOpen?' open':''}>
   <summary><img class="th" src="img/${e.g}-m1.${e.ext||'jpg'}" alt=""><span class="t"><span class="nm">${e.n}</span><span class="w">${e.w} · <span class="sets">${e.s}${e.load?` · ${e.load}`:''}</span></span></span>
    <span class="chk" data-c="${id}" role="button" aria-label="Mark done">${tick}</span></summary>
@@ -437,17 +451,17 @@ function card(e,j,done){
   <div class="lbl">${e.ext?'How it moves':'On the machine'} · start ↔ finish</div>
   <div class="mach"><img loading="lazy" src="img/${e.g}-m0.${e.ext||'jpg'}" alt="${e.n} start position"><img loading="lazy" src="img/${e.g}-m1.${e.ext||'jpg'}" alt="${e.n} finish position"><span class="tag">▶ How it moves</span></div>
   ${e.mc?`<div class="mc">${e.mc}</div>`:''}
-  <div class="lbl">${e.x?'Form check · wrong vs right':'Right form'}</div>
-  <div class="pair${e.x?'':' one'}${e.wide?' wide':''}${e.land?' land':''}">${e.x?fr(e.i,1,e.ext):''}${fr(e.i,0,e.ext)}</div>
+  <div class="lbl">${e.x?'Form check · wrong vs right':'Form reference'}</div>
+  <div class="pair${e.x?'':' one'}${e.wide?' wide':''}${e.land?' land':''}">${e.x?fr(e.i,1,e.ext):''}${fr(e.i,0,e.ext,!e.x)}</div>
   ${e.xn?`<div class="mc">${e.xn}</div>`:''}
   <ul>${e.c.map(x=>`<li>${x}</li>`).join('')}</ul>
   ${e.v?`<a class="vid" href="${e.v}" target="_blank" rel="noopener">Form video ↗</a>`:''}</div></details>`;
 }
 
-function dayIds(i){const d=PLAN[i]; return [...pre('a',AM),...pre('m',MEALS),...pre('p',PM),...d.ex.map((_,j)=>'e'+j),...(d.restday?pre('w',WEEK):pre('g',POST))];}
+function dayIds(i){const d=PLAN[i]; return [...pre('a',AM),...pre('m',MEALS),...pre('p',PM),...d.ex.map((_,j)=>lid(d,j)),...(d.restday?pre('w',WEEK):pre('g',POST))];}
 const wdOf=dt=>(dt.getDay()+6)%7;
 function pctD(dt){const ids=dayIds(wdOf(dt)), dn=getDoneD(dt); return ids.filter(x=>dn.includes(x)).length/ids.length;}
-function liftsDoneD(dt){const d=PLAN[wdOf(dt)]; if(d.restday)return null; const dn=getDoneD(dt), ls=d.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw); return ls.every(([e,j])=>dn.includes('e'+j));}
+function liftsDoneD(dt){const d=PLAN[wdOf(dt)]; if(d.restday)return null; const dn=getDoneD(dt), ls=d.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw); return ls.every(([e,j])=>dn.includes(lid(d,j)));}
 function dayState(i){const p=pctD(dateFor(i)); return p===0?'':p===1?'full':'part';}
 const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const isFuture=dt=>ymd(dt)>ymd(new Date());
@@ -488,8 +502,8 @@ function render(){
    ${k===n?`</div><div class="daydone">✓ Day complete. Nice work.</div><div>`:`<div class="prog"><span><b style="color:var(--txt)">${k}</b> of ${n} done</span><div class="bar"><i style="width:${k/n*100}%"></i></div></div>`}</div>
   ${block('Morning','~10 min',list('a',AM,done),pre('a',AM),done)}
   ${day.restday?`<div class="tip">Rest day. Your muscles grow today: eat, sleep, walk.</div>`:
-   block('Gym',`${lifts.length} lifts · ${day.min}`,`<div class="tip">Last set: 1–2 reps from failing. Rest 2–3 min on big lifts. Tap a lift for photos.</div>`+lifts.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''),lifts.map(([e,j])=>'e'+j),done)}
-  ${block('Jaw routine','~8 min · gentle',jaw.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''),jaw.map(([e,j])=>'e'+j),done)}
+   block('Gym',`${lifts.length} lifts · ${day.min}`,`<div class="tip">Last set: 1–2 reps from failing. Rest 2–3 min on big lifts. Tap a lift for photos.</div>`+lifts.map(([e,j])=>card(e,j,done.includes(lid(day,j)))).join(''),lifts.map(([e,j])=>lid(day,j)),done)}
+  ${block('Jaw routine','~8 min · gentle',jaw.map(([e,j])=>card(e,j,done.includes(lid(day,j)))).join(''),jaw.map(([e,j])=>lid(day,j)),done)}
   ${day.restday?'':block('After the gym','',list('g',POST,done),pre('g',POST),done)}
   ${block('Food','~2,600 cal · 90–110 g protein',list('m',MEALS,done),pre('m',MEALS),done)}
   ${block('Night','~10 min',list('p',PM,done),pre('p',PM),done)}
@@ -508,6 +522,7 @@ main.onclick=ev=>{
  const id=c.dataset.c, arr=getDone(cur), p=arr.indexOf(id); p<0?arr.push(id):arr.splice(p,1); setDone(cur,arr);
  const y=window.scrollY; render(); window.scrollTo(0,y);
 };
+migrateIds();
 render();
 </script>
 </body>
