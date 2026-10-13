@@ -142,6 +142,36 @@
   details.ex .body{padding:0 14px 14px}
   details.ex[open]>summary{border-bottom:1px solid var(--line);margin-bottom:10px}
   details.ex.done .th{opacity:.4}
+
+  /* polish 2026-10-13: iOS-style dark palette, one accent, calmer type */
+  :root{--bg:#0e0e10;--card:#1c1c1e;--line:#2c2c2e;--txt:#f5f5f7;--mut:#8e8e93;--soft:#d1d1d6;--ok:#30d158;--gold:#d1d1d6}
+  body{font-size:17px;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif}
+  .head{padding:16px 18px 2px}.head h1{font-size:30px;letter-spacing:-.6px}
+  .focus{font-size:16px;color:var(--mut);margin-top:0}
+  .prog{font-size:14px;margin-top:14px}
+  .blk{margin:22px 14px 0}
+  .bh{padding:0 2px 10px;align-items:center}.bh b{font-size:20px;letter-spacing:-.3px}
+  .bh span{font-size:12px;letter-spacing:.4px}
+  .bh em{background:rgba(48,209,88,.14);padding:2px 8px;border-radius:999px;margin-right:2px}
+  .ri{min-height:58px;padding:11px 16px;font-size:16px;line-height:1.35;border-color:var(--line)}
+  .ri em{font-size:13px;margin-top:2px}
+  .ri:first-child{border-radius:16px 16px 0 0}.ri:last-child{border-radius:0 0 16px 16px}.ri:only-child{border-radius:16px}
+  .tip{background:transparent;border:0;padding:0 2px 10px;color:var(--mut);font-size:14px}
+  main>.tip{margin:16px 16px 0}
+  details.ex{border-radius:16px;background:var(--card);border:1px solid var(--line)}
+  details.ex>summary{padding:10px 14px 10px 10px}
+  details.ex .nm{font-size:16px;font-weight:600}
+  details.ex .w{font-size:13px}
+  details.ex .sets{font-size:13px;color:var(--soft)}
+  details.ex .chk{flex:0 0 28px;height:28px}details.ex .chk svg{width:14px;height:14px}
+  details.ex.done .chk{background:var(--ok);border-color:var(--ok)}details.ex.done .chk svg{opacity:1}
+  .chk{border-color:#48484a}
+  .notes{margin:28px 14px 0;border-radius:16px;font-size:15px}
+  .notes .nh{font-size:20px}
+  .notes details>summary{font-size:16px;font-weight:600}
+  .tab small{font-size:11px}.tab b{width:34px;height:34px;font-size:15px}
+  .tab.on b{background:var(--txt);color:var(--bg)}
+  .daydone{border-radius:16px}
 </style>
 </head>
 <body>
@@ -221,7 +251,7 @@
 const TT="https://www.tiktok.com/@rajandroh/video/", YT="https://www.youtube.com/shorts/";
 // i: photo key (img/<i>-x.jpg wrong, img/<i>-ok.jpg right); x: has a wrong photo; w: wide photos
 const L={
- chestpress:{n:"Seated Chest Press",m:"Seated chest press machine",w:"Chest, front shoulders, triceps",i:"chestpress",x:1,v:YT+"Qu7-ceCvq7w",
+ chestpress:{n:"Seated Chest Press",m:"Seated chest press machine",w:"Chest",i:"chestpress",x:1,v:YT+"Qu7-ceCvq7w",
   c:["Back flat on the pad, handles level with mid-chest","Shoulders down and back, not rolling forward","Control the way back; don't lock your elbows"]},
  incline:{n:"Incline Dumbbell Press",m:"Dumbbells + bench set low (15–30°)",w:"Upper chest",i:"incline",x:1,v:TT+"7690741436286881037",
   c:["Keep the bench low; higher turns it into a shoulder press","Shoulders pinned back, elbows ~45° (not flared wide)","Lower beside your upper chest, press up and slightly in"]},
@@ -229,17 +259,17 @@ const L={
   c:["Seat high enough that your arms are level with your chest","Slight bend in the elbows, bring hands together in front","Squeeze your chest; don't let it pull you into a painful stretch"]},
  pushdown:{n:"Rope Triceps Pushdown",m:"Cable machine, rope, pulley at the top",w:"Triceps",i:"pushdown",x:1,v:TT+"7687088923482410254",
   c:["Small step back, slight lean, chest out","Elbows pinned to your sides the whole time","Spread the rope apart at the bottom and squeeze"]},
- ohrope:{n:"Overhead Rope Triceps Extension",m:"Cable machine, rope; face away from the cable",w:"Triceps (the long, biggest part)",i:"ohrope",x:0,v:TT+"7675912227567815949",
+ ohrope:{n:"Overhead Rope Triceps Extension",m:"Cable machine, rope; face away from the cable",w:"Triceps",i:"ohrope",x:0,v:TT+"7675912227567815949",
   c:["Rope behind your head, elbows pointing forward","Straighten your arms overhead, elbows stay narrow","Ribs down; don't arch your back"]},
- pulldown:{n:"Lat Pulldown",m:"Lat pulldown machine, wide bar",w:"Lats (back width)",i:"pulldown",x:1,v:TT+"7685172542339845390",
+ pulldown:{n:"Lat Pulldown",m:"Lat pulldown machine, wide bar",w:"Lats",i:"pulldown",x:1,v:TT+"7685172542339845390",
   c:["Thumbs over the bar, slight lean back, chest up","Pull to your upper chest (never behind your neck)","Drive elbows down; no swinging"]},
  row:{n:"Seated Row",m:"Seated cable row or row machine",w:"Mid back, lats",i:"row",x:1,v:TT+"7690741436286881037",
   c:["Sit tall, chest up","Elbows tucked; pull to your lower ribs, not your chest","Squeeze your shoulder blades, slow return"]},
- revfly:{n:"Reverse Pec Deck (rear-delt fly)",m:"Pec deck machine, rear-delt setting (chest against the pad)",w:"Back of the shoulders",i:"reversefly",x:1,wide:1,v:YT+"8thtiUfdbf4",
+ revfly:{n:"Reverse Pec Deck (rear-delt fly)",m:"Pec deck machine, rear-delt setting (chest against the pad)",w:"Rear delts",i:"reversefly",x:1,wide:1,v:YT+"8thtiUfdbf4",
   c:["Face the pad, handles straight out in front","Open your arms out wide with a slight elbow bend","Keep shoulders down; if your traps burn, go lighter"]},
  machcurl:{mc:"Your gym's curl machine may look a bit different; same movement.",n:"Biceps Curl Machine",m:"Biceps curl / preacher curl machine",w:"Biceps",i:"machinecurl",x:1,v:YT+"eNxTbiHWKtA",
   c:["Upper arms flat on the pad the whole time","Keep your wrists straight; don't curl them in","Lower slowly until your arms are almost straight"]},
- hammer:{n:"Dumbbell Hammer Curl",m:"Dumbbells, standing",w:"Biceps + forearms (arm thickness)",i:"dbhammer",x:1,v:YT+"JP4wquWfFyI",
+ hammer:{n:"Dumbbell Hammer Curl",m:"Dumbbells, standing",w:"Biceps, forearms",i:"dbhammer",x:1,v:YT+"JP4wquWfFyI",
   c:["Palms face each other","Elbows stay at your sides; don't swing them forward","No leaning back to lift it"]},
  legpress:{n:"Seated Leg Press",m:"Leg press machine",w:"Quads, glutes",i:"legpress",x:1,v:TT+"7678109050634112270",
   c:["Feet shoulder-width on the platform","Knees track slightly out; never cave in","Hips stay on the pad; don't lock your knees"]},
@@ -257,7 +287,7 @@ const L={
   c:["Curl your ribs down toward your hips","Arms just hold the handles; don't pull with them","Come back up slowly"]},
  shpress:{n:"Seated Dumbbell Shoulder Press",m:"Dumbbells + upright bench with backrest",w:"Shoulders",i:"shoulderpress",x:1,v:YT+"ks4kN8HxTLQ",
   c:["Back on the pad; don't arch","Elbows slightly in front of you, not flared straight out","Start at ear height, press overhead"]},
- lateral:{n:"Dumbbell Lateral Raise",m:"Dumbbells",w:"Side shoulders (width)",i:"lateral",x:1,v:TT+"7683323526920621326",
+ lateral:{n:"Dumbbell Lateral Raise",m:"Dumbbells",w:"Side delts",i:"lateral",x:1,v:TT+"7683323526920621326",
   c:["Lead with your elbows, not your hands","Raise out to the sides, up to shoulder height","No swinging, no shrugging; go light"]},
  shrug:{n:"Dumbbell Shrug",m:"Dumbbells",w:"Traps",i:"shrug",x:1,v:YT+"rFsSeClGnNA",
   c:["Stand tall with your head neutral; don't hunch forward","Lift your shoulders straight up toward your ears","Pause at the top; don't roll them"]},
@@ -269,25 +299,25 @@ const L={
   c:["Back against the pad, forearms pressed down","Raise your knees, then curl your hips up a little","No swinging; lower slowly"]},
  cablecrunch:{n:"Kneeling Cable Crunch",m:"Cable machine + rope, kneeling",w:"Abs",i:"crunch",x:1,xn:"Wrong: red = bending at the hips. Right: green = curling your spine with your abs.",v:TT+"7681837394017996045",
   c:["Curl your spine down like you're rolling over a ball","Hips stay still; your abs do the work","Hands just hold the rope by your head"]},
- sidecrunch:{mc:"Photo is a close variation (kneeling, twisting to one side). For yours, kneel side-on to the cable.",n:"Side Cable Crunch",m:"Cable machine + rope or handle, pulley at the top, kneeling sideways",w:"Obliques (V-cut)",i:"sidecrunch",x:0,v:TT+"7640634029003541774",
+ sidecrunch:{mc:"Photo is a close variation (kneeling, twisting to one side). For yours, kneel side-on to the cable.",n:"Side Cable Crunch",m:"Cable machine + rope or handle, pulley at the top, kneeling sideways",w:"Obliques",i:"sidecrunch",x:0,v:TT+"7640634029003541774",
   c:["Kneel side-on to the cable, handle held by your ear","Crunch down and across: bring that elbow to the opposite knee","Hips stay still; do all reps on one side, then switch"]},
  legraise:{n:"Lying Leg Raise",m:"Flat or slightly inclined bench, hold the bench behind your head",w:"Lower abs",i:"legraise",x:1,xn:"Wrong photo is hanging, same mistake on the bench: red = only your hips lifting your legs. Curl your hips up at the top.",v:TT+"7640634029003541774",
   c:["Grip the bench firmly behind your head","Lift your legs to the ceiling, then curl your hips up off the bench","Lower slowly to a full stretch; don't let your back arch"]},
  bayesian:{mc:"Photo shows the machine setup facing the cable. For Bayesian, turn around so the cable is behind you and step forward.",n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
   c:["Step forward so your arm starts slightly behind your body","Curl up without letting your elbow drift forward","Lower slowly and feel the stretch at the bottom; one arm at a time"]},
- chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Neck posture: sharper jaw line",i:"chintuck",x:1,land:1,ext:"svg",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
+ chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Posture",i:"chintuck",x:1,land:1,ext:"svg",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
   c:["Eyes stay level the whole time","Slide your head straight back, like you're making a double chin. Hold 5 sec","Gentle, about half effort. You should feel a stretch at the base of your skull"]},
- ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"Muscles under your chin",i:"ctar",x:0,land:1,ext:"svg",xn:"Drawing, not a photo.",
+ ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"Under the chin",i:"ctar",x:0,land:1,ext:"svg",xn:"Drawing, not a photo.",
   c:["Sit tall, ball between your chin and the top of your chest","Nod your chin down and squeeze the ball, firm but not max. Shoulders stay still","Breathe normally the whole time. Stop if your throat hurts or breathing feels off"]},
- jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"Muscles that lift the hyoid",i:"jawopen",x:0,land:1,ext:"svg",xn:"Drawing, not a photo. This is the move from the small study where the resting hyoid sat higher after 4 weeks.",
+ jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"Under the chin",i:"jawopen",x:0,land:1,ext:"svg",xn:"Drawing, not a photo. This is the move from the small study where the resting hyoid sat higher after 4 weeks.",
   c:["Open straight down as wide as is comfortable, about 80%, not max","Hold 10 sec, close slowly, relax 10 sec","Stop if your jaw clicks, locks or aches"]},
- neckcurl:{n:"Lying Neck Curl",m:"Flat bench, lying face up with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Front of the neck. A thicker neck frames the jaw",i:"neckcurl",x:0,land:1,
+ neckcurl:{n:"Lying Neck Curl",m:"Flat bench, lying face up with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Front of neck",i:"neckcurl",x:0,land:1,
   c:["Shoulders right at the edge of the bench, head off it","Slowly bring your chin toward your chest, then lower only to level. Don't let your head hang back","Slow and smooth, no jerking. Stop if you feel sharp pain or dizziness"]},
- neckext:{n:"Lying Neck Extension",m:"Flat bench, lying face down with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Back of the neck",i:"neckext",x:0,land:1,
+ neckext:{n:"Lying Neck Extension",m:"Flat bench, lying face down with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Back of neck",i:"neckext",x:0,land:1,
   c:["Shoulders right at the edge of the bench","Lower your head slowly like nodding yes, then raise it back to level","Don't crank your head back past level"]},
- splitsq:{n:"Bulgarian Split Squat",m:"Dumbbells + a flat bench behind you (any corner of the gym works)",w:"Quads, glutes (one leg at a time)",i:"splitsq",x:0,
+ splitsq:{n:"Bulgarian Split Squat",m:"Dumbbells + a flat bench behind you (any corner of the gym works)",w:"Quads, glutes",i:"splitsq",x:0,
   c:["Back foot's laces on the bench, front foot far enough out that your knee stays over your foot","Drop straight down until your back knee nearly touches the floor","Push through your front heel; do all reps on one leg, then switch. Start light, balance comes first"]},
- lunge:{n:"Dumbbell Walking Lunge",m:"Dumbbells, any open lane (or step in place if it's crowded)",w:"Quads, glutes, balance",i:"lunge",x:0,land:1,
+ lunge:{n:"Dumbbell Walking Lunge",m:"Dumbbells, any open lane (or step in place if it's crowded)",w:"Quads, glutes",i:"lunge",x:0,land:1,
   c:["Big step forward, chest up, dumbbells at your sides","Back knee drops to just above the floor, front knee over your foot","Push off the front foot into the next step; count each leg"]},
  plank:{n:"Forearm Plank",m:"Floor or mat",w:"Abs, core",i:"plank",x:1,v:YT+"xe2MXatLTUw",
   c:["Straight line from head to heels","Squeeze your abs and glutes","Don't let your hips sag"]},
@@ -337,23 +367,23 @@ let cur=today;
 
 // day-by-day routine: morning → gym → jaw → after gym → night (Sunday: no gym)
 const AM=[
- ["Shower: turn it from really hot to warm for the last minute, and keep your face out of the hottest water","really hot water dries your skin and scalp"],
- ["Face: lukewarm wash, moisturizer, then sunscreen SPF 30+","every day, even cloudy"],
+ ["Shower: warm, not scalding","Finish lukewarm, keep your face out of the hot stream"],
+ ["Face wash, moisturizer, SPF 30+",""],
  ["Lip balm with SPF",""],
- ["Breakfast: gainer (1 scoop) + whole milk + a banana · creatine 3–5 g",""],
- ["Tongue up on the roof of your mouth, lips closed, breathe through your nose. Light, never pressing","for nose breathing; it won't reshape your jaw at 20"]];
+ ["Breakfast shake + banana","Gainer + whole milk · creatine 3–5 g"],
+ ["Tongue up, lips closed, nose breathing","Light. Helps breathing, won't reshape your jaw"]];
 const MEALS=[
- ["Lunch: Pollo Tropical chicken platter with rice and beans, water",""],
- ["Snack: Greek yogurt or a peanut butter sandwich, plus fruit",""],
- ["Dinner: Pincho protein bowl, Coke Zero or water (braces)",""]];
-const POST=[["Posture: wall angels 2 × 10 + doorway chest stretch 30 sec","undoes the rounded shoulders all the chest work gives you"],["Wash your face right after you sweat","stops breakouts"],["Sauna 5–10 min if your gym has one, with water","optional"]];
+ ["Lunch: Pollo Tropical platter","Chicken, rice, beans, water"],
+ ["Snack: Greek yogurt or PB sandwich","Plus a piece of fruit"],
+ ["Dinner: Pincho protein bowl","Water or Coke Zero (braces)"]];
+const POST=[["Wall angels + doorway chest stretch","2 × 10 · 30 sec per side"],["Wash your face","Right after you sweat"],["Sauna 5–10 min","Optional · drink water"]];
 const PM=[
- ["Teeth: Crest (spit, don't rinse), water flosser or threaders, small brush between brackets, fluoride rinse",""],
- ["Face: lukewarm wash, moisturizer · Vaseline on your lips",""],
- ["Jaw-opening holds, round 2: 5 × 10 sec",""],
- ["Glass of whole milk","breaking out on your chin, jaw or back? swap it for Greek yogurt"],
- ["Phone down, lights out for 8 hours · sleep on your back, head a bit raised",""]];
-const WEEK=[["Weigh yourself (same morning each week). No change in 2 weeks → add a snack",""],["Every 4th Sunday: side photo, same light, head level",""]];
+ ["Teeth","Crest (spit, don't rinse) · water flosser · fluoride rinse"],
+ ["Face wash + moisturizer","Vaseline on your lips"],
+ ["Jaw-opening holds, round 2","5 × 10 sec"],
+ ["Glass of whole milk","Breaking out? Swap for Greek yogurt"],
+ ["Lights out, 8 hours","Phone down · on your back, head a bit raised"]];
+const WEEK=[["Weigh in","Same morning each week · no change in 2 weeks → add a snack"],["Side photo","Every 4th Sunday · same light, head level"]];
 const open=new Set();
 const ri=(id,[t,h],done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="rt">${t}${h?`<em>${h}</em>`:''}</span><span class="chk sm">${tick}</span></button>`;
 const block=(title,sub,body,ids,done)=>{const k=ids?ids.filter(x=>done.includes(x)).length:0, all=ids&&ids.length&&k===ids.length;
@@ -392,8 +422,8 @@ function render(){
    <div class="focus">${day.f}</div>
    ${k===n?`</div><div class="daydone">✓ Day complete. Nice work.</div><div>`:`<div class="prog"><span><b style="color:var(--txt)">${k}</b> of ${n} done</span><div class="bar"><i style="width:${k/n*100}%"></i></div></div>`}</div>
   ${block('Morning','~10 min',list('a',AM,done),pre('a',AM),done)}
-  ${day.restday?`<div class="tip"><b>Rest day.</b> The muscle from this week grows today. Eat, sleep, walk.</div>`:
-   block('Gym',`${lifts.length} lifts · ${day.min}`,`<div class="tip"><b>Every last set = a grind,</b> 1–2 reps from failing, clean form. Rest 2–3 min on big lifts, 1–2 on small. Tap a lift for photos.</div>`+lifts.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''),lifts.map(([e,j])=>'e'+j),done)}
+  ${day.restday?`<div class="tip">Rest day. Your muscles grow today: eat, sleep, walk.</div>`:
+   block('Gym',`${lifts.length} lifts · ${day.min}`,`<div class="tip">Last set: 1–2 reps from failing. Rest 2–3 min on big lifts. Tap a lift for photos.</div>`+lifts.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''),lifts.map(([e,j])=>'e'+j),done)}
   ${block('Jaw routine','~8 min · gentle',jaw.map(([e,j])=>card(e,j,done.includes('e'+j))).join(''),jaw.map(([e,j])=>'e'+j),done)}
   ${day.restday?'':block('After the gym','',list('g',POST,done),pre('g',POST),done)}
   ${block('Food','~2,600 cal · 90–110 g protein',list('m',MEALS,done),pre('m',MEALS),done)}
