@@ -106,9 +106,11 @@
 <nav class="tabs" id="tabs"></nav>
 <main id="main"></main>
 <section class="notes" id="notes">
+  <h2>Why it felt like cardio — and the fix</h2>
+  <p><b>Two reasons a lifting session feels like cardio:</b> the weight's too light and you're not resting. When you breeze through sets 2–3 reps shy of your real limit and jump to the next machine after 45 seconds, it turns into a circuit. Fix: pick a weight where the <b>last set genuinely stops you at 1–2 reps from failure</b> with clean form, and <b>rest 2–3 min</b> on the big lifts (presses, rows, pulldown, leg press) so you can actually lift heavy on the next set. Done right, each set should feel hard — not breezy.</p>
+  <p><b>I also added volume to the short days.</b> Monday and Tuesday were only 5 moves, so they flew by. Monday now has an extra chest and triceps set; Tuesday gets the chest-supported row back plus a set on rear delts and biceps; Thursday gets a trap set. Monday ~55 min, Tuesday ~60 min now.</p>
   <h2>Is this plan good? Yes.</h2>
-  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 14, back 12, biceps 10, triceps 10, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle.</p>
-  <p><b>What I changed for your goals:</b> arms, shoulders and abs were a bit light, so I added one set to Thursday curls, pushdowns and lateral raises, Friday lateral raises, and Saturday cable crunches. Nothing else moved.</p>
+  <p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 15, back 15, biceps 11, triceps 11, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle — the thing that makes it work is pushing each set close to failure, not the count.</p>
   <p><b>Calves:</b> moved off the calf station onto the leg press, right after your leg press sets, so you never have to go over there. Added 2 sets on Saturday so they get worked twice a week like everything else.</p>
   <p><b>From Raj &amp; Roh's workouts:</b> their split (each muscle twice a week) matches yours, so the plan stays. Three swaps from their ab and arm routines: lying leg raises on Wednesday for lower abs, Bayesian cable curls on Thursday for the biceps peak, and side cable crunches instead of planks on Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
@@ -185,19 +187,19 @@ const L={
 };
 const E=(k,s,o)=>Object.assign({},L[k],{s,g:k},o||{});
 const PLAN=[
- {d:"Mon",f:"Chest + Triceps",min:"~50 min",ex:[
-  E("chestpress","3 × 8–12",{load:"~50 lb"}),E("incline","3 × 8–12"),E("pecdeck","2 × 10–15"),
-  E("pushdown","3 × 10–15"),E("ohrope","2 × 10–15")]},
- {d:"Tue",f:"Back + Biceps",min:"~50 min",ex:[
-  E("pulldown","3 × 8–12",{load:"~120 lb"}),E("row","3 × 8–12"),E("revfly","2 × 12–15"),
-  E("machcurl","3 × 8–12"),E("hammer","2 × 10–15")]},
+ {d:"Mon",f:"Chest + Triceps",min:"~55 min",ex:[
+  E("chestpress","3 × 8–12",{load:"~50 lb"}),E("incline","3 × 8–12"),E("pecdeck","3 × 10–15",{note:"+1 set — fuller chest, and the day shouldn't be over in 20 min."}),
+  E("pushdown","3 × 10–15"),E("ohrope","3 × 10–15",{note:"+1 set for the triceps."})]},
+ {d:"Tue",f:"Back + Biceps",min:"~60 min",ex:[
+  E("pulldown","3 × 8–12",{load:"~120 lb"}),E("csrow","3 × 8–12",{note:"Added back in — this is why Tuesday felt short. Taken? Use the seated cable row."}),E("row","3 × 8–12"),E("revfly","3 × 12–15",{note:"+1 set for rear delts."}),
+  E("machcurl","3 × 8–12"),E("hammer","3 × 10–15",{note:"+1 set for the biceps."})]},
  {d:"Wed",f:"Legs + Abs",min:"~65 min",ex:[
   E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcalf","3 × 12–20",{note:"Replaces standing calf raises: do these right after your leg press sets without getting up."}),
   E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),E("rdl","2 × 8–12"),E("abmach","3 × 10–15"),
   E("legraise","3 × 10–15",{note:"New, from Raj & Roh: hits the lower abs the machine misses."})]},
- {d:"Thu",f:"Shoulders + Arms + Traps",min:"~55 min",ex:[
+ {d:"Thu",f:"Shoulders + Arms + Traps",min:"~60 min",ex:[
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","4 × 12–15",{load:"start 5–10 lb each",note:"+1 set: wider shoulders make arms look bigger."}),
-  E("shrug","2 × 10–15"),E("bayesian","3 × 10–12 per arm",{note:"Swapped in for dumbbell curls (Raj & Roh): the stretch builds the biceps peak. Taken? Do incline dumbbell curls."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."})]},
+  E("shrug","3 × 10–15",{note:"+1 set for the traps."}),E("bayesian","3 × 10–12 per arm",{note:"Swapped in for dumbbell curls (Raj & Roh): the stretch builds the biceps peak. Taken? Do incline dumbbell curls."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."})]},
  {d:"Fri",f:"Chest + Back + Arm finisher",min:"65–80 min",ex:[
   E("incline","3 × 8–12"),E("pulldown","3 × 8–12",{load:"~120 lb"}),E("chestpress","3 × 8–12",{load:"~50 lb"}),
   E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."}),
@@ -248,7 +250,7 @@ function render(){
  main.innerHTML=`<div class="head">${kick?`<div class="kick">${kick}</div>`:''}<h1>${FULL[day.d]}</h1>
    <div class="focus">${day.f}</div><div class="sub">${n} lifts · ${day.min}</div>
    <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
-  <div class="check"><b>✓ Plan checked:</b> solid. Every muscle twice a week. Added a few sets for arms, shoulders and abs. <a href="#notes">Details</a></div>
+  <div class="check"><b>Felt like cardio?</b> That's the weight, not the plan. The last set of every lift should be a real grind — 1–2 reps from failing, clean form. Rest 2–3 min on big lifts so you can go heavy. Easy set = add weight next time. <a href="#notes">More</a></div>
   <div class="ovh">The workout · tap one for photos</div>
   <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.g}-m1.jpg" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
   ${day.ex.map((e,j)=>card(e,j,done.includes(j))).join('')}`;
