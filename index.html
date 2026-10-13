@@ -172,6 +172,30 @@
   .tab small{font-size:11px}.tab b{width:34px;height:34px;font-size:15px}
   .tab.on b{background:var(--txt);color:var(--bg)}
   .daydone{border-radius:16px}
+
+  .wkbar{grid-column:1/-1;display:flex;align-items:center;gap:6px;padding:2px 2px 6px}
+  .wkbar>span{flex:1;font-size:15px;font-weight:600;color:var(--txt)}
+  .wkbar>button{min-width:32px;height:32px;border-radius:10px;color:var(--soft);font-size:22px;line-height:1}
+  .wkbar .pv{font-size:13px;font-weight:600;padding:0 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--txt)}
+  .wkbar .pv.on{background:var(--txt);color:var(--bg)}
+  .kick.dim{color:var(--mut)}
+  .head h1 .dt{font-size:17px;font-weight:500;color:var(--mut);letter-spacing:0;margin-left:4px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 14px 0}
+  .stats div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+  .stats b{display:block;font-size:24px;letter-spacing:-.5px}.stats span{font-size:12px;color:var(--mut)}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+  .cal i{font-style:normal;text-align:center;font-size:11px;color:var(--mut);font-weight:600}
+  .cd{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:14px;color:var(--txt);
+    background:color-mix(in srgb,var(--ok) calc(var(--p)*85%),#2c2c2e)}
+  .cd.f{background:transparent;color:#55555a}.cd.t{outline:2px solid var(--txt);outline-offset:1px}
+  .legend{display:flex;gap:14px;margin:8px 4px 0;font-size:12px;color:var(--mut)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;background:color-mix(in srgb,var(--ok) calc(var(--p)*85%),#2c2c2e)}
+  .wt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+  .wtrow{display:flex;gap:8px}.wtrow input{flex:1;min-width:0;background:#2c2c2e;border:0;border-radius:10px;padding:10px 12px;color:var(--txt);font:inherit;font-size:16px}
+  .btn{background:var(--ok);color:#06210f;font-weight:700;border-radius:10px;padding:0 16px}
+  .wtsum{font-size:14px;color:var(--mut);margin-top:10px}.wtsum b{color:var(--txt);font-size:16px}.up{color:var(--ok)}.dn{color:#ff9f0a}
+  .spark{width:100%;height:40px;margin-top:8px}
+  .wtlist{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.wtlist span{font-size:12px;color:var(--mut);background:#2c2c2e;border-radius:8px;padding:4px 8px}.wtlist b{color:var(--txt);margin-left:6px}
 </style>
 </head>
 <body>
@@ -359,10 +383,19 @@ PLAN.forEach(d=>{d.ex.push(...JAW())});
 
 const FULL={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
 const today=(new Date().getDay()+6)%7;
-const wk=(()=>{const d=new Date();d.setDate(d.getDate()-today);return d.toDateString()})();
-const key=i=>'wp3:'+wk+':'+i;
-const getDone=i=>{try{return JSON.parse(localStorage.getItem(key(i)))||[]}catch(e){return[]}};
-const setDone=(i,a)=>{try{localStorage.setItem(key(i),JSON.stringify(a))}catch(e){}};
+// progress is saved per calendar date, so every day keeps its history
+const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const addDays=(d,n)=>{const x=new Date(d); x.setDate(x.getDate()+n); x.setHours(12,0,0,0); return x;};
+const THIS_MON=addDays(new Date(),-today);
+let wkOff=0, view='day';
+const dateFor=i=>addDays(THIS_MON,wkOff*7+i);
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const getDoneD=dt=>LS.get('wp4:'+ymd(dt),[]), setDoneD=(dt,a)=>LS.set('wp4:'+ymd(dt),a);
+const getDone=i=>getDoneD(dateFor(i)), setDone=(i,a)=>setDoneD(dateFor(i),a);
+// carry over this week's checks from the old week-based storage
+(()=>{const wk=THIS_MON.toDateString(); for(let i=0;i<7;i++){const old=LS.get('wp3:'+addDays(new Date(),-today).toDateString()+':'+i,null)||LS.get('wp3:'+wk+':'+i,null);
+ if(old&&old.length&&!localStorage.getItem('wp4:'+ymd(addDays(THIS_MON,i)))) LS.set('wp4:'+ymd(addDays(THIS_MON,i)),old);}})();
+const WEIGHTS=()=>LS.get('wp4:weights',{});
 const tabs=document.getElementById('tabs'), main=document.getElementById('main');
 const tick='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
 const fr=(k,bad,x='jpg')=>`<div class="fr${bad?' bad':''}"><span class="tag">${bad?'✕ Wrong':'✓ Right'}</span><img loading="lazy" src="img/${k}-${bad?'x':'ok'}.${x}" alt="${bad?'Wrong':'Right'} form"></div>`;
@@ -412,16 +445,45 @@ function card(e,j,done){
 }
 
 function dayIds(i){const d=PLAN[i]; return [...pre('a',AM),...pre('m',MEALS),...pre('p',PM),...d.ex.map((_,j)=>'e'+j),...(d.restday?pre('w',WEEK):pre('g',POST))];}
-function dayState(i){const ids=dayIds(i), dn=getDone(i), k=ids.filter(x=>dn.includes(x)).length; return k===0?'':k===ids.length?'full':'part';}
+const wdOf=dt=>(dt.getDay()+6)%7;
+function pctD(dt){const ids=dayIds(wdOf(dt)), dn=getDoneD(dt); return ids.filter(x=>dn.includes(x)).length/ids.length;}
+function liftsDoneD(dt){const d=PLAN[wdOf(dt)]; if(d.restday)return null; const dn=getDoneD(dt), ls=d.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw); return ls.every(([e,j])=>dn.includes('e'+j));}
+function dayState(i){const p=pctD(dateFor(i)); return p===0?'':p===1?'full':'part';}
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const isFuture=dt=>ymd(dt)>ymd(new Date());
+function streak(){let n=0, d=addDays(new Date(),0); if(pctD(d)<.8) d=addDays(d,-1); while(pctD(d)>=.8){n++; d=addDays(d,-1);} return n;}
+function weightBox(){const w=WEIGHTS(), ks=Object.keys(w).sort(), last=ks.slice(-8);
+ const vals=last.map(k=>w[k]), mn=Math.min(...vals), mx=Math.max(...vals);
+ const spark=vals.length>1?`<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--ok)" stroke-width="2" points="${vals.map((v,i)=>`${i/(vals.length-1)*100},${28-(mx===mn?14:(v-mn)/(mx-mn)*26)}`).join(' ')}"/></svg>`:'';
+ const ch=ks.length>1?(w[ks[ks.length-1]]-w[ks[0]]):0;
+ return `<div class="wt"><div class="wtrow"><input id="wtin" type="number" inputmode="decimal" step="0.1" placeholder="Today's weight (lb)"><button class="btn" data-act="wt">Save</button></div>
+  ${ks.length?`<div class="wtsum"><b>${w[ks[ks.length-1]]} lb</b> latest${ks.length>1?` · <span class="${ch>=0?'up':'dn'}">${ch>=0?'+':''}${ch.toFixed(1)} lb</span> since ${ks[0].slice(5).replace('-','/')}`:''}</div>${spark}
+  <div class="wtlist">${ks.slice(-6).reverse().map(k=>`<span>${k.slice(5).replace('-','/')}<b>${w[k]}</b></span>`).join('')}</div>`:`<div class="wtsum">Weigh in once a week, same morning. Goal: +0.25–0.5 lb a week.</div>`}</div>`;}
+function progressView(){
+ const now=new Date(), first=new Date(now.getFullYear(),now.getMonth(),1,12), lead=wdOf(first), days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+ let cells=''; for(let i=0;i<lead;i++) cells+='<span></span>';
+ for(let d=1;d<=days;d++){const dt=new Date(now.getFullYear(),now.getMonth(),d,12), p=isFuture(dt)?-1:pctD(dt), t=ymd(dt)===ymd(now);
+  cells+=`<button class="cd${t?' t':''}${p<0?' f':''}" data-go="${ymd(dt)}" style="--p:${p<0?0:p}"><span>${d}</span></button>`;}
+ const last7=[...Array(7)].map((_,i)=>addDays(now,-i)), avg=Math.round(last7.reduce((a,d)=>a+pctD(d),0)/7*100);
+ const gym=last7.filter(d=>liftsDoneD(d)===true).length;
+ return `<div class="head"><h1>Progress</h1><div class="focus">${MON[now.getMonth()]} ${now.getFullYear()}</div></div>
+  <div class="stats"><div><b>${streak()}</b><span>day streak</span></div><div><b>${avg}%</b><span>last 7 days</span></div><div><b>${gym}/6</b><span>gym days, last 7</span></div></div>
+  <section class="blk"><div class="bh"><b>Calendar</b><span>tap a day</span></div>
+   <div class="cal"><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i>${cells}</div>
+   <div class="legend"><span><i style="--p:.15"></i>started</span><span><i style="--p:.6"></i>most</span><span><i style="--p:1"></i>all done</span></div></section>
+  <section class="blk"><div class="bh"><b>Body weight</b><span>weekly</span></div>${weightBox()}</section>
+  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Everything saves on this phone.</div>`;}
 function render(){
- const mon=new Date(); mon.setDate(mon.getDate()-today);
- tabs.innerHTML=PLAN.map((d,i)=>{const dt=new Date(mon); dt.setDate(mon.getDate()+i); const st=dayState(i);
-  return `<button class="tab${i===cur?' on':''}${i===today?' today':''}" data-t="${i}"><small>${d.d}</small><b>${dt.getDate()}</b><i class="${st}"></i></button>`}).join('');
- const day=PLAN[cur], kick=cur===today?'Today':'', done=getDone(cur);
+ const mon=dateFor(0), sun=dateFor(6);
+ tabs.innerHTML=`<div class="wkbar"><button data-wk="-1" aria-label="Previous week">‹</button><span>${wkOff===0?'This week':MON[mon.getMonth()]+' '+mon.getDate()+' – '+(mon.getMonth()===sun.getMonth()?'':MON[sun.getMonth()]+' ')+sun.getDate()}</span><button data-wk="1" aria-label="Next week">›</button><button class="pv${view==='progress'?' on':''}" data-view="${view==='progress'?'day':'progress'}">${view==='progress'?'Back to today':'Progress'}</button></div>`+
+  PLAN.map((d,i)=>{const dt=dateFor(i), st=dayState(i), isT=ymd(dt)===ymd(new Date());
+  return `<button class="tab${i===cur&&view==='day'?' on':''}${isT?' today':''}" data-t="${i}"><small>${d.d}</small><b>${dt.getDate()}</b><i class="${st}"></i></button>`}).join('');
+ if(view==='progress'){main.innerHTML=progressView(); return;}
+ const day=PLAN[cur], dt=dateFor(cur), isT=ymd(dt)===ymd(new Date()), kick=isT?'Today':isFuture(dt)?'Coming up':'Past day', done=getDone(cur);
  const lifts=day.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw), jaw=day.ex.map((e,j)=>[e,j]).filter(([e])=>e.jaw);
  const ids=dayIds(cur);
  const k=ids.filter(x=>done.includes(x)).length, n=ids.length;
- main.innerHTML=`<div class="head">${kick?`<div class="kick">${kick}</div>`:''}<h1>${FULL[day.d]}</h1>
+ main.innerHTML=`<div class="head"><div class="kick${isT?'':' dim'}">${kick}</div><h1>${FULL[day.d]} <span class="dt">${MON[dt.getMonth()]} ${dt.getDate()}</span></h1>
    <div class="focus">${day.f}</div>
    ${k===n?`</div><div class="daydone">✓ Day complete. Nice work.</div><div>`:`<div class="prog"><span><b style="color:var(--txt)">${k}</b> of ${n} done</span><div class="bar"><i style="width:${k/n*100}%"></i></div></div>`}</div>
   ${block('Morning','~10 min',list('a',AM,done),pre('a',AM),done)}
@@ -431,14 +493,19 @@ function render(){
   ${day.restday?'':block('After the gym','',list('g',POST,done),pre('g',POST),done)}
   ${block('Food','~2,600 cal · 90–110 g protein',list('m',MEALS,done),pre('m',MEALS),done)}
   ${block('Night','~10 min',list('p',PM,done),pre('p',PM),done)}
-  ${day.restday?block('Weekly','',list('w',WEEK,done),pre('w',WEEK),done):''}`;
+  ${day.restday?block('Weekly','',list('w',WEEK,done)+`<div style="margin-top:10px">${weightBox()}</div>`,pre('w',WEEK),done):''}`;
 }
 
-tabs.onclick=ev=>{const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; render(); window.scrollTo(0,0);};
+tabs.onclick=ev=>{
+ const w=ev.target.closest('[data-wk]'); if(w){wkOff+=+w.dataset.wk; view='day'; render(); return;}
+ const v=ev.target.closest('[data-view]'); if(v){view=v.dataset.view; if(view==='day'){wkOff=0;cur=today;} render(); window.scrollTo(0,0); return;}
+ const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; view='day'; render(); window.scrollTo(0,0);};
 main.addEventListener('toggle',ev=>{const d=ev.target; if(!d.dataset||d.dataset.o===undefined)return; const key=cur+':'+d.dataset.o; d.open?open.add(key):open.delete(key);},true);
 main.onclick=ev=>{
+ const g=ev.target.closest('[data-go]'); if(g){const dt=new Date(g.dataset.go+'T12:00:00'); wkOff=Math.round((addDays(dt,-wdOf(dt))-THIS_MON)/864e5/7); cur=wdOf(dt); view='day'; render(); window.scrollTo(0,0); return;}
+ const a=ev.target.closest('[data-act="wt"]'); if(a){const v=parseFloat(document.getElementById('wtin').value); if(v>50&&v<500){const w=WEIGHTS(); w[ymd(new Date())]=Math.round(v*10)/10; LS.set('wp4:weights',w); render();} return;}
  const c=ev.target.closest('[data-c]'); if(!c)return; ev.preventDefault();
- const id=c.dataset.c, a=getDone(cur), p=a.indexOf(id); p<0?a.push(id):a.splice(p,1); setDone(cur,a);
+ const id=c.dataset.c, arr=getDone(cur), p=arr.indexOf(id); p<0?arr.push(id):arr.splice(p,1); setDone(cur,arr);
  const y=window.scrollY; render(); window.scrollTo(0,y);
 };
 render();
