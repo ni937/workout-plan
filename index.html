@@ -16,7 +16,7 @@
   button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
   a{color:inherit}
 
-  .tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(8,1fr);gap:3px;
+  .tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
     padding:10px 12px;background:rgba(9,9,11,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .tab{padding:10px 0;border-radius:10px;color:var(--mut);font-size:16px;font-weight:600;text-align:center;position:relative}
   .tab.on{background:var(--txt);color:var(--bg)}
@@ -110,7 +110,7 @@
   <p><b>Two reasons a lifting session feels like cardio:</b> the weight's too light and you're not resting. When you breeze through sets 2–3 reps shy of your real limit and jump to the next machine after 45 seconds, it turns into a circuit. Fix: pick a weight where the <b>last set genuinely stops you at 1–2 reps from failure</b> with clean form, and <b>rest 2–3 min</b> on the big lifts (presses, rows, pulldown, leg press) so you can actually lift heavy on the next set. Done right, each set should feel hard — not breezy.</p>
   <p><b>I also added volume to the short days.</b> Monday and Tuesday were only 5 moves, so they flew by. Monday now has an extra chest and triceps set; Tuesday gets the chest-supported row back plus a set on rear delts and biceps; Thursday gets a trap set. Monday ~55 min, Tuesday ~60 min now.</p>
   <h2 id="jaw">Jaw, neck and hyoid: the honest version</h2>
-  <p><b>What actually changes the look under your jaw:</b> posture first (a head that pokes forward softens the jaw-to-neck line; chin tucks fix that fastest), staying lean (you already are, so don't cut), and a stronger neck. That's the Jaw tab plus neck work on Monday and Thursday.</p>
+  <p><b>What actually changes the look under your jaw:</b> posture first (a head that pokes forward softens the jaw-to-neck line; chin tucks fix that fastest), staying lean (you already are, so don't cut), and a stronger neck. That's the jaw routine at the end of every day plus neck work on Monday and Thursday.</p>
   <p><b>Raising the hyoid:</b> the muscles under your chin can be trained. In one small study of older adults, the resting hyoid sat about 4.5 mm higher after 4 weeks of jaw-opening holds. Nobody has shown a permanent lift in healthy 20-year-olds, so treat this as a low-risk try, not a promise. Give it 8–12 weeks and compare side photos.</p>
   <p><b>Tongue:</b> rest the whole tongue lightly on the roof of your mouth, lips together, breathe through your nose. Light, never pressing. Never push your tongue back or hold your throat tight.</p>
   <p><b>Skip these looksmax trends:</b> bonesmashing, hard mewing, holding swallows all day, jaw trainers and chew devices, chin straps, steroids, peptides and crash diets. They either do nothing or damage your jaw joint, teeth or bite.</p>
@@ -189,11 +189,11 @@ const L={
   c:["Grip the bench firmly behind your head","Lift your legs to the ceiling, then curl your hips up off the bench","Lower slowly to a full stretch; don't let your back arch"]},
  bayesian:{mc:"Photo shows the machine setup facing the cable. For Bayesian, turn around so the cable is behind you and step forward.",n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
   c:["Step forward so your arm starts slightly behind your body","Curl up without letting your elbow drift forward","Lower slowly and feel the stretch at the bottom; one arm at a time"]},
- chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Deep neck muscles. Fixes forward-head posture, the fastest visible change under your jaw",i:"chintuck",x:1,land:1,ext:"svg",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
+ chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Neck posture: sharper jaw line",i:"chintuck",x:1,land:1,ext:"svg",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
   c:["Eyes stay level the whole time","Slide your head straight back, like you're making a double chin. Hold 5 sec","Gentle, about half effort. You should feel a stretch at the base of your skull"]},
- ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"The muscles under your chin, the ones attached to the hyoid",i:"ctar",x:0,land:1,ext:"svg",xn:"Drawing, not a photo.",
+ ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"Muscles under your chin",i:"ctar",x:0,land:1,ext:"svg",xn:"Drawing, not a photo.",
   c:["Sit tall, ball between your chin and the top of your chest","Nod your chin down and squeeze the ball, firm but not max. Shoulders stay still","Breathe normally the whole time. Stop if your throat hurts or breathing feels off"]},
- jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"The muscles under your chin that pull the hyoid up",i:"jawopen",x:0,land:1,ext:"svg",xn:"Drawing, not a photo. This is the move from the small study where the resting hyoid sat higher after 4 weeks.",
+ jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"Muscles that lift the hyoid",i:"jawopen",x:0,land:1,ext:"svg",xn:"Drawing, not a photo. This is the move from the small study where the resting hyoid sat higher after 4 weeks.",
   c:["Open straight down as wide as is comfortable, about 80%, not max","Hold 10 sec, close slowly, relax 10 sec","Stop if your jaw clicks, locks or aches"]},
  neckcurl:{n:"Lying Neck Curl",m:"Flat bench, lying face up with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Front of the neck. A thicker neck frames the jaw",i:"neckcurl",x:0,land:1,
   c:["Shoulders right at the edge of the bench, head off it","Slowly bring your chin toward your chest, then lower only to level. Don't let your head hang back","Slow and smooth, no jerking. Stop if you feel sharp pain or dizziness"]},
@@ -227,12 +227,14 @@ const PLAN=[
  {d:"Sat",f:"Light Legs + Abs",min:"~45 min",ex:[
   E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcalf","2 × 12–20",{note:"Same spot as your leg press. Now calves get hit twice a week too."}),E("legcurl","2 × 12–15"),
   E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("sidecrunch","3 × 10–12 per side",{note:"Replaces planks (Raj & Roh): planks build endurance, this builds the V-cut."})]},
- {d:"Sun",rest:true},
- {d:"Jaw",daily:true,f:"Jaw + neck · every day, at home",min:"~8 min",ex:[
-  E("chintuck","2 × 10, hold 5 sec"),E("ctar","3 × 10 squeezes, then 3 × 20-sec holds"),E("jawopen","5 × 10-sec holds, morning and night")]},
+ {d:"Sun",restday:true,f:"Rest + jaw routine",min:"~8 min",ex:[]},
 ];
+// jaw routine runs every day: after the lifts on gym days, on its own on Sunday
+const JAW=()=>[E("chintuck","2 × 10",{jaw:1,note:"Hold each one 5 sec."}),E("ctar","3 × 10",{jaw:1,note:"Then 3 holds of 20 sec."}),
+ E("jawopen","5 × 10 sec",{jaw:1,note:"Do another round at night before bed."})];
+PLAN.forEach(d=>{d.ex.push(...JAW())});
 
-const FULL={Jaw:"Jaw + Neck",Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
+const FULL={Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"};
 const today=(new Date().getDay()+6)%7;
 const wk=(()=>{const d=new Date();d.setDate(d.getDate()-today);return d.toDateString()})();
 const key=i=>'wp2:'+wk+':'+i;
@@ -269,12 +271,13 @@ function render(){
  }
  const done=getDone(cur), n=day.ex.length, k=day.ex.filter((_,j)=>done.includes(j)).length;
  main.innerHTML=`<div class="head">${kick?`<div class="kick">${kick}</div>`:''}<h1>${FULL[day.d]}</h1>
-   <div class="focus">${day.f}</div><div class="sub">${n} ${day.daily?'moves':'lifts'} · ${day.min}</div>
+   <div class="focus">${day.f}</div><div class="sub">${day.restday?'No lifting today':`${day.ex.filter(e=>!e.jaw).length} lifts · ${day.min}`} · jaw routine ~8 min</div>
    <div class="prog"><div class="bar"><i style="width:${k/n*100}%"></i></div>${k} / ${n} done</div></div>
-  ${day.daily?`<div class="check"><b>Gentle, not max effort.</b> These are small muscles. Never push your tongue back or hold your throat tense, and stop anything that hurts your jaw or makes breathing feel off. Side photo every 4 weeks, same light, head level. <a href="#jaw">Why these</a></div>`:`<div class="check"><b>Felt like cardio?</b> That's the weight, not the plan. The last set of every lift should be a real grind — 1–2 reps from failing, clean form. Rest 2–3 min on big lifts so you can go heavy. Easy set = add weight next time. <a href="#notes">More</a></div>`}
+  ${day.restday?`<div class="rest"><b>Rest day</b>This is when the muscle from this week actually grows. Eat, sleep, walk. Just do the jaw routine below.</div>`:''}
+  ${day.restday?`<div class="check"><b>Jaw routine: gentle, not max effort.</b> These are small muscles. Never push your tongue back or hold your throat tense, and stop anything that hurts your jaw or makes breathing feel off. Side photo every 4 weeks, same light, head level. <a href="#jaw">Why these</a></div>`:`<div class="check"><b>Felt like cardio?</b> That's the weight, not the plan. The last set of every lift should be a real grind — 1–2 reps from failing, clean form. Rest 2–3 min on big lifts so you can go heavy. Easy set = add weight next time. <a href="#notes">More</a></div>`}
   <div class="ovh">The workout · tap one for photos</div>
-  <nav class="ov">${day.ex.map((e,j)=>`<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.g}-m1.${e.ext||'jpg'}" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
-  ${day.ex.map((e,j)=>card(e,j,done.includes(j))).join('')}`;
+  <nav class="ov">${day.ex.map((e,j)=>`${e.jaw&&!(day.ex[j-1]||{}).jaw?`<div class="ovh">Jaw routine · ${day.restday?'':'after your lifts, '}~8 min</div>`:''}<a href="#ex${j}"${done.includes(j)?' class="d"':''}><img class="th" src="img/${e.g}-m1.${e.ext||'jpg'}" alt=""><span class="ovl"><b>${j+1}. ${e.n}</b><em>${e.w}</em></span><span class="sets">${e.s}</span></a>`).join('')}</nav>
+  ${day.ex.map((e,j)=>(e.jaw&&!(day.ex[j-1]||{}).jaw&&!day.restday?'<div class="ovh">Jaw routine · ~8 min, right after your lifts</div>':'')+card(e,j,done.includes(j))).join('')}`;
 }
 
 tabs.onclick=ev=>{const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; render(); window.scrollTo(0,0);};
