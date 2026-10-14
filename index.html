@@ -431,7 +431,7 @@ const PM=[
  ["pm-sleep","Lights out, 8 hours","Phone down · on your back, head a bit raised"]];
 const WEEK=[
  ["wk-weigh","Weigh in","Same morning each week · no change in 2 weeks → add a snack"],
- ["wk-photo","Side photo","Every 4th Sunday · same light, head level"]];
+ ["wk-photo","Side photo","Every 4th Sunday · same light, head level"],["wk-waist","Waist at belly button","Tape measure · up 1 inch+ in a month → eat a bit less"]];
 const open=new Set();
 const ri=(id,t,h,done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="rt">${t}${h?`<em>${h}</em>`:''}</span><span class="chk sm">${tick}</span></button>`;
 const block=(title,sub,body,ids,done)=>{const k=ids?ids.filter(x=>done.includes(x)).length:0, all=ids&&ids.length&&k===ids.length;
