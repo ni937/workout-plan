@@ -94,6 +94,11 @@
   ul{margin:12px 0 0;padding:0;list-style:none}
   li{font-size:18px;color:var(--soft);padding-left:22px;position:relative;margin:7px 0;line-height:1.4}
   li:before{content:"✓";position:absolute;left:0;top:0;color:var(--ok);font-weight:800;font-size:16px}
+  .yt{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;margin:4px 0 12px;cursor:pointer}
+  .yt img{width:100%;height:100%;object-fit:cover;display:block}
+  .yt .pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .yt .pl span{width:60px;height:60px;border-radius:50%;background:rgba(0,0,0,.72);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;padding-left:4px}
+  .yt iframe{width:100%;height:100%;border:0;display:block}
   .vid{display:inline-block;margin-top:8px;color:var(--mut);font-size:15px;text-decoration:none;border-bottom:1px solid #33333a}
 
   .rest{margin:14px 12px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 20px;text-align:center;color:var(--mut);font-size:18px}
@@ -335,11 +340,11 @@ const L={
   c:["Grip the bench firmly behind your head","Lift your legs to the ceiling, then curl your hips up off the bench","Lower slowly to a full stretch; don't let your back arch"]},
  bayesian:{mc:"Photo shows the machine setup facing the cable. For Bayesian, turn around so the cable is behind you and step forward.",n:"Bayesian Cable Curl",m:"Cable machine, single handle, pulley at the bottom; face away from it",w:"Biceps peak",i:"bayesian",x:0,v:TT+"7646584302557220109",
   c:["Step forward so your arm starts slightly behind your body","Curl up without letting your elbow drift forward","Lower slowly and feel the stretch at the bottom; one arm at a time"]},
- chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Posture",i:"chintuck",x:1,land:1,ext:"svg",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
+ chintuck:{n:"Chin Tuck",m:"Nothing. Sit or stand tall, back of your head near a wall",w:"Posture",i:"chintuck",x:1,land:1,ext:"svg",yt:"ekJzJTnd43s",ys:28,yb:"physical therapist, side view",xn:"Drawings, not photos. Wrong: nodding down. Right: sliding your whole head straight back.",
   c:["Eyes stay level the whole time","Slide your head straight back, like you're making a double chin. Hold 5 sec","Gentle, about half effort. You should feel a stretch at the base of your skull"]},
- ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"Under the chin",i:"ctar",x:0,land:1,ext:"svg",xn:"Drawing, not a photo.",
+ ctar:{n:"Chin Tuck Against a Ball",m:"Small soft ball (about 5 in, like a kids' ball) or a rolled-up towel under your chin",w:"Under the chin",i:"ctar",x:0,land:1,ext:"svg",yt:"aRaAUv23d4o",ys:15,yb:"30-sec clinic demo",xn:"Drawing, not a photo. The video uses a rolled-up towel; a small soft ball works the same. He says "as hard as you can"; you go firm, not max.",
   c:["Sit tall, ball between your chin and the top of your chest","Nod your chin down and squeeze the ball, firm but not max. Shoulders stay still","Breathe normally the whole time. Stop if your throat hurts or breathing feels off"]},
- jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"Under the chin",i:"jawopen",x:0,land:1,ext:"svg",xn:"Drawing, not a photo. This is the move from the small study where the resting hyoid sat higher after 4 weeks.",
+ jawopen:{n:"Jaw-Opening Hold",m:"Nothing. Sitting, head level",w:"Under the chin",i:"jawopen",x:0,land:1,ext:"svg",yt:"v6cd117y3cg",ys:41,yb:"physio, front view",xn:"Drawing, not a photo. In the video he opens and closes smoothly with his tongue tip behind his top teeth, which keeps the jaw opening straight. Do the same, but pause at the bottom and hold 10 sec.",
   c:["Open straight down as wide as is comfortable, about 80%, not max","Hold 10 sec, close slowly, relax 10 sec","Stop if your jaw clicks, locks or aches"]},
  neckcurl:{n:"Lying Neck Curl",m:"Flat bench, lying face up with your head off the end. No weight for 2 weeks, then a 2.5–5 lb plate on a folded towel",w:"Front of neck",i:"neckcurl",x:0,land:1,
   c:["Shoulders right at the edge of the bench, head off it","Slowly bring your chin toward your chest, then lower only to level. Don't let your head hang back","Slow and smooth, no jerking. Stop if you feel sharp pain or dizziness"]},
@@ -452,6 +457,7 @@ function card(e,j,done){
    <span class="chk" data-c="${id}" role="button" aria-label="Mark done">${tick}</span></summary>
   <div class="body">
   <div class="facts"><div><b>Where:</b> ${e.m}</div>${e.note?`<div class="note">${e.note}</div>`:''}</div>
+  ${e.yt?`<div class="lbl">Real demo · ${e.yb}</div><div class="yt" data-yt="${e.yt}" data-ys="${e.ys||0}"><img loading="lazy" src="https://i.ytimg.com/vi/${e.yt}/hqdefault.jpg" alt="${e.n} demo video"><span class="pl"><span>▶</span></span></div>`:''}
   <div class="lbl">${e.ext?'How it moves':'On the machine'} · start ↔ finish</div>
   <div class="mach"><img loading="lazy" src="img/${e.g}-m0.${e.ext||'jpg'}" alt="${e.n} start position"><img loading="lazy" src="img/${e.g}-m1.${e.ext||'jpg'}" alt="${e.n} finish position"><span class="tag">▶ How it moves</span></div>
   ${e.mc?`<div class="mc">${e.mc}</div>`:''}
@@ -522,6 +528,7 @@ main.addEventListener('toggle',ev=>{const d=ev.target; if(!d.dataset||d.dataset.
 main.onclick=ev=>{
  const g=ev.target.closest('[data-go]'); if(g){const dt=new Date(g.dataset.go+'T12:00:00'); wkOff=Math.round((addDays(dt,-wdOf(dt))-THIS_MON)/864e5/7); cur=wdOf(dt); view='day'; render(); window.scrollTo(0,0); return;}
  const a=ev.target.closest('[data-act="wt"]'); if(a){const v=parseFloat(document.getElementById('wtin').value); if(v>50&&v<500){const w=WEIGHTS(); w[ymd(new Date())]=Math.round(v*10)/10; LS.set('wp4:weights',w); render();} return;}
+ const yv=ev.target.closest('[data-yt]'); if(yv){if(!yv.querySelector('iframe'))yv.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${yv.dataset.yt}?start=${yv.dataset.ys}&autoplay=1&playsinline=1&rel=0" title="Demo video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; return;}
  const c=ev.target.closest('[data-c]'); if(!c)return; ev.preventDefault();
  const id=c.dataset.c, arr=getDone(cur), p=arr.indexOf(id); p<0?arr.push(id):arr.splice(p,1); setDone(cur,arr);
  const y=window.scrollY; render(); window.scrollTo(0,y);
