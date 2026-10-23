@@ -289,11 +289,12 @@
   <p><b>Gum for the jaw:</b> skip it. It sticks to braces, and a 6-month study found gum doesn't change jaw muscle size or jaw shape.</p>
   <p><b>Showers:</b> hot is fine for your body, but very hot water dries out your face and scalp. Wash your face with lukewarm water, finish with a few seconds of cool, and put moisturizer on within a few minutes of getting out.</p>
   <p><b>Best next step:</b> ask your orthodontist to look at the side X-ray you already had and tell you whether your hyoid is actually low. If it is, a speech therapist who does tongue and swallowing therapy can give you a supervised plan.</p></details>
-<details><summary>Is this plan good? Yes.</summary><p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 15, back 15, biceps 11, triceps 11, side shoulders 7, abs 15, legs 15, calves 5. That's the range that builds muscle — the thing that makes it work is pushing each set close to failure, not the count.</p>
+<details><summary>Is this plan good? Yes.</summary><p>Every muscle gets hit about <b>twice a week</b> with the right reps (8–12 big lifts, 10–15 small). Weekly sets: chest 15, back 15, biceps 12, triceps 12, side shoulders 10, rear shoulders 5, traps 3, abs 15, legs 20, calves 5. That's the range that builds muscle — the thing that makes it work is pushing each set close to failure, not the count.</p>
   <p><b>Calves:</b> moved off the calf station onto the leg press, right after your leg press sets, so you never have to go over there. Added 2 sets on Saturday so they get worked twice a week like everything else.</p>
   <p><b>From Raj &amp; Roh's workouts:</b> their split (each muscle twice a week) matches yours, so the plan stays. Three swaps from their ab and arm routines: lying leg raises on Wednesday for lower abs, Bayesian cable curls on Thursday for the biceps peak, and side cable crunches instead of planks on Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
   <p><b>Arms and chest:</b> the sets are there now. What makes them grow is adding reps or weight every week or two. Log it.</p>
+  <p><b>Checked Oct 22 (Astra review):</b> Thursday was too light, so hammer curls and overhead triceps moved there from Friday, plus rear-shoulder flys. Friday is now chest, back and shoulders only, so your arms aren't hit two days in a row. Abs on leg day: yes, already Wednesday and Saturday. Planks: optional, at home if you want; they don't add definition. Lunges: already covered (split squats Wednesday, walking lunges Saturday). Abs show from muscle plus staying lean, so keep eating to gain, don't cut.</p>
   <p><b>Not sore? That's fine.</b> Soreness doesn't mean growth. What counts is how hard the sets are: the last 2–3 reps should be a real struggle with clean form. On machines, cables and curls, take the last set until you can't do another clean rep.</p>
   <p><b>How to get stronger:</b> pick a weight you can do with clean form, stopping 1–3 reps before you'd fail. When you hit the top of the rep range on every set (e.g. 12/12/12), go up one weight step next time.</p>
   <p><b>Rest:</b> 2–3 min on big lifts (presses, rows, pulldown, leg press, RDL), 1–2 min on small ones. Being sore isn't the goal; adding reps or weight is.</p>
@@ -398,17 +399,17 @@ const PLAN=[
   E("machcurl","3 × 8–12"),E("hammer","3 × 10–15",{note:"+1 set for the biceps."})]},
  {d:"Wed",f:"Legs + Abs",min:"~75 min",ex:[
   E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcalf","3 × 12–20",{note:"Replaces standing calf raises: do these right after your leg press sets without getting up."}),
-  E("splitsq","3 × 8–12 per leg",{note:"New: the lunge move with the best payoff. Hardest lift of the day, so do it fresh."}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),E("rdl","2 × 8–12"),E("abmach","3 × 10–15"),
+  E("splitsq","3 × 8–12 per leg",{note:"New: the lunge move with the best payoff. Hardest lift of the day, so do it fresh."}),E("rdl","2 × 8–12",{note:"Moved up: do it before the leg curl so your form is fresh."}),E("legcurl","3 × 10–15"),E("legext","3 × 10–15"),E("abmach","3 × 10–15"),
   E("legraise","3 × 10–15",{note:"New, from Raj & Roh: hits the lower abs the machine misses."})]},
- {d:"Thu",f:"Shoulders + Arms + Traps + Neck",min:"~65 min",ex:[
+ {d:"Thu",f:"Shoulders + Arms + Traps + Neck",min:"~75 min",ex:[
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("lateral","4 × 12–15",{load:"start 5–10 lb each",note:"+1 set: wider shoulders make arms look bigger."}),
-  E("shrug","3 × 10–15",{note:"+1 set for the traps."}),E("bayesian","3 × 10–12 per arm",{note:"Swapped in for dumbbell curls (Raj & Roh): the stretch builds the biceps peak. Taken? Do incline dumbbell curls."}),E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."}),
-  E("neckcurl","2 × 15"),E("neckext","2 × 15")]},
- {d:"Fri",f:"Chest + Back + Arm finisher",min:"65–80 min",ex:[
+  E("shrug","3 × 10–15",{note:"+1 set for the traps."}),E("bayesian","3 × 10–12 per arm",{note:"Swapped in for dumbbell curls (Raj & Roh): the stretch builds the biceps peak. Taken? Do incline dumbbell curls."}),E("hammer","3 × 10–12",{note:"Added Oct 22: more biceps, moved here from Friday."}),
+  E("pushdown","3 × 10–15",{note:"+1 set: arms are a top goal."}),E("ohrope","3 × 10–15",{note:"Added Oct 22: more triceps, moved here from Friday."}),
+  E("revfly","2 × 12–15",{note:"Added Oct 22: back of the shoulders, rounder look from the side."}),
+  E("neckcurl","2 × 15",{note:"At home."}),E("neckext","2 × 15",{note:"At home."})]},
+ {d:"Fri",f:"Chest + Back + Shoulders",min:"~60 min",ex:[
   E("incline","3 × 8–12"),E("pulldown","3 × 8–12",{load:"~120 lb"}),E("chestpress","3 × 8–12",{load:"~50 lb"}),
-  E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."}),
-  E("hammer","2 × 10–12",{note:"Finisher: skip if your arms are already fried."}),
-  E("ohrope","2 × 10–15",{note:"Finisher: skip if your triceps are already fried."})]},
+  E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("lateral","3 × 12–15",{note:"+1 set for shoulder width."})]},
  {d:"Sat",f:"Light Legs + Abs",min:"~55 min",ex:[
   E("legpress","2 × 12–15",{note:"Lighter than Wednesday."}),E("legcalf","2 × 12–20",{note:"Same spot as your leg press. Now calves get hit twice a week too."}),E("lunge","2 × 10 per leg",{note:"New: walking lunges."}),E("legcurl","2 × 12–15"),
   E("knee","3 × 8–15"),E("cablecrunch","3 × 10–15",{note:"+1 set. Add weight over time, same as any muscle."}),E("sidecrunch","3 × 10–12 per side",{note:"Replaces planks (Raj & Roh): planks build endurance, this builds the V-cut."})]},
