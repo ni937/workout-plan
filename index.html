@@ -428,7 +428,7 @@ const addDays=(d,n)=>{const x=new Date(d); x.setDate(x.getDate()+n); x.setHours(
 const THIS_MON=addDays(new Date(),-today);
 let wkOff=0, view='day';
 const dateFor=i=>addDays(THIS_MON,wkOff*7+i);
-const LS={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){} if(/^wp\d:/.test(k)&&k!=='wp4:lastbackup'&&typeof syncSoon==='function')syncSoon();}};
 const getDoneD=dt=>LS.get('wp4:'+ymd(dt),[]), setDoneD=(dt,a)=>LS.set('wp4:'+ymd(dt),a);
 const getDone=i=>getDoneD(dateFor(i)), setDone=(i,a)=>setDoneD(dateFor(i),a);
 // carry over this week's checks from the old week-based storage
@@ -538,10 +538,13 @@ function progressView(){
    <div class="cal"><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i>${cells}</div>
    <div class="legend"><span><i style="--p:.15"></i>started</span><span><i style="--p:.6"></i>most</span><span><i style="--p:1"></i>all done</span></div></section>
   <section class="blk"><div class="bh"><b>Body weight</b><span>weekly</span></div>${weightBox()}</section>
+  <section class="blk"><div class="bh"><b>Auto-save to GitHub</b><span>${syncLabel()}</span></div>
+   <div class="wt">${localStorage.getItem('wpsync:token')?`<div class="wtsum" style="margin-top:0">Every check and weight saves to your private GitHub log a few seconds after you tap. New phone? Paste your key again and it all comes back.</div><div class="wtrow" style="margin-top:10px"><button class="btn" data-act="gsnow" style="flex:1;padding:10px">Save now</button><button class="btn" data-act="gsoff" style="flex:1;padding:10px;background:#2c2c2e;color:var(--txt)">Disconnect</button></div>`
+   :`<div class="wtrow"><input id="gskey" type="password" autocomplete="off" placeholder="Paste GitHub key"><button class="btn" data-act="gson">Connect</button></div><div class="wtsum">One time: make the key <a href="${GH_KEY_URL}" target="_blank" rel="noopener" style="color:var(--ok)">here</a>, pick "Only select repositories" → workout-log, generate, copy, paste above.</div>`}</div></section>
   <section class="blk"><div class="bh"><b>Backup</b><span>${LS.get('wp4:lastbackup',0)?'last '+LS.get('wp4:lastbackup','').slice(5).replace('-','/'):'never backed up'}</span></div>
    <div class="wt"><div class="wtrow"><button class="btn" data-act="bk" style="flex:1;padding:10px">Save backup</button><label class="btn" style="flex:1;padding:10px;text-align:center;background:#2c2c2e;color:var(--txt)">Restore<input id="bkin" type="file" accept=".json,application/json" hidden></label></div>
    <div class="wtsum">Saves every check and weight to one file. Pick "Save to Files" → iCloud Drive. New phone or cleared Safari? Tap Restore and pick that file.</div></div></section>
-  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Checks save on this phone; back up every Sunday.</div>`;}
+  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Checks save on this phone; auto-saves to GitHub once connected.</div>`;}
 function render(){
  const mon=dateFor(0), sun=dateFor(6);
  tabs.innerHTML=`<div class="wkbar"><button data-wk="-1" aria-label="Previous week">‹</button><span>${wkOff===0?'This week':MON[mon.getMonth()]+' '+mon.getDate()+' – '+(mon.getMonth()===sun.getMonth()?'':MON[sun.getMonth()]+' ')+sun.getDate()}</span><button data-wk="1" aria-label="Next week">›</button><button class="pv${view==='progress'?' on':''}" data-view="${view==='progress'?'day':'progress'}">${view==='progress'?'Back to today':'Progress'}</button></div>`+
@@ -584,10 +587,45 @@ function restoreBackup(text){let d; try{d=JSON.parse(text).data;}catch(e){} if(!
   LS.set(k,nu); n++;}
  alert(`Restored ${n} saved items.`); render();}
 main.addEventListener('change',ev=>{if(ev.target.id!=='bkin'||!ev.target.files[0])return; const f=ev.target.files[0]; f.text().then(restoreBackup);});
+// GitHub auto-save: one JSON file in the private repo ni937/workout-log; the key lives only on this phone
+const GH_API='https://api.github.com/repos/ni937/workout-log/contents/log.json';
+const GH_KEY_URL='https://github.com/settings/personal-access-tokens/new?name=Workout+page+auto-save&description=Saves+the+workout+log&target_name=ni937&expires_in=none&contents=write';
+var ghSha=null, ghTimer=null, ghBusy=false, ghAgain=false;
+const syncLabel=()=>{const st=LS.get('wpsync:status',null); if(!localStorage.getItem('wpsync:token'))return 'off'; if(!st)return 'connected'; return st.ok?'saved '+new Date(st.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'not saved: '+st.msg;};
+const b64e=t=>btoa(unescape(encodeURIComponent(t))), b64d=t=>decodeURIComponent(escape(atob(t.replace(/\s/g,''))));
+async function ghFetch(method,body){const r=await fetch(GH_API+(method==='GET'?'?t='+Date.now():''),{method,cache:'no-store',headers:{Authorization:'Bearer '+localStorage.getItem('wpsync:token'),Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},body:body&&JSON.stringify(body)}); return r;}
+function setSync(ok,msg){localStorage.setItem('wpsync:status',JSON.stringify({ok,msg,t:Date.now()})); if(view==='progress'){const y=window.scrollY; render(); window.scrollTo(0,y);}}
+// pull: anything missing on this phone comes back from GitHub; what's on the phone wins
+async function ghPull(){const r=await ghFetch('GET'); if(r.status===404){ghSha=null; return 0;} if(!r.ok) throw new Error(r.status===401?'key rejected':'GitHub '+r.status);
+ const j=await r.json(); ghSha=j.sha; let d={}; try{d=JSON.parse(b64d(j.content)).data||{};}catch(e){}
+ let n=0; for(const [k,raw] of Object.entries(d)){ if(!/^wp\d:/.test(k)||k==='wp4:lastbackup')continue; const cur=localStorage.getItem(k);
+  if(cur===null){localStorage.setItem(k,raw); n++;}
+  else if(k==='wp4:weights'){try{const a=JSON.parse(raw),b=JSON.parse(cur); const m=Object.assign({},a,b); if(Object.keys(m).length>Object.keys(b).length){localStorage.setItem(k,JSON.stringify(m)); n++;}}catch(e){}}}
+ return n;}
+async function ghPush(){if(!localStorage.getItem('wpsync:token'))return; if(ghBusy){ghAgain=true;return;} ghBusy=true;
+ try{ for(let tries=0;tries<2;tries++){ if(ghSha===null||tries) await ghPull();
+   const r=await ghFetch('PUT',{message:'log '+ymd(new Date()),content:b64e(JSON.stringify({app:'workout-plan',saved:new Date().toISOString(),data:backupData()},null,1)),...(ghSha?{sha:ghSha}:{})});
+   if(r.ok){ghSha=(await r.json()).content.sha; setSync(true,''); break;}
+   if(r.status===401){setSync(false,'key rejected'); break;}
+   if(!(r.status===409||r.status===422)||tries){setSync(false,'GitHub '+r.status); break;} }
+ }catch(e){setSync(false,navigator.onLine===false?'offline, retrying':'retrying'); clearTimeout(ghTimer); ghTimer=setTimeout(ghPush,60000);}
+ ghBusy=false; if(ghAgain){ghAgain=false; syncSoon();}}
+function syncSoon(){if(!localStorage.getItem('wpsync:token'))return; clearTimeout(ghTimer); ghTimer=setTimeout(ghPush,3000);}
+async function ghConnect(key){localStorage.setItem('wpsync:token',key); ghSha=null;
+ try{const n=await ghPull(); render(); await ghPush(); const st=LS.get('wpsync:status',{}); alert(st.ok?(n?`Connected. Brought back ${n} saved items from GitHub.`:'Connected. Everything now saves to GitHub.'):'Saved key, but GitHub said: '+st.msg);}
+ catch(e){localStorage.removeItem('wpsync:token'); render(); alert(e.message==='key rejected'?"GitHub didn't accept that key. Make sure you picked the workout-log repo and Contents: Read and write.":'Could not reach GitHub: '+e.message);}}
+addEventListener('online',()=>syncSoon()); document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ghTimer){clearTimeout(ghTimer); ghPush();}});
+// on open: pull anything missing, then save
+if(localStorage.getItem('wpsync:token')) ghPull().then(n=>{if(n)render(); ghPush();}).catch(e=>setSync(false,e.message));
 // ask the browser not to clear this page's saved data
 if(navigator.storage&&navigator.storage.persist) navigator.storage.persist().catch(()=>{});
 main.onclick=ev=>{
  const bk=ev.target.closest('[data-act="bk"]'); if(bk){saveBackup(); return;}
+ const gs=ev.target.closest('[data-act^="gs"]'); if(gs){const a=gs.dataset.act;
+  if(a==='gson'){const k=document.getElementById('gskey').value.trim(); if(k.length>20) ghConnect(k); else alert('Paste the whole key first.');}
+  if(a==='gsnow'){ghSha=null; ghPush();}
+  if(a==='gsoff'&&confirm('Stop auto-saving to GitHub on this phone? Your saved log stays on GitHub.')){localStorage.removeItem('wpsync:token'); localStorage.removeItem('wpsync:status'); render();}
+  return;}
  const g=ev.target.closest('[data-go]'); if(g){const dt=new Date(g.dataset.go+'T12:00:00'); wkOff=Math.round((addDays(dt,-wdOf(dt))-THIS_MON)/864e5/7); cur=wdOf(dt); view='day'; render(); window.scrollTo(0,0); return;}
  const a=ev.target.closest('[data-act="wt"]'); if(a){const v=parseFloat(document.getElementById('wtin').value); if(v>50&&v<500){const w=WEIGHTS(); w[ymd(new Date())]=Math.round(v*10)/10; LS.set('wp4:weights',w); render();} return;}
  const yv=ev.target.closest('[data-yt]'); if(yv){if(!yv.querySelector('iframe'))yv.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${yv.dataset.yt}?start=${yv.dataset.ys}&autoplay=1&playsinline=1&rel=0" title="Demo video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; return;}
