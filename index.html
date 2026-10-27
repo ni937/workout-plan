@@ -481,7 +481,8 @@ const WEEK=[
  ["wk-weigh","Weigh in","Same morning each week · no change in 2 weeks → add a snack"],
  ["wk-photo","Side photo","Every 4th Sunday · arm's length, 2x, head level, lips relaxed, side light"],["wk-waist","Waist at belly button","Tape measure · up 1 inch+ in a month → eat a bit less"],
  ["wk-cap","Wash your caps","Sweat in the band = forehead bumps"],
- ["wk-barber","Barber every 3–4 weeks","Taper, height on top, fade the beard"]];
+ ["wk-barber","Barber every 3–4 weeks","Taper, height on top, fade the beard"],
+ ["wk-backup","Back up your log","Progress → Save backup → Save to Files (iCloud Drive)"]];
 const open=new Set();
 const ri=(id,t,h,done)=>`<button class="ri${done.includes(id)?' done':''}" data-c="${id}"><span class="rt">${t}${h?`<em>${h}</em>`:''}</span><span class="chk sm">${tick}</span></button>`;
 const block=(title,sub,body,ids,done)=>{const k=ids?ids.filter(x=>done.includes(x)).length:0, all=ids&&ids.length&&k===ids.length;
@@ -537,7 +538,10 @@ function progressView(){
    <div class="cal"><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i>${cells}</div>
    <div class="legend"><span><i style="--p:.15"></i>started</span><span><i style="--p:.6"></i>most</span><span><i style="--p:1"></i>all done</span></div></section>
   <section class="blk"><div class="bh"><b>Body weight</b><span>weekly</span></div>${weightBox()}</section>
-  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Everything saves on this phone.</div>`;}
+  <section class="blk"><div class="bh"><b>Backup</b><span>${LS.get('wp4:lastbackup',0)?'last '+LS.get('wp4:lastbackup','').slice(5).replace('-','/'):'never backed up'}</span></div>
+   <div class="wt"><div class="wtrow"><button class="btn" data-act="bk" style="flex:1;padding:10px">Save backup</button><label class="btn" style="flex:1;padding:10px;text-align:center;background:#2c2c2e;color:var(--txt)">Restore<input id="bkin" type="file" accept=".json,application/json" hidden></label></div>
+   <div class="wtsum">Saves every check and weight to one file. Pick "Save to Files" → iCloud Drive. New phone or cleared Safari? Tap Restore and pick that file.</div></div></section>
+  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Checks save on this phone; back up every Sunday.</div>`;}
 function render(){
  const mon=dateFor(0), sun=dateFor(6);
  tabs.innerHTML=`<div class="wkbar"><button data-wk="-1" aria-label="Previous week">‹</button><span>${wkOff===0?'This week':MON[mon.getMonth()]+' '+mon.getDate()+' – '+(mon.getMonth()===sun.getMonth()?'':MON[sun.getMonth()]+' ')+sun.getDate()}</span><button data-wk="1" aria-label="Next week">›</button><button class="pv${view==='progress'?' on':''}" data-view="${view==='progress'?'day':'progress'}">${view==='progress'?'Back to today':'Progress'}</button></div>`+
@@ -566,7 +570,24 @@ tabs.onclick=ev=>{
  const v=ev.target.closest('[data-view]'); if(v){view=v.dataset.view; if(view==='day'){wkOff=0;cur=today;} render(); window.scrollTo(0,0); return;}
  const b=ev.target.closest('[data-t]'); if(!b)return; cur=+b.dataset.t; view='day'; render(); window.scrollTo(0,0);};
 main.addEventListener('toggle',ev=>{const d=ev.target; if(!d.dataset||d.dataset.o===undefined)return; const key=cur+':'+d.dataset.o; d.open?open.add(key):open.delete(key);},true);
+// backup: every wp* key in one file; restore merges, never deletes
+function backupData(){const o={}; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(/^wp\d:/.test(k))o[k]=localStorage.getItem(k);} return o;}
+async function saveBackup(){const name=`workout-log-${ymd(new Date())}.json`, blob=new Blob([JSON.stringify({app:'workout-plan',saved:new Date().toISOString(),data:backupData()})],{type:'application/json'});
+ const file=new File([blob],name,{type:'application/json'});
+ try{ if(navigator.canShare&&navigator.canShare({files:[file]})) await navigator.share({files:[file],title:name});
+  else{const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),5000);}
+  LS.set('wp4:lastbackup',ymd(new Date())); render();
+ }catch(e){ if(e&&e.name!=='AbortError') alert('Backup failed: '+e.message); }}
+function restoreBackup(text){let d; try{d=JSON.parse(text).data;}catch(e){} if(!d||typeof d!=='object'){alert("That file isn't a workout backup.");return;}
+ let n=0; for(const [k,raw] of Object.entries(d)){ if(!/^wp\d:/.test(k)||k==='wp4:lastbackup')continue; let v; try{v=JSON.parse(raw);}catch(e){continue;}
+  const cur=LS.get(k,null); const nu=Array.isArray(v)?[...new Set([...(Array.isArray(cur)?cur:[]),...v])]:(v&&typeof v==='object')?Object.assign({},v,cur&&typeof cur==='object'?cur:{}):(cur===null?v:cur);
+  LS.set(k,nu); n++;}
+ alert(`Restored ${n} saved items.`); render();}
+main.addEventListener('change',ev=>{if(ev.target.id!=='bkin'||!ev.target.files[0])return; const f=ev.target.files[0]; f.text().then(restoreBackup);});
+// ask the browser not to clear this page's saved data
+if(navigator.storage&&navigator.storage.persist) navigator.storage.persist().catch(()=>{});
 main.onclick=ev=>{
+ const bk=ev.target.closest('[data-act="bk"]'); if(bk){saveBackup(); return;}
  const g=ev.target.closest('[data-go]'); if(g){const dt=new Date(g.dataset.go+'T12:00:00'); wkOff=Math.round((addDays(dt,-wdOf(dt))-THIS_MON)/864e5/7); cur=wdOf(dt); view='day'; render(); window.scrollTo(0,0); return;}
  const a=ev.target.closest('[data-act="wt"]'); if(a){const v=parseFloat(document.getElementById('wtin').value); if(v>50&&v<500){const w=WEIGHTS(); w[ymd(new Date())]=Math.round(v*10)/10; LS.set('wp4:weights',w); render();} return;}
  const yv=ev.target.closest('[data-yt]'); if(yv){if(!yv.querySelector('iframe'))yv.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${yv.dataset.yt}?start=${yv.dataset.ys}&autoplay=1&playsinline=1&rel=0" title="Demo video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; return;}
