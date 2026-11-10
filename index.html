@@ -538,13 +538,15 @@ function progressView(){
    <div class="cal"><i>M</i><i>T</i><i>W</i><i>T</i><i>F</i><i>S</i><i>S</i>${cells}</div>
    <div class="legend"><span><i style="--p:.15"></i>started</span><span><i style="--p:.6"></i>most</span><span><i style="--p:1"></i>all done</span></div></section>
   <section class="blk"><div class="bh"><b>Body weight</b><span>weekly</span></div>${weightBox()}</section>
-  <section class="blk"><div class="bh"><b>Auto-save to GitHub</b><span>${syncLabel()}</span></div>
+  <section class="blk"><div class="bh"><b>Auto-save</b><span>${srvLabel()}</span></div>
+   <div class="wt"><div class="wtsum" style="margin-top:0">Every check and weight saves to your computer a few seconds after you tap, then to your private GitHub log. Nothing to set up.</div></div></section>
+  <section class="blk"><div class="bh"><b>Restore from GitHub</b><span>${syncLabel()}</span></div>
    <div class="wt">${localStorage.getItem('wpsync:token')?`<div class="wtsum" style="margin-top:0">Every check and weight saves to your private GitHub log a few seconds after you tap. New phone? Paste your key again and it all comes back.</div><div class="wtrow" style="margin-top:10px"><button class="btn" data-act="gsnow" style="flex:1;padding:10px">Save now</button><button class="btn" data-act="gsoff" style="flex:1;padding:10px;background:#2c2c2e;color:var(--txt)">Disconnect</button></div>`
    :`<div class="wtrow"><input id="gskey" type="password" autocomplete="off" placeholder="Paste GitHub key"><button class="btn" data-act="gson">Connect</button></div><div class="wtsum">One time: make the key <a href="${GH_KEY_URL}" target="_blank" rel="noopener" style="color:var(--ok)">here</a>, pick "Only select repositories" → workout-log, generate, copy, paste above.</div>`}</div></section>
   <section class="blk"><div class="bh"><b>Backup</b><span>${LS.get('wp4:lastbackup',0)?'last '+LS.get('wp4:lastbackup','').slice(5).replace('-','/'):'never backed up'}</span></div>
    <div class="wt"><div class="wtrow"><button class="btn" data-act="bk" style="flex:1;padding:10px">Save backup</button><label class="btn" style="flex:1;padding:10px;text-align:center;background:#2c2c2e;color:var(--txt)">Restore<input id="bkin" type="file" accept=".json,application/json" hidden></label></div>
    <div class="wtsum">Saves every check and weight to one file. Pick "Save to Files" → iCloud Drive. New phone or cleared Safari? Tap Restore and pick that file.</div></div></section>
-  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Checks save on this phone; auto-saves to GitHub once connected.</div>`;}
+  <div class="tip" style="margin:14px 16px 0">A day counts toward your streak at 80%+ done. Checks save on this phone and auto-save to your computer and GitHub.</div>`;}
 function render(){
  const mon=dateFor(0), sun=dateFor(6);
  tabs.innerHTML=`<div class="wkbar"><button data-wk="-1" aria-label="Previous week">‹</button><span>${wkOff===0?'This week':MON[mon.getMonth()]+' '+mon.getDate()+' – '+(mon.getMonth()===sun.getMonth()?'':MON[sun.getMonth()]+' ')+sun.getDate()}</span><button data-wk="1" aria-label="Next week">›</button><button class="pv${view==='progress'?' on':''}" data-view="${view==='progress'?'day':'progress'}">${view==='progress'?'Back to today':'Progress'}</button></div>`+
@@ -610,11 +612,23 @@ async function ghPush(){if(!localStorage.getItem('wpsync:token'))return; if(ghBu
    if(!(r.status===409||r.status===422)||tries){setSync(false,'GitHub '+r.status); break;} }
  }catch(e){setSync(false,navigator.onLine===false?'offline, retrying':'retrying'); clearTimeout(ghTimer); ghTimer=setTimeout(ghPush,60000);}
  ghBusy=false; if(ghAgain){ghAgain=false; syncSoon();}}
-function syncSoon(){if(!localStorage.getItem('wpsync:token'))return; clearTimeout(ghTimer); ghTimer=setTimeout(ghPush,3000);}
+// Mac mini auto-save (no setup): posts the whole log; the Mac mini keeps log.json and pushes it to GitHub
+const SRV_URL='https://drives-mac-mini.tail6bd44a.ts.net/gymlog/save';
+var srvTimer=null, srvBusy=false, srvAgain=false;
+const srvLabel=()=>{const st=LS.get('wpsrv:status',null); if(!st)return 'not saved yet'; return st.ok?'saved '+new Date(st.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'not saved, retrying';};
+function srvSet(ok){const prev=LS.get('wpsrv:status',null); localStorage.setItem('wpsrv:status',JSON.stringify({ok,t:ok?Date.now():(prev&&prev.t)||0})); if(view==='progress'&&(!prev||prev.ok!==ok||ok)){const y=window.scrollY; render(); window.scrollTo(0,y);}}
+async function srvPush(final){if(srvBusy){srvAgain=true;return;} srvBusy=true; clearTimeout(srvTimer);
+ try{const body=JSON.stringify({data:backupData()}); const r=await fetch(SRV_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:!!final&&body.length<60000});
+  const j=await r.json().catch(()=>({})); if(!r.ok||!j.ok) throw new Error('not saved'); srvSet(true);}
+ catch(e){srvSet(false); srvTimer=setTimeout(srvPush,60000);}
+ srvBusy=false; if(srvAgain){srvAgain=false; syncSoon();}}
+function syncSoon(){clearTimeout(srvTimer); srvTimer=setTimeout(srvPush,3000); if(!localStorage.getItem('wpsync:token'))return; clearTimeout(ghTimer); ghTimer=setTimeout(ghPush,3000);}
 async function ghConnect(key){localStorage.setItem('wpsync:token',key); ghSha=null;
  try{const n=await ghPull(); render(); await ghPush(); const st=LS.get('wpsync:status',{}); alert(st.ok?(n?`Connected. Brought back ${n} saved items from GitHub.`:'Connected. Everything now saves to GitHub.'):'Saved key, but GitHub said: '+st.msg);}
  catch(e){localStorage.removeItem('wpsync:token'); render(); alert(e.message==='key rejected'?"GitHub didn't accept that key. Make sure you picked the workout-log repo and Contents: Read and write.":'Could not reach GitHub: '+e.message);}}
-addEventListener('online',()=>syncSoon()); document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ghTimer){clearTimeout(ghTimer); ghPush();}});
+addEventListener('online',()=>syncSoon()); document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='hidden')return; if(srvTimer)srvPush(true); if(ghTimer){clearTimeout(ghTimer); ghPush();}});
+// on open: save everything on this phone to the Mac mini
+if(Object.keys(backupData()).length) srvPush();
 // on open: pull anything missing, then save
 if(localStorage.getItem('wpsync:token')) ghPull().then(n=>{if(n)render(); ghPush();}).catch(e=>setSync(false,e.message));
 // ask the browser not to clear this page's saved data
