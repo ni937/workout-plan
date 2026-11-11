@@ -289,7 +289,7 @@
   <p><b>Gum for the jaw:</b> skip it. It sticks to braces, and a 6-month study found gum doesn't change jaw muscle size or jaw shape.</p>
   <p><b>Showers:</b> hot is fine for your body, but very hot water dries out your face and scalp. Wash your face with lukewarm water, finish with a few seconds of cool, and put moisturizer on within a few minutes of getting out.</p>
   <p><b>Best next step:</b> ask your orthodontist to look at the side X-ray you already had and tell you whether your hyoid is actually low. If it is, a speech therapist who does tongue and swallowing therapy can give you a supervised plan.</p></details>
-<details><summary>Is this plan good? Yes.</summary><p><b>Final split, Nov 8 (3-model review: Gemini Argon, GPT-6 Astra, Opus 5.5):</b> Push / Pull / Legs, twice a week. Every day has fixed muscles that never change. <b>Mon + Thu = Push</b> (chest, shoulders, triceps). <b>Tue + Fri = Pull</b> (back, biceps, traps, rear shoulders). <b>Wed + Sat = Legs + Abs</b>. Sunday rest. Same split Raj &amp; Roh run.</p><p><b>Why it changed:</b> the old week was half one split, half another. Thursday arms ran straight into Friday chest and back, so the same muscles got hit two days in a row and Friday was a leftover day. All three models scored it 4.5–5 out of 10 for that reason.</p><p>Weekly sets: chest 14, back 16, side shoulders 8, rear shoulders 6, biceps 12, triceps 12, traps 4, legs ~22, calves 6, abs/core 23 incl. sides 6 (Nov 8: plank Wed, ab crunch machine Sat, side crunch Wed + Sat). Run it <b>unchanged for 12 weeks</b>. Only the weights go up.</p><p><b>The honest part:</b> the split was never the main problem. At about 120 lb you can't look stacked on any program. Stacked at your height is roughly 145–160 lb, lean. What decides it, in order: the scale going up, sets taken close to failure, and the weights going up.</p>
+<details><summary>Is this plan good? Yes.</summary><p><b>Final split, Nov 8 (3-model review: Gemini Argon, GPT-6 Astra, Opus 5.5):</b> Push / Pull / Legs, twice a week. Every day has fixed muscles that never change. <b>Mon + Thu = Push</b> (chest, shoulders, triceps). <b>Tue + Fri = Pull</b> (back, biceps, traps, rear shoulders). <b>Wed + Sat = Legs + Abs</b>. Sunday rest. Same split Raj &amp; Roh run.</p><p><b>Why it changed:</b> the old week was half one split, half another. Thursday arms ran straight into Friday chest and back, so the same muscles got hit two days in a row and Friday was a leftover day. All three models scored it 4.5–5 out of 10 for that reason.</p><p>Weekly sets: chest 14, back 16, side shoulders 8, rear shoulders 6, biceps 12, triceps 11, traps 6, legs ~22, calves 6, abs/core 23 incl. sides 6 (Nov 8: plank Wed, ab crunch machine Sat, side crunch Wed + Sat). Run it <b>unchanged for 12 weeks</b>. Only the weights go up.</p><p><b>Nov 10 check (Fable 5 review): 7.5 out of 10.</b> Shrugs went to 3 sets (traps), Thursday pushdowns to 2 sets (triceps were slightly over). Everything else stays.</p><p><b>The honest part:</b> the split was never the main problem. At about 120 lb you can't look stacked on any program. Stacked at your height is roughly 145–160 lb, lean. What decides it, in order: the scale going up, sets taken close to failure, and the weights going up.</p>
   <p><b>Calves:</b> moved off the calf station onto the leg press, right after your leg press sets, so you never have to go over there. 3 sets Wednesday and Saturday, so they get worked twice a week like everything else.</p>
   <p><b>From Raj &amp; Roh's workouts:</b> they run Push / Pull / Legs twice a week, same as yours now. Kept from their routines: lying leg raises Wednesday for lower abs, Bayesian cable curls Tuesday for the biceps peak, side cable crunches Wednesday and Saturday for the V-cut.</p>
   <p><b>Abs:</b> they're a muscle. Load the crunch machine and cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
@@ -395,7 +395,7 @@ const PLAN=[
   E("neckcurl","2 × 15",{note:"At home. Light, posture only."}),E("neckext","2 × 15",{note:"At home."})]},
  {d:"Tue",f:"Pull: Back + Biceps + Traps",min:"~65 min",ex:[
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("row","2 × 8–12"),E("revfly","3 × 12–15",{note:"Back of the shoulders: rounder look from the side."}),
-  E("shrug","2 × 10–15"),E("bayesian","3 × 10–12 per arm",{note:"The stretch builds the biceps peak. Cable taken? Curly bar (EZ) curls."}),E("hammer","3 × 10–12")]},
+  E("shrug","3 × 10–15",{note:"Heavy, hold the top 1 sec."}),E("bayesian","3 × 10–12 per arm",{note:"The stretch builds the biceps peak. Cable taken? Curly bar (EZ) curls."}),E("hammer","3 × 10–12")]},
  {d:"Wed",f:"Legs + Abs",min:"~80 min",ex:[
   E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcalf","3 × 12–20",{note:"Right after your leg press sets, without getting up."}),
   E("splitsq","3 × 8–12 per leg",{note:"Hardest lift of the day, so do it fresh."}),E("legcurl","3 × 10–15"),E("legext","2 × 10–15"),
@@ -404,11 +404,11 @@ const PLAN=[
  {d:"Thu",f:"Push: Chest + Shoulders + Triceps",min:"~65 min",ex:[
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("incline","3 × 8–12"),E("pecdeck","3 × 10–15"),
   E("lateral","4 × 12–15",{load:"20 lb each: get 15 reps, then 25"}),
-  E("ohrope","3 × 10–15"),E("pushdown","3 × 10–15"),
+  E("ohrope","3 × 10–15"),E("pushdown","2 × 10–15",{note:"Last set to failure."}),
   E("neckcurl","2 × 15",{note:"At home."}),E("neckext","2 × 15",{note:"At home."})]},
  {d:"Fri",f:"Pull: Back + Biceps + Traps",min:"~65 min",ex:[
   E("pulldown","3 × 8–12",{load:"~120 lb",note:"Try a close or neutral grip today for variety."}),E("csrow","3 × 8–12",{note:"Taken? Use the seated cable row."}),E("row","2 × 8–12"),E("revfly","3 × 12–15"),
-  E("shrug","2 × 10–15"),E("machcurl","3 × 8–12"),E("hammer","3 × 10–12")]},
+  E("shrug","3 × 10–15",{note:"Heavy, hold the top 1 sec."}),E("machcurl","3 × 8–12"),E("hammer","3 × 10–12")]},
  {d:"Sat",f:"Legs + Abs",min:"~75 min",ex:[
   E("legpress","3 × 8–12",{note:"Full effort. Saturday is not a light day anymore."}),E("legcalf","3 × 12–20"),
   E("rdl","3 × 8–10",{note:"Start light; form first."}),E("legcurl","3 × 10–15"),E("legext","2 × 10–15"),
