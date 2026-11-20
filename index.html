@@ -289,10 +289,9 @@
   <p><b>Gum for the jaw:</b> skip it. It sticks to braces, and a 6-month study found gum doesn't change jaw muscle size or jaw shape.</p>
   <p><b>Showers:</b> hot is fine for your body, but very hot water dries out your face and scalp. Wash your face with lukewarm water, finish with a few seconds of cool, and put moisturizer on within a few minutes of getting out.</p>
   <p><b>Best next step:</b> ask your orthodontist to look at the side X-ray you already had and tell you whether your hyoid is actually low. If it is, a speech therapist who does tongue and swallowing therapy can give you a supervised plan.</p></details>
-<details open><summary>The plan (Nov 14): Reddit PPL + cardio</summary><p><b>Where it's from:</b> the Reddit PPL by u/Metallicadpa, the free Push / Pull / Legs program in the r/Fitness wiki and one of the most-run beginner plans online (<a href="https://liftvault.com/programs/strength/reddit-ppl" target="_blank" rel="noopener">program</a>). Kept: the lifts, sets, reps and how weight goes up. Your add-ons: 2 lighter deadlift sets and heavy shrugs on pull days (Nov 17, Tuesday felt too light), the abs circuit on leg days, cardio, and the jaw/neck routine.</p>
-  <p><b>Week:</b> Mon Push A (bench heavy) · Tue Pull A (deadlift) · Wed Legs · Thu Push B (overhead press heavy) · Fri Pull B (barbell row) · Sat Legs · Sun rest + walk.</p>
-  <p><b>Main lift each day</b> (first on the list): sets of 5, the last set "5+" = as many clean reps as you can, stopping 1 rep before your form breaks. Got all your reps? Add weight next time: 5 lb on bench, squat and row, 10 lb on deadlift, 2.5–5 lb on overhead press. Missed reps 3 sessions in a row on the same weight? Drop 10% and build back. Start light (empty bar); it climbs fast.</p>
-  <p><b>Everything else:</b> 8–12 reps (15–20 on laterals and face pulls). Hit 12 on every set → go up a weight. Last set close to failure. <b>Rest:</b> 3 min on the main lift, 1–2 min on the rest. <b>Warm up:</b> empty bar ×10, then a half-weight set before the main lift. Use the safety bars on bench and squat.</p>
+<details open><summary>Your plan: machines, dumbbells and barbell work</summary>
+  <p>Monday starts with bench; Thursday starts with incline dumbbells and adds machine chest press and pec deck. Tuesday keeps deadlifts and shrugs; Friday pairs rows with reverse flys and cable curls. Wednesday starts with squats, Saturday with leg press.</p>
+  <p>Choose a weight that leaves 1–2 clean reps in reserve. For rep ranges, reach the top on every set before moving up by the smallest available increment. Warm up with lighter sets first. Rest 2–3 minutes on presses, squats, deadlifts and rows; 1–2 minutes on accessories.</p>
   <p><b>Cardio (new, Nov 14):</b> 15–20 min easy bike after lifting on Mon, Tue, Thu, Fri, and a 30–45 min walk on Sunday. Pace: you can still talk. A 2021 review of 43 studies found cardio done like this doesn't slow muscle growth (<a href="https://link.springer.com/article/10.1007/s40279-021-01587-7" target="_blank" rel="noopener">study</a>); the bike beats running for leg recovery. Not after leg days. Each session burns ~150–200 calories, so eat that back (a glass of whole milk) or you'll stop gaining.</p>
   <p><b>Slim face + defined body:</b> you're already lean, so a fuller face is mostly water and salt, not fat. Restaurant bowls are salty: eat Cava at lunch, not late at night, drink 3 L of water, sleep 8 hours. Defined = more muscle with fat staying low. Gain slowly (0.5 lb a week), do the cardio, and the definition shows as you grow. Don't diet at 120 lb; you'd lose the muscle you're building.</p>
   <p><b>Abs:</b> they're a muscle. Load the cable crunch and add weight like any lift. Don't cut calories to see them; at 120 lb you need to eat to grow.</p>
@@ -410,8 +409,7 @@ const PLAN=[
  {d:"Mon",f:"Push A: Bench day + cardio",min:"~80 min",ex:[
   E("bench","4 × 5, then 1 × 5+",{note:"Main lift. Start with the empty bar (45 lb). Add 5 lb every session you get all your reps. Last set: as many clean reps as you can."}),
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("incline","3 × 8–12"),
-  E("pushdown","3 × 8–12",{note:"Superset: go straight into lateral raises, then rest."}),E("lateral","3 × 15–20",{load:"20 lb each"}),
-  E("ohrope","3 × 8–12",{note:"Superset: go straight into lateral raises, then rest."}),E("lateral","3 × 15–20",{load:"20 lb each"}),
+  E("pushdown","2 × 8–12"),E("lateral","3 × 12–20"),E("ohrope","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."}),
   E("neckcurl","2 × 15",{note:"At home. Light, posture only."}),E("neckext","2 × 15",{note:"At home."})]},
  {d:"Tue",f:"Pull A: Deadlift day + cardio",min:"~85 min",ex:[
@@ -424,21 +422,19 @@ const PLAN=[
   E("rdl","3 × 8–12",{note:"Straps if your grip goes first."}),E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 8–12"),
   E("legcalf","5 × 8–12",{note:"Right after leg press, without getting up. Pause 2 sec at the bottom."}),
   E("cablecrunch","3 × 10–15",{note:"Abs circuit: crunch, knee raise, side crunch, rest 45–60 sec. 3 rounds."}),E("knee","3 × 10–15"),E("sidecrunch","3 × 10–12 per side")]},
- {d:"Thu",f:"Push B: Overhead press day + cardio",min:"~80 min",ex:[
-  E("ohp","4 × 5, then 1 × 5+",{note:"Main lift. Start with the empty bar (45 lb). Add 2.5–5 lb every session you get all your reps."}),
-  E("bench","3 × 8–12",{note:"Lighter than Monday."}),E("incline","3 × 8–12"),
-  E("pushdown","3 × 8–12",{note:"Superset: go straight into lateral raises, then rest."}),E("lateral","3 × 15–20",{load:"20 lb each"}),
-  E("ohrope","3 × 8–12",{note:"Superset: go straight into lateral raises, then rest."}),E("lateral","3 × 15–20",{load:"20 lb each"}),
+ {d:"Thu",f:"Push B: Dumbbells + chest machines + cardio",min:"~80 min",ex:[
+  E("incline","3 × 8–12",{note:"Incline dumbbells or an iso-lateral incline machine. A flat iso-lateral press fits the chest press slot instead."}),
+  E("shpress","2 × 8–12",{note:"Barbell overhead press is an alternative."}),E("chestpress","3 × 8–12"),E("pecdeck","2 × 10–15"),
+  E("lateral","3 × 12–20"),E("pushdown","2 × 10–15"),E("ohrope","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."}),
   E("neckcurl","2 × 15",{note:"At home. Light, posture only."}),E("neckext","2 × 15",{note:"At home."})]},
  {d:"Fri",f:"Pull B: Row day + cardio",min:"~80 min",ex:[
   E("bbrow","4 × 5, then 1 × 5+",{note:"Main lift. Start at 65 lb. Add 5 lb every session you get all your reps."}),
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("csrow","3 × 8–12",{note:"Taken? Seated cable row."}),
-  E("facepull","5 × 15–20",{note:"Light. Rear shoulders + posture."}),E("shrug","3 × 10–12",{note:"Heavy. Hold the top 1 sec. Traps."}),E("hammer","4 × 8–12"),E("curl","4 × 8–12"),
+  E("revfly","3 × 12–20"),E("shrug","3 × 10–12"),E("bayesian","3 × 10–15 per arm"),E("hammer","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."})]},
  {d:"Sat",f:"Legs + Abs",min:"~75 min",ex:[
-  E("squat","2 × 5, then 1 × 5+",{note:"Main lift. Start with the empty bar (45 lb). Add 5 lb every session you get all your reps."}),
-  E("rdl","3 × 8–12",{note:"Straps if your grip goes first."}),E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 8–12"),
+  E("legpress","3 × 8–12"),E("rdl","3 × 8–12"),E("legcurl","3 × 10–15"),E("legext","2 × 10–15"),
   E("legcalf","5 × 8–12",{note:"Right after leg press, without getting up. Pause 2 sec at the bottom."}),
   E("cablecrunch","3 × 10–15",{note:"Abs circuit: crunch, knee raise, side crunch, rest 45–60 sec. 3 rounds."}),E("knee","3 × 10–15"),E("sidecrunch","3 × 10–12 per side")]},
  {d:"Sun",restday:true,f:"Rest + easy walk",min:"~45 min",ex:[E("inclinewalk","30–45 min",{note:"Easy. Outside or treadmill."})]},
