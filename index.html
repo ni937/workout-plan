@@ -21,6 +21,7 @@
   .tab{padding:4px 0 10px;color:var(--mut);text-align:center;position:relative;display:flex;flex-direction:column;align-items:center;gap:2px}
   .tab small{font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase}
   .tab b{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:16px;font-weight:600;color:var(--soft)}
+  .split{font-size:11px;line-height:1.15}
   .tab i{width:5px;height:5px;border-radius:50%;background:transparent}
   .tab i.part{background:#5a5a62}.tab i.full{background:var(--ok)}
   .tab.on b{background:var(--ok);color:#06210f}
@@ -405,39 +406,40 @@ const L={
   c:["Don't hold the rails","Breathing harder but you can still talk","Headphones in; this is the easy day"]},
 };
 const E=(k,s,o)=>Object.assign({},L[k],{s,g:k},o||{});
+const MUSCLES={Push:"Chest, shoulders & triceps",Pull:"Back, rear shoulders & biceps",Legs:"Quads, hamstrings, glutes, calves & abs",Rest:"Full-body recovery"};
 const PLAN=[
- {d:"Mon",f:"Push A: Bench day + cardio",min:"~80 min",ex:[
+ {d:"Mon",split:"Push",f:"Push A: Bench day + cardio",min:"~80 min",ex:[
   E("bench","4 × 5, then 1 × 5+",{note:"Main lift. Start with the empty bar (45 lb). Add 5 lb every session you get all your reps. Last set: as many clean reps as you can."}),
   E("shpress","3 × 8–12",{load:"start 10–15 lb each"}),E("incline","3 × 8–12"),
   E("pushdown","2 × 8–12"),E("lateral","3 × 12–20"),E("ohrope","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."}),
   E("neckcurl","2 × 15",{note:"At home. Light, posture only."}),E("neckext","2 × 15",{note:"At home."})]},
- {d:"Tue",f:"Pull A: Deadlift day + cardio",min:"~85 min",ex:[
+ {d:"Tue",split:"Pull",f:"Pull A: Deadlift day + cardio",min:"~85 min",ex:[
   E("deadlift","1 × 5+, then 2 × 5 lighter",{note:"Main lift. Start at 95 lb. Warm up first (bar, then halfway). One all-out set of clean reps, then 2 sets of 5 at ~85% of that weight. Add 10 lb every session you get 5+."}),
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("csrow","3 × 8–12",{note:"Taken? Seated cable row."}),
   E("facepull","5 × 15–20",{note:"Light. Rear shoulders + posture."}),E("shrug","3 × 10–12",{note:"Heavy. Hold the top 1 sec. Traps."}),E("hammer","4 × 8–12"),E("curl","4 × 8–12"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."})]},
- {d:"Wed",f:"Legs + Abs",min:"~75 min",ex:[
+ {d:"Wed",split:"Legs",f:"Legs + Abs",min:"~75 min",ex:[
   E("squat","2 × 5, then 1 × 5+",{note:"Main lift. Start with the empty bar (45 lb). Add 5 lb every session you get all your reps."}),
   E("rdl","3 × 8–12",{note:"Straps if your grip goes first."}),E("legpress","3 × 8–12",{load:"~130 lb"}),E("legcurl","3 × 8–12"),
   E("legcalf","5 × 8–12",{note:"Right after leg press, without getting up. Pause 2 sec at the bottom."}),
   E("cablecrunch","3 × 10–15",{note:"Abs circuit: crunch, knee raise, side crunch, rest 45–60 sec. 3 rounds."}),E("knee","3 × 10–15"),E("sidecrunch","3 × 10–12 per side")]},
- {d:"Thu",f:"Push B: Dumbbells + chest machines + cardio",min:"~80 min",ex:[
+ {d:"Thu",split:"Push",f:"Push B: Dumbbells + chest machines + cardio",min:"~80 min",ex:[
   E("incline","3 × 8–12",{note:"Incline dumbbells or an iso-lateral incline machine. A flat iso-lateral press fits the chest press slot instead."}),
   E("shpress","2 × 8–12",{note:"Barbell overhead press is an alternative."}),E("chestpress","3 × 8–12"),E("pecdeck","2 × 10–15"),
   E("lateral","3 × 12–20"),E("pushdown","2 × 10–15"),E("ohrope","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."}),
   E("neckcurl","2 × 15",{note:"At home. Light, posture only."}),E("neckext","2 × 15",{note:"At home."})]},
- {d:"Fri",f:"Pull B: Row day + cardio",min:"~80 min",ex:[
+ {d:"Fri",split:"Pull",f:"Pull B: Row day + cardio",min:"~80 min",ex:[
   E("bbrow","4 × 5, then 1 × 5+",{note:"Main lift. Start at 65 lb. Add 5 lb every session you get all your reps."}),
   E("pulldown","3 × 8–12",{load:"~120 lb"}),E("csrow","3 × 8–12",{note:"Taken? Seated cable row."}),
   E("revfly","3 × 12–20"),E("shrug","3 × 10–12"),E("bayesian","3 × 10–15 per arm"),E("hammer","2 × 10–15"),
   E("bike","15–20 min",{note:"Cardio after lifting, never before. Easy-moderate pace."})]},
- {d:"Sat",f:"Legs + Abs",min:"~75 min",ex:[
+ {d:"Sat",split:"Legs",f:"Legs + Abs",min:"~75 min",ex:[
   E("legpress","3 × 8–12"),E("rdl","3 × 8–12"),E("legcurl","3 × 10–15"),E("legext","2 × 10–15"),
   E("legcalf","5 × 8–12",{note:"Right after leg press, without getting up. Pause 2 sec at the bottom."}),
   E("cablecrunch","3 × 10–15",{note:"Abs circuit: crunch, knee raise, side crunch, rest 45–60 sec. 3 rounds."}),E("knee","3 × 10–15"),E("sidecrunch","3 × 10–12 per side")]},
- {d:"Sun",restday:true,f:"Rest + easy walk",min:"~45 min",ex:[E("inclinewalk","30–45 min",{note:"Easy. Outside or treadmill."})]},
+ {d:"Sun",split:"Rest",restday:true,f:"Rest + easy walk",min:"~45 min",ex:[E("inclinewalk","30–45 min",{note:"Easy. Outside or treadmill."})]},
 ];
 // jaw routine runs every day: after the lifts on gym days, on its own on Sunday
 const JAW=()=>[E("chintuck","2 × 10",{jaw:1,note:"Hold each one 5 sec."}),E("ctar","3 × 10",{jaw:1,note:"Then 3 holds of 20 sec."}),
@@ -553,7 +555,7 @@ function progressView(){
  const now=new Date(), first=new Date(now.getFullYear(),now.getMonth(),1,12), lead=wdOf(first), days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
  let cells=''; for(let i=0;i<lead;i++) cells+='<span></span>';
  for(let d=1;d<=days;d++){const dt=new Date(now.getFullYear(),now.getMonth(),d,12), p=isFuture(dt)?-1:pctD(dt), t=ymd(dt)===ymd(now);
-  cells+=`<button class="cd${t?' t':''}${p<0?' f':''}" data-go="${ymd(dt)}" style="--p:${p<0?0:p}"><span>${d}</span></button>`;}
+  cells+=`<button class="cd${t?' t':''}${p<0?' f':''}" data-go="${ymd(dt)}" style="--p:${p<0?0:p}"><span>${d}</span><span class="split">${PLAN[wdOf(dt)].split}</span></button>`;}
  const last7=[...Array(7)].map((_,i)=>addDays(now,-i)), avg=Math.round(last7.reduce((a,d)=>a+pctD(d),0)/7*100);
  const gym=last7.filter(d=>liftsDoneD(d)===true).length;
  return `<div class="head"><h1>Progress</h1><div class="focus">${MON[now.getMonth()]} ${now.getFullYear()}</div></div>
@@ -575,14 +577,14 @@ function render(){
  const mon=dateFor(0), sun=dateFor(6);
  tabs.innerHTML=`<div class="wkbar"><button data-wk="-1" aria-label="Previous week">‹</button><span>${wkOff===0?'This week':MON[mon.getMonth()]+' '+mon.getDate()+' – '+(mon.getMonth()===sun.getMonth()?'':MON[sun.getMonth()]+' ')+sun.getDate()}</span><button data-wk="1" aria-label="Next week">›</button><button class="pv${view==='progress'?' on':''}" data-view="${view==='progress'?'day':'progress'}">${view==='progress'?'Back to today':'Progress'}</button></div>`+
   PLAN.map((d,i)=>{const dt=dateFor(i), st=dayState(i), isT=ymd(dt)===ymd(new Date());
-  return `<button class="tab${i===cur&&view==='day'?' on':''}${isT?' today':''}" data-t="${i}"><small>${d.d}</small><b>${dt.getDate()}</b><i class="${st}"></i></button>`}).join('');
+  return `<button class="tab${i===cur&&view==='day'?' on':''}${isT?' today':''}" data-t="${i}"><small>${d.d}</small><b>${dt.getDate()}</b><span class="split">${d.split}</span><i class="${st}"></i></button>`}).join('');
  if(view==='progress'){main.innerHTML=progressView(); return;}
  const day=PLAN[cur], dt=dateFor(cur), isT=ymd(dt)===ymd(new Date()), kick=isT?'Today':isFuture(dt)?'Coming up':'Past day', done=getDone(cur);
  const lifts=day.ex.map((e,j)=>[e,j]).filter(([e])=>!e.jaw), jaw=day.ex.map((e,j)=>[e,j]).filter(([e])=>e.jaw);
  const ids=dayIds(cur);
  const k=ids.filter(x=>done.includes(x)).length, n=ids.length;
  main.innerHTML=`<div class="head"><div class="kick${isT?'':' dim'}">${kick}</div><h1>${FULL[day.d]} <span class="dt">${MON[dt.getMonth()]} ${dt.getDate()}</span></h1>
-   <div class="focus">${day.f}</div>
+   <strong>${MUSCLES[day.split]}</strong><div class="focus">${day.f}</div>
    ${k===n?`</div><div class="daydone">✓ Day complete. Nice work.</div><div>`:`<div class="prog"><span><b style="color:var(--txt)">${k}</b> of ${n} done</span><div class="bar"><i style="width:${k/n*100}%"></i></div></div>`}</div>
   ${block('Morning','~10 min',list('a',AM,done),pre('a',AM),done)}
   ${day.restday?`<div class="tip">Rest day. Your muscles grow today: eat, sleep, walk.</div>`+block('Cardio',day.min,lifts.map(([e,j])=>card(e,j,done.includes(lid(day,j)))).join(''),lifts.map(([e,j])=>lid(day,j)),done):
